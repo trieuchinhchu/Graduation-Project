@@ -1,3 +1,3 @@
 # -*- coding: utf-8 -*-
 
-from . import FaceBase
+from . import insert_data
