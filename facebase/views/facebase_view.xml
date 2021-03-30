@@ -16,8 +16,10 @@
             <field name="arch" type="xml">
                 <form>
                     <sheet>
-                        <field name="employee_id"/>
-                        <field name="images" widget="image"/>
+                        <group>
+                            <field name="employee_id"/>
+                            <button name="open_camera" string="Capture" type="object"/>
+                        </group>
                     </sheet>
                 </form>
             </field>

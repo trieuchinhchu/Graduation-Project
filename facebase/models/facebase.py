@@ -11,7 +11,6 @@ class FaceBase(models.Model):
     _name = 'da.facebase'
 
     employee_id = fields.Many2one(comodel_name='hr.employee', string='Name')
-    images = fields.Binary(string='images', store=True)
     path = 'dataSet'
 
     # def insert_data(self, id, name):
@@ -26,7 +25,7 @@ class FaceBase(models.Model):
     def open_camera(self):
         num_img = 0
         cam = cv2.VideoCapture(0)
-        detector = cv2.CascadeClassifier('haarcascade_frontalface_default')
+        detector = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
         while(True):
             ret, img = cam.read()
             gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
@@ -36,7 +35,7 @@ class FaceBase(models.Model):
                 # increment
                 num_img += 1
                 # save captured
-                cv2.imwrite('dataset/%s.%s.%s.jpg' %(self.employee_id.account, self.id, num_img), gray[y:y+h, x:x+w])
+                cv2.imwrite('dataset/%s.%s.%s.jpg' %(self.employee_id, self.id, num_img), gray[y:y+h, x:x+w])
 
                 cv2.imshow('frame', img)
 
