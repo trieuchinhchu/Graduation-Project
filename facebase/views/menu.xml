@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- root menu item -->
+    <menuitem name="FaceBase"
+              id="facebase_menu_root"
+              web_icon="da2021, static/description/icon.png"
+              />
+
+    <menuitem name="Insert"
+              id="facebase_menu_insert"
+              parent="facebase_menu_root"
+              action="da_facebase_action"/>
+</odoo>

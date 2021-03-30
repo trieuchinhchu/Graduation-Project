@@ -1,2 +1,2 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_da2021_da2021,da2021.da2021,model_da2021_da2021,,1,0,0,0
+access_da_facebase,da.facebase,model_da_facebase,,1,1,1,1
