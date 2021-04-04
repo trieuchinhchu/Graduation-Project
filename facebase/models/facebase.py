@@ -11,6 +11,7 @@ class FaceBase(models.Model):
     _name = 'da.facebase'
 
     employee_id = fields.Many2one(comodel_name='hr.employee', string='Name')
+    images = fields.Binary(string='Capture')
     path = 'dataSet'
 
     # def insert_data(self, id, name):
@@ -25,19 +26,22 @@ class FaceBase(models.Model):
     def open_camera(self):
         num_img = 0
         cam = cv2.VideoCapture(0)
-        detector = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
-        while(True):
+        # detector = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
+        # a = cam.isOpened()
+        # print(a)
+        while cam.isOpened():
             ret, img = cam.read()
-            gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-            faces = detector.detectMultiScale(gray, 1.3, 5)
-            for (x, y, w, h) in faces:
-                cv2.rectangle(img, (x, y), (x+w, y+h), (255, 0, 0), 2)
-                # increment
-                num_img += 1
-                # save captured
-                cv2.imwrite('dataset/%s.%s.%s.jpg' %(self.employee_id, self.id, num_img), gray[y:y+h, x:x+w])
-
-                cv2.imshow('frame', img)
+            cv2.imshow('frame', img)
+            # gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+            # faces = detector.detectMultiScale(gray, 1.3, 5)
+            # for (x, y, w, h) in faces:
+            #     cv2.rectangle(img, (x, y), (x+w, y+h), (255, 0, 0), 2)
+            #     # increment
+            #     num_img += 1
+            #     # save captured
+            #     cv2.imwrite('dataset/%s.%s.%s.jpg' %(self.employee_id, self.id, num_img), gray[y:y+h, x:x+w])
+            #
+            #     cv2.imshow('frame', img)
 
             if (cv2.waitKey(100) & 0xFF == ord('q')) or num_img>20:
                 break

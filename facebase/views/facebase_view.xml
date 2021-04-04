@@ -18,6 +18,7 @@
                     <sheet>
                         <group>
                             <field name="employee_id"/>
+                            <field name="images" widget="image"/>
                             <button name="open_camera" string="Capture" type="object"/>
                         </group>
                     </sheet>
