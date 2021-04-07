@@ -6,6 +6,7 @@
             <field name="model">da.facebase</field>
             <field name="arch" type="xml">
                 <tree>
+                    <field name="employee_id"/>
                 </tree>
             </field>
         </record>

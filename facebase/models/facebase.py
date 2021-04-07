@@ -11,7 +11,7 @@ import time
 class FaceBase(models.Model):
     _name = 'da.facebase'
 
-    employee_id = fields.Many2one(comodel_name='hr.employee', string='Name')
+    employee_id = fields.Many2one(comodel_name='hr.employee', required=True, string='Name')
     images = fields.Binary(string='Capture')
     path = 'dataSet'
 
@@ -32,7 +32,7 @@ class FaceBase(models.Model):
                 # increment
                 num_img += 1
                 # save captured
-                cv2.imwrite('dataset/%s.%s.%s.jpg' %(self.employee_id, self.id, num_img), gray[y:y+h, x:x+w])
+                cv2.imwrite('dataset/%s.%s.%s.jpg' %(self.employee_id.name, self.id, num_img), gray[y:y+h, x:x+w])
                 cv2.imshow('frame', img)
 
             if (cv2.waitKey(100) & 0xFF == ord('q')) or num_img>20:
@@ -58,4 +58,39 @@ class FaceBase(models.Model):
         recognizer = cv2.face.LBPHFaceRecognizer_create()
         ids, faces = self.get_images_labels(self.path)
         recognizer.train(faces, np.array(ids))
+        recognizer.save('recognizer/trainningData.yml')
+        cv2.destroyAllWindows()
+
+    def get_profile(self, employee_id):
+        return self.env['hr.employee'].search([('employee_id', '=', employee_id.id)])
+
+    def detector(self):
+        rec = cv2.face.LBPHFaceRecognizer_create();
+        rec.read("recognizer\\trainningData.yml")
+        # set text style
+        fontface = cv2.FONT_HERSHEY_SIMPLEX
+        fontscale = 1
+        fontcolor = (203, 23, 252)
+
+        cam = cv2.VideoCapture(0)
+        cam.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
+        cam.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
+
+        detector = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
+        while cam.isOpened():
+            ret, img = cam.read()
+            gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+            faces = detector.detectMultiScale(gray, 1.3, 5)
+            for x, y, w, h in faces:
+                cv2.rectangle(img, (x, y), (x+w, y+h), (255, 0, 0), 2)
+                employee_id, conf = rec.predict(gray[y:y+h, x:x+w])
+                employee = self.get_profile(employee_id)
+                if employee:
+                    cv2.putText(img, "ID: %s" % employee.id)
+                    cv2.putText(img, "Name: %s" % employee.name)
+                cv2.imshow('Face', img)
+            if cv2.waitKey(1) == ord('q'):
+                break
+        cam.release()
+        cv2.destroyAllWindows()
 

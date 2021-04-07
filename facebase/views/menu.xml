@@ -10,4 +10,5 @@
               id="facebase_menu_insert"
               parent="facebase_menu_root"
               action="da_facebase_action"/>
+
 </odoo>
