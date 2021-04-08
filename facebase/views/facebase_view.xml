@@ -16,11 +16,14 @@
             <field name="model">da.facebase</field>
             <field name="arch" type="xml">
                 <form>
+                    <header>
+                        <button name="open_camera" string="Capture" type="object"/>
+                        <button name="training_dataset" string="Training" type="object"/>
+                        <button name="detector" string="Detector" type="object"/>
+                    </header>
                     <sheet>
                         <group>
                             <field name="employee_id"/>
-                            <field name="images" widget="image"/>
-                            <button name="open_camera" string="Capture" type="object"/>
                         </group>
                     </sheet>
                 </form>
