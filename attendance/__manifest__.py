@@ -25,7 +25,7 @@
     # always loaded
     'data': [
         'security/ir.model.access.csv',
-        'views/views.xml',
+        'views/attendance_views.xml',
     ],
     'installable': True,
     'application': True,

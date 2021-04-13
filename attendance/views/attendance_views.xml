@@ -41,9 +41,25 @@
             (0, 0, {'view_mode': 'form', 'view_id': ref('da_attendance_form')})]"/>
     </record>
 
+<!--    Inherit Base Menu-->
+
+    <menuitem id="hr_attendance.menu_hr_attendance_my_attendances" active="False"/>
+
+    <menuitem id="hr_attendance.menu_hr_attendance_manage_attendances" active="False"/>
+
+    <menuitem id="hr_attendance.menu_hr_attendance_view_attendances" active="False"/>
+
+    <menuitem id="hr_attendance.menu_hr_attendance_view_employees_kanban" active="False"/>
+
+    <menuitem id="hr_attendance.menu_hr_attendance_kiosk_mode" active="False"/>
+
+    <menuitem id="hr_attendance.menu_hr_attendance_settings" active="False"/>
 
     <!-- Top menu item -->
-    <menuitem name="Manage Attendance" id="da_attendance_menu" parent="hr_attendance.menu_hr_attendance_root"
+    <menuitem name="Manage Attendance"
+              id="da_attendance_menu"
+              parent="hr_attendance.menu_hr_attendance_root"
+              sequence="0"
     />
     <!-- actions -->
     <menuitem name="My Attendance" id="da_my_attendance_menu"

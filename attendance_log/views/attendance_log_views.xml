@@ -43,7 +43,10 @@
 
 
     <!-- Top menu item -->
-    <menuitem name="Manage Attendance Log" id="da_attendance_log_menu"/>
+    <menuitem name="Manage Attendance Log"
+              id="da_attendance_log_menu"
+              parent="hr_attendance.menu_hr_attendance_root"
+              sequence="5"/>
     <!-- actions -->
     <menuitem name="Attendance Log" id="da_attendance_menu"
               parent="attendance_log.da_attendance_log_menu"

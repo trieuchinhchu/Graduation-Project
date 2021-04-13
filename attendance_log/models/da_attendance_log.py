@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from odoo import models, fields, api
+from datetime import datetime
 
 _CHECK_TYPE = [('check_in', 'Check In'),
                ('check_out', 'Check Out')]
@@ -24,29 +25,42 @@ class AttendanceLog(models.Model):
     @api.model
     def create(self, values):
         res = super(AttendanceLog, self).create(values)
-        attendance_id, attendance_log_id = res.create_attendance()
-        if attendance_id and attendance_log_id:
+        attendance_id = res.create_attendance()
+        if attendance_id:
             res.attendance_id = attendance_id.id
-            attendance_log_id.attendance_id = attendance_id.id
         return res
+
+    @api.multi
+    def write(self, values):
+        if 'punch_time' in values:
+            punch_time = datetime.strptime(values.get('punch_time', False), '%Y-%m-%d %H:%M:%S')
+            self.write_attendance(punch_time)
+        return super(AttendanceLog, self).write(values)
 
     def create_attendance(self):
         attendance_id = self.env['hr.attendance'].search([
             ('employee_id', '=', self.employee_id.id),
             ('date', '=', self.punch_time.date())
         ], limit=1)
-        log_obj = self.env['da.attendance.log']
         if not attendance_id:
-            log_obj = log_obj.search([('date', '=', self.date)])
-            if not log_obj:
-                return
-            attendance_record = {'employee_id': self.employee_id.id}
-            if log_obj.check_type == 'check_in':
-                attendance_record.update({'check_in': log_obj.punch_time,
-                                        'check_out': self.punch_time})
-            else:
-                attendance_record.update({'check_out': log_obj.punch_time,
-                                        'check_in': self.punch_time})
+            attendance_record = {'employee_id': self.employee_id.id,
+                                 'check_in': self.punch_time,
+                                 'check_out': self.punch_time}
+            attendance_record = self.env['hr.attendance'].create(attendance_record)
+            return attendance_record
 
-            attendance_id = self.env['hr.attendance'].create(attendance_record)
-        return attendance_id, log_obj
+        log_ids = self.search([('attendance_id', '=', attendance_id.id)])
+        if log_ids:
+            if self.check_type == 'check_in':
+                punch_time = min(log_ids.filtered(lambda r: r.check_type == 'check_in').mapped('punch_time') + [self.punch_time])
+            else:
+                punch_time = max(log_ids.filtered(lambda r: r.check_type == 'check_out').mapped('punch_time') + [self.punch_time])
+            attendance_id.write({self.check_type: punch_time})
+        return attendance_id
+
+    def write_attendance(self, punch_time):
+        if self.attendance_id and punch_time:
+            log_ids = self.search([('attendance_id', '=', self.attendance_id.id),
+                                   ('check_type', '=', self.check_type)]).mapped('punch_time')
+            punch_time = min(log_ids + [punch_time])
+            self.attendance_id.write({self.check_type: punch_time})
