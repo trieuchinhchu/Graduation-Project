@@ -1,0 +1,53 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+
+    <record model="ir.ui.view" id="da_attendance_log_form">
+      <field name="name">da attendance log form</field>
+      <field name="model">da.attendance.log</field>
+      <field name="arch" type="xml">
+        <form>
+          <sheet>
+            <group>
+              <field name="employee_id"/>
+              <field name="punch_time"/>
+              <field name="check_type"/>
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="da_attendance_log_tree">
+      <field name="name">da attendance log tree</field>
+      <field name="model">da.attendance.log</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="employee_id"/>
+          <field name="punch_time"/>
+          <field name="check_type"/>
+        </tree>
+      </field>
+    </record>
+
+
+    <!-- actions opening views on models -->
+    <record model="ir.actions.act_window" id="da_attendance_log_action_window">
+      <field name="name">Attendances Log</field>
+      <field name="res_model">da.attendance.log</field>
+      <field name="view_mode">tree,form</field>
+      <field name="view_ids" eval="[(5, 0, 0),
+            (0, 0, {'view_mode': 'tree', 'view_id': ref('da_attendance_log_tree')}),
+            (0, 0, {'view_mode': 'form', 'view_id': ref('da_attendance_log_form')})]"/>
+    </record>
+
+
+    <!-- Top menu item -->
+    <menuitem name="Manage Attendance Log" id="da_attendance_log_menu"/>
+    <!-- actions -->
+    <menuitem name="Attendance Log" id="da_attendance_menu"
+              parent="attendance_log.da_attendance_log_menu"
+              sequence="0"
+              action="attendance_log.da_attendance_log_action_window"/>
+  </data>
+</odoo>

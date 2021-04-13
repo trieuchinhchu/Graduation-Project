@@ -1,0 +1,58 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+
+    <record model="ir.ui.view" id="da_attendance_form">
+      <field name="name">da attendance form</field>
+      <field name="model">hr.attendance</field>
+      <field name="arch" type="xml">
+        <form create="false" edit="false">
+          <sheet>
+            <group>
+              <field name="employee_id"/>
+              <field name="check_in"/>
+              <field name="check_out"/>
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="da_attendance_tree">
+      <field name="name">da attendance tree</field>
+      <field name="model">hr.attendance</field>
+      <field name="arch" type="xml">
+        <tree create="false">
+          <field name="employee_id"/>
+          <field name="check_in"/>
+          <field name="check_out"/>
+        </tree>
+      </field>
+    </record>
+
+
+    <!-- actions opening views on models -->
+    <record model="ir.actions.act_window" id="da_attendance_action_window">
+      <field name="name">Attendances</field>
+      <field name="res_model">hr.attendance</field>
+      <field name="view_mode">tree,form</field>
+      <field name="view_ids" eval="[(5, 0, 0),
+            (0, 0, {'view_mode': 'tree', 'view_id': ref('da_attendance_tree')}),
+            (0, 0, {'view_mode': 'form', 'view_id': ref('da_attendance_form')})]"/>
+    </record>
+
+
+    <!-- Top menu item -->
+    <menuitem name="Manage Attendance" id="da_attendance_menu" parent="hr_attendance.menu_hr_attendance_root"
+    />
+    <!-- actions -->
+    <menuitem name="My Attendance" id="da_my_attendance_menu"
+              parent="attendance.da_attendance_menu"
+              sequence="0"
+              action="attendance.da_attendance_action_window"/>
+    <menuitem name="All Attendance" id="da_all_attendance_menu"
+              parent="attendance.da_attendance_menu"
+              sequence="5"
+              action="attendance.da_attendance_action_window"/>
+  </data>
+</odoo>
