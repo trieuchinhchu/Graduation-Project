@@ -14,7 +14,7 @@ class AttendanceLog(models.Model):
     employee_id = fields.Many2one(comodel_name='hr.employee', string='Employee', required=True)
     punch_time = fields.Datetime(string='Punch time', required=True)
     date = fields.Date(string='Date', compute='compute_date', store=True)
-    check_type = fields.Selection(selection=_CHECK_TYPE, string='Type', required=True)
+    check_type = fields.Selection(selection=_CHECK_TYPE, default='check_in', string='Type', required=True)
 
     @api.depends('punch_time')
     def compute_date(self):

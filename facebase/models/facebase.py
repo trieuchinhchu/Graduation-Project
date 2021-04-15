@@ -5,13 +5,18 @@ import cv2
 import os
 import numpy as np
 from PIL import Image
+from datetime import datetime
+import time
 
 
 class FaceBase(models.Model):
     _name = 'da.facebase'
 
     employee_id = fields.Many2one(comodel_name='hr.employee', required=True, string='Name')
+
     path = os.getcwd()
+    employee_detected_id = None
+    data = []
 
     def get_path(self, path_str):
         path = os.path.join(self.path, path_str)
@@ -74,9 +79,15 @@ class FaceBase(models.Model):
     def get_profile(self, employee_id):
         return self.env['hr.employee'].search([('id', '=', employee_id)])
 
+    def create_attendance_log(self, employee_detected_id):
+            self.env['da.attendance.log'].create({'employee_id': employee_detected_id,
+                                                  'punch_time': datetime.today()})
+
+
     def detector(self):
         rec = cv2.face.LBPHFaceRecognizer_create()
         rec.read('%s/trainningData.yml'%self.get_path('recognizer'))
+
         # set text style
         fontface = cv2.FONT_HERSHEY_SIMPLEX
         fontscale = 1
@@ -96,6 +107,7 @@ class FaceBase(models.Model):
                 employee_id, conf = rec.predict(gray[y:y+h, x:x+w])
                 employee = self.get_profile(employee_id)
                 if employee:
+                    self.create_attendance_log(employee.id)
                     cv2.putText(img, "ID: %s" % employee.id,  (x, y+h+30), fontface, fontscale, fontcolor, 1)
                     cv2.putText(img, "Name: %s" % employee.name,  (x, y+h+60), fontface, fontscale, fontcolor, 1)
                 else:
