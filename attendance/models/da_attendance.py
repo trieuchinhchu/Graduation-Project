@@ -2,6 +2,7 @@
 
 from odoo import models, fields, api
 from datetime import datetime, time
+from dateutil import tz
 
 
 class Attendance(models.Model):
@@ -15,13 +16,13 @@ class Attendance(models.Model):
     @api.depends('check_in')
     def compute_late_cm(self):
         for r in self:
-            if r.check_in.time() >= time(1, 30):
+            if r.utc_to_local(r.check_in).time() >= time(8, 30):
                 r.late_cm = True
 
     @api.depends('check_out')
     def compute_early_leave(self):
         for r in self:
-            if r.check_in.time() <= time(10, 30):
+            if r.utc_to_local(r.check_out).time() <= time(17, 30):
                 r.early_leave = True
 
     @api.depends('worked_hours')
@@ -44,5 +45,5 @@ class Attendance(models.Model):
             if r.check_in:
                 r.date = r.check_in.date()
 
-    # def utc_to_local(self, utc_dt):
-    #     return arrow.get(utc_dt).to('local').datetime
+    def utc_to_local(self, utc_dt):
+        return utc_dt.replace(tzinfo=tz.gettz('UTC')).astimezone(self.env.context.get('tz') or tz.gettz(self.employee_id.tz))
