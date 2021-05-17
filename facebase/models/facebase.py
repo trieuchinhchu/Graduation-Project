@@ -1,21 +1,24 @@
 # -*- coding: utf-8 -*-
-
-from odoo import models, fields, api
-import cv2
+import base64
+import glob
 import os
-import numpy as np
-from PIL import Image
+import pickle
 from datetime import datetime
-import time
+
+import cv2
+import numpy as np
+from imutils import paths
+import face_recognition
+from odoo import models, fields, api
 
 
 class FaceBase(models.Model):
     _name = 'da.facebase'
 
     employee_id = fields.Many2one(comodel_name='hr.employee', required=True, string='Name')
+    file_path = fields.Char(string='File path')
 
     path = os.getcwd()
-    employee_detected_id = None
     data = []
 
     def get_path(self, path_str):
@@ -24,97 +27,93 @@ class FaceBase(models.Model):
             os.mkdir(path)
         return path
 
-
-    def open_camera(self):
+    def capture_from_video(self):
+        self.ensure_one()
         num_img = 0
-        cam = cv2.VideoCapture(0, cv2.CAP_DSHOW)
-        detector = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
-        cam.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
-        cam.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
-        dataset_path = self.get_path('dataset')
-        while cam.isOpened():
+        c = 1
+        cam = cv2.VideoCapture(self.file_path)
+        dataset_path = self.get_path('dataset3')
+        while True:
             ret, img = cam.read()
-            cv2.imshow('frame', img)
-            gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-            faces = detector.detectMultiScale(gray, 1.3, 5)
-            for (x, y, w, h) in faces:
-                cv2.rectangle(img, (x, y), (x+w, y+h), (220, 135, 40), 2)
+            if c % 5 == 0:
                 # increment
                 num_img += 1
                 # save captured
-                saved_img = cv2.imwrite('%s/%s.%s.%s.jpg' % (dataset_path, self.employee_id.user_id.login, self.employee_id.id, num_img), gray[y:y+h, x:x+w])
+                saved_img = cv2.imwrite(
+                    '%s/%s.%s.%s.jpg' % (dataset_path, self.employee_id.user_id.login, self.employee_id.id, num_img), img)
                 if not saved_img:
                     raise ValueError("Could not write image")
                 cv2.imshow('frame', img)
-            if (cv2.waitKey(100) & 0xFF == ord('q')) or num_img>20:
+            c += 1
+            if (cv2.waitKey(100) & 0xFF == ord('q')) or num_img >= 30:
                 break
 
-        cam.release()
-        cv2.destroyAllWindows()
+    @api.multi
+    def encoding_data(self):
+        self.ensure_one()
+        print('Started encoding')
+        count = 0
+        for (i, image_path) in enumerate(self.image_paths):
+            count += 1
+            name = image_path.split('\\')[-1].split('.')[-5]
 
-    def get_images_labels(self, path):
-        image_paths = [os.path.join(path, i) for i in os.listdir(path)]
-        faces = []
-        ids = []
-        for image_path in image_paths:
-            face_img = Image.open(image_path).convert('L')
-            face_np = np.array(face_img, 'uint8')
-            faces.append(face_np)
-            id = int(os.path.split(image_path)[-1].split('.')[-3])
-            ids.append(id)
-            cv2.imshow('traning', face_np)
-            cv2.waitKey(10)
-        return ids, faces
+            image = cv2.imread(image_path)
+            resize_img = cv2.resize(image, (720, 960), interpolation=cv2.INTER_NEAREST)
+            rgb_image = cv2.cvtColor(resize_img, cv2.COLOR_BGR2RGB)
+            face_frame = face_recognition.face_locations(rgb_image, model='hog')
+            # If training image contains exactly one face
+            if len(face_frame) == 1:
+                face_encodings = face_recognition.face_encodings(rgb_image, face_frame)[0]
+                # Add face encoding for current image with corresponding label (name) to the training data
+                self.data_encoding.append(face_encodings)
+                self.data_names.append(name)
+            else:
+                print(image_path + " was skipped and can't be used for training")
 
-    def training_dataset(self):
-        recognizer = cv2.face.LBPHFaceRecognizer_create()
-        ids, faces = self.get_images_labels(self.get_path('dataset'))
-        recognizer.train(faces, np.array(ids))
-        recognizer_path = self.get_path('recognizer')
-        if not os.path.isdir(self.path):
-            os.mkdir(self.path)
-        recognizer.save('%s/trainningData.yml' % recognizer_path)
-        cv2.destroyAllWindows()
+            print('%s %s' %(name, count))
 
-    def get_profile(self, employee_id):
-        return self.env['hr.employee'].search([('id', '=', employee_id)])
+        data = {'encoding': self.data_encoding, 'name': self.data_names}
+        f = open(f'{self.get_path("recognizer")}/training_data', 'wb')
+        f.write(pickle.dumps(data))
+        f.close()
 
-    def create_attendance_log(self, employee_detected_id):
-            self.env['da.attendance.log'].create({'employee_id': employee_detected_id,
-                                                  'punch_time': datetime.today()})
-
-
-    def detector(self):
-        rec = cv2.face.LBPHFaceRecognizer_create()
-        rec.read('%s/trainningData.yml'%self.get_path('recognizer'))
-
+    def recognition(self):
+        faceCascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_alt2.xml')
+        data = pickle.loads(open(f'{self.get_path("recognizer")}/training_data', "rb").read())
+        capture = cv2.VideoCapture(0, cv2.CAP_DSHOW)
+        capture.set(cv2.CAP_PROP_BUFFERSIZE, 2)
         # set text style
-        fontface = cv2.FONT_HERSHEY_SIMPLEX
-        fontscale = 1
-        fontcolor = (220, 140, 40)
+        while True:
+            ret, frame = capture.read()
+            small_frame = cv2.resize(frame, (0, 0), fx=0.5, fy=0.5)
+            gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+            faces = faceCascade.detectMultiScale(gray,
+                                                 scaleFactor=1.1,
+                                                 minNeighbors=5,
+                                                 minSize=(60, 60),
+                                                 flags=cv2.CASCADE_SCALE_IMAGE)
+            names = []
+            rgb_image = small_frame[:, :, ::-1]
+            encodings = face_recognition.face_encodings(rgb_image)
+            for encoding in encodings:
+                matches = face_recognition.compare_faces(data['encoding'], encoding)
+                name = "Unknown"
+                # use the known face with the smallest distance to the new face
+                face_distances = face_recognition.face_distance(data['encoding'], encoding)
+                if min(face_distances) <= 0.5:
+                    best_index = np.argmin(face_distances)
+                    if matches[best_index]:
+                        name = data['name'][best_index]
+                names.append(name)
 
-        cam = cv2.VideoCapture(0)
-        cam.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
-        cam.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
+            for ((x, y, w, h), name) in zip(faces, names):
+                # draw the predicted face name on the image
+                cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
+                cv2.putText(frame, name, (x, y), cv2.FONT_HERSHEY_SIMPLEX,
+                            0.75, (0, 255, 0), 2)
+            cv2.imshow("Frame", frame)
 
-        detector = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
-        while cam.isOpened():
-            ret, img = cam.read()
-            gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-            faces = detector.detectMultiScale(gray, 1.3, 5)
-            for x, y, w, h in faces:
-                cv2.rectangle(img, (x, y), (x+w, y+h), (220, 140, 40), 2)
-                employee_id, conf = rec.predict(gray[y:y+h, x:x+w])
-                employee = self.get_profile(employee_id)
-                if employee:
-                    self.create_attendance_log(employee.id)
-                    cv2.putText(img, "ID: %s" % employee.id,  (x, y+h+30), fontface, fontscale, fontcolor, 1)
-                    cv2.putText(img, "Name: %s" % employee.name,  (x, y+h+60), fontface, fontscale, fontcolor, 1)
-                else:
-                    cv2.putText(img, 'Not Found', (x, y+h+30), fontface, fontscale, fontcolor, 1)
-                cv2.imshow('Face', img)
             if cv2.waitKey(1) == ord('q'):
                 break
-        cam.release()
+        capture.release()
         cv2.destroyAllWindows()
-
