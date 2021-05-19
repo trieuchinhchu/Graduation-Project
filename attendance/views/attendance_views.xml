@@ -40,13 +40,23 @@
 
 
     <!-- actions opening views on models -->
-    <record model="ir.actions.act_window" id="da_attendance_action_window">
-      <field name="name">Attendances</field>
+    <record model="ir.actions.act_window" id="da_all_attendance_action_window">
+      <field name="name">All Attendances</field>
       <field name="res_model">hr.attendance</field>
       <field name="view_mode">tree,form</field>
       <field name="view_ids" eval="[(5, 0, 0),
             (0, 0, {'view_mode': 'tree', 'view_id': ref('da_attendance_tree')}),
             (0, 0, {'view_mode': 'form', 'view_id': ref('da_attendance_form')})]"/>
+    </record>
+
+    <record model="ir.actions.act_window" id="da_my_attendance_action_window">
+      <field name="name">My Attendances</field>
+      <field name="res_model">hr.attendance</field>
+      <field name="view_mode">tree,form</field>
+      <field name="view_ids" eval="[(5, 0, 0),
+            (0, 0, {'view_mode': 'tree', 'view_id': ref('da_attendance_tree')}),
+            (0, 0, {'view_mode': 'form', 'view_id': ref('da_attendance_form')})]"/>
+      <field name="domain">[('employee_id.user_id', '=', uid)]</field>
     </record>
 
     <!--    Inherit Base Menu-->
@@ -73,10 +83,10 @@
     <menuitem name="My Attendance" id="da_my_attendance_menu"
               parent="attendance.da_attendance_menu"
               sequence="0"
-              action="attendance.da_attendance_action_window"/>
+              action="attendance.da_my_attendance_action_window"/>
     <menuitem name="All Attendance" id="da_all_attendance_menu"
               parent="attendance.da_attendance_menu"
               sequence="5"
-              action="attendance.da_attendance_action_window"/>
+              action="attendance.da_all_attendance_action_window"/>
   </data>
 </odoo>
