@@ -2,6 +2,8 @@
 
 from odoo import models, fields, api
 from datetime import datetime
+from dateutil import tz
+from dateutil.relativedelta import relativedelta
 
 _CHECK_TYPE = [('check_in', 'Check In'),
                ('check_out', 'Check Out')]
@@ -20,7 +22,7 @@ class AttendanceLog(models.Model):
     def compute_date(self):
         for r in self:
             if r.punch_time:
-                r.date = r.punch_time.date()
+                r.update({'date': r.punch_time.date()})
 
     @api.model
     def create(self, values):
@@ -53,9 +55,12 @@ class AttendanceLog(models.Model):
         if log_ids:
             if self.check_type == 'check_in':
                 punch_time = min(log_ids.filtered(lambda r: r.check_type == 'check_in').mapped('punch_time') + [self.punch_time])
+                if punch_time > attendance_id.check_out:
+                    attendance_id.write({'check_out': punch_time})
             else:
                 punch_time = max(log_ids.filtered(lambda r: r.check_type == 'check_out').mapped('punch_time') + [self.punch_time])
             attendance_id.write({self.check_type: punch_time})
+
         return attendance_id
 
     def write_attendance(self, punch_time):
@@ -64,3 +69,6 @@ class AttendanceLog(models.Model):
                                    ('check_type', '=', self.check_type)]).mapped('punch_time')
             punch_time = min(log_ids + [punch_time])
             self.attendance_id.write({self.check_type: punch_time})
+
+    def utc_to_local(self, utc_dt):
+        return utc_dt.replace(tzinfo=tz.gettz('UTC')).astimezone(self.env.context.get('tz') or tz.gettz(self.employee_id.tz))

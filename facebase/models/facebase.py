@@ -1,16 +1,14 @@
 # -*- coding: utf-8 -*-
 import base64
-import glob
-import os
+import os, time
 import pickle
-from datetime import datetime
-
+from dateutil.relativedelta import relativedelta
 import cv2
 import numpy as np
 from imutils import paths
 import face_recognition
 from odoo import models, fields, api
-
+from datetime import datetime, timezone
 
 class FaceBase(models.Model):
     _name = 'da.facebase'
@@ -52,11 +50,15 @@ class FaceBase(models.Model):
     def encoding_data(self):
         self.ensure_one()
         print('Started encoding')
+        image_paths = list(paths.list_images('D:\odoo12\server\dataset3'))
         count = 0
-        for (i, image_path) in enumerate(self.image_paths):
+        data_encoding =[]
+        data_names =[]
+        data_ids = []
+        for (i, image_path) in enumerate(image_paths):
             count += 1
-            name = image_path.split('\\')[-1].split('.')[-5]
-
+            name = image_path.split('\\')[-1].split('.')[0:-3]
+            id = image_path.split('\\')[-1].split('.')[-3]
             image = cv2.imread(image_path)
             resize_img = cv2.resize(image, (720, 960), interpolation=cv2.INTER_NEAREST)
             rgb_image = cv2.cvtColor(resize_img, cv2.COLOR_BGR2RGB)
@@ -65,19 +67,22 @@ class FaceBase(models.Model):
             if len(face_frame) == 1:
                 face_encodings = face_recognition.face_encodings(rgb_image, face_frame)[0]
                 # Add face encoding for current image with corresponding label (name) to the training data
-                self.data_encoding.append(face_encodings)
-                self.data_names.append(name)
+                data_encoding.append(face_encodings)
+                data_names.append('.'.join(name))
+                data_ids.append(int(id))
             else:
                 print(image_path + " was skipped and can't be used for training")
 
             print('%s %s' %(name, count))
 
-        data = {'encoding': self.data_encoding, 'name': self.data_names}
+        data = {'encoding': data_encoding, 'name': data_names, 'id': data_ids}
         f = open(f'{self.get_path("recognizer")}/training_data', 'wb')
         f.write(pickle.dumps(data))
         f.close()
 
+    @api.multi
     def recognition(self):
+        self.ensure_one()
         faceCascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_alt2.xml')
         data = pickle.loads(open(f'{self.get_path("recognizer")}/training_data', "rb").read())
         capture = cv2.VideoCapture(0, cv2.CAP_DSHOW)
@@ -104,6 +109,7 @@ class FaceBase(models.Model):
                     best_index = np.argmin(face_distances)
                     if matches[best_index]:
                         name = data['name'][best_index]
+                        self.create_attendance_log(data['id'][best_index])
                 names.append(name)
 
             for ((x, y, w, h), name) in zip(faces, names):
@@ -117,3 +123,20 @@ class FaceBase(models.Model):
                 break
         capture.release()
         cv2.destroyAllWindows()
+
+    def create_attendance_log(self, employee_id):
+        '''
+        Tạo attendance log mỗi 2 phút
+        :param employee_id:
+        :return: attendance_log_id
+        '''
+        now = datetime.now(tz=timezone.utc)
+        att_log_obj = self.env['da.attendance.log']
+        exist_log = att_log_obj.sudo().search([('employee_id', '=', employee_id),
+                                               ('punch_time', '<=', now),
+                                               ('punch_time', '>=', now + relativedelta(minutes=-2))])
+        if not exist_log:
+            att_log_obj.sudo().create({'employee_id': employee_id,
+                                       'punch_time': now})
+        return True
+

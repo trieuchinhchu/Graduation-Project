@@ -5,7 +5,7 @@
     <content url="file://$MODULE_DIR$/../odoo-12.0/odoo">
       <sourceFolder url="file://$MODULE_DIR$/../odoo-12.0/odoo" isTestSource="false" />
     </content>
-    <orderEntry type="jdk" jdkName="Python 3.6" jdkType="Python SDK" />
+    <orderEntry type="jdk" jdkName="Python 3.6 (2)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
   <component name="TemplatesService">
