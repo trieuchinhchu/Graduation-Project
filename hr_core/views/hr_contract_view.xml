@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record model="ir.ui.view" id="hr_core_contract_view_form_inherit">
+        <field name="name">hr.contract.form</field>
+        <field name="model">hr.contract</field>
+        <field name="inherit_id" ref="hr_contract.hr_contract_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='trial_date_end']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='date_end']" position="replace">
+                <field name="date_end" nolabel="1" attrs="{'required': [('type_id', '!=', %(hr_contract.hr_contract_type_emp)s)]}"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

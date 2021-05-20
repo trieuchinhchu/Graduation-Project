@@ -1,0 +1,425 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- To onboard  -->
+    <record id="hr_employee_to_onboard_view_form" model="ir.ui.view">
+        <field name="name">hr.employee.new.view.form</field>
+        <field name="model">hr.employee.new</field>
+        <field name="active">false</field>
+        <field name="arch" type="xml">
+            <form string="Employee List">
+                <sheet>
+                    <group>
+                        <field name="barcode" string="Mã vân tay" required="1"/>
+                        <field name="start_work_date" required="1" string="Ngày đi làm"/>
+                        <field name="allow_welcome" string="Send welcome email"/>
+                    </group>
+                    <footer>
+                        <button string="Confirm" class="oe_highlight" type="object" name="set_to_onboard"/>
+                        <button string="Cancel" class="btn-default" special="cancel"/>
+                    </footer>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!--                  Action                       -->
+    <record id="action_hr_employee_to_onboard_request" model="ir.actions.act_window">
+        <field name="name">Employees: Set Employee To Onboard</field>
+        <field name="res_model">hr.employee.new</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="context">{'update_old_emp': True}</field>
+        <field name="view_id" ref="hr_employee_to_onboard_view_form"/>
+    </record>
+
+    <!--                  Change onboard date                      -->
+
+    <record id="hr_employee_update_onboard_date_view_form" model="ir.ui.view">
+        <field name="name">hr.employee.new.view.form</field>
+        <field name="model">hr.employee.new</field>
+        <field name="active">false</field>
+        <field name="arch" type="xml">
+            <form string="Employee List">
+                <sheet>
+                    <group>
+                        <field name="expected_date" required="1" string="Ngày dự kiến đi làm"/>
+                        <field name="note" string="Notes"/>
+                    </group>
+                    <footer>
+                        <button string="Confirm" class="oe_highlight" type="object"
+                                name="update_expected_date_email_action"/>
+                        <button string="Cancel" class="btn-default" special="cancel"/>
+                    </footer>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!--                  Action                       -->
+    <record id="action_hr_employee_update_expected_date_request" model="ir.actions.act_window">
+        <field name="name">Employees: Update Expected Date</field>
+        <field name="res_model">hr.employee.new</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="context">{'update_old_emp': True}</field>
+        <field name="view_id" ref="hr_employee_update_onboard_date_view_form"/>
+    </record>
+
+    <!--                  change followers                      -->
+
+    <record id="hr_employee_update_follower_action_view_form" model="ir.ui.view">
+        <field name="name">hr.employee.update.follower.view.form</field>
+        <field name="model">hr.employee.new</field>
+        <field name="active">false</field>
+        <field name="arch" type="xml">
+            <form string="Follower">
+                <sheet>
+                    <group>
+                        <field name="user_id" required="1" string="New follower" context="{'hr_rec': True}"/>
+                    </group>
+                    <footer>
+                        <button string="Confirm" class="oe_highlight" type="object"
+                                name="update_follower_email_action"/>
+                        <button string="Cancel" class="btn-default" special="cancel"/>
+                    </footer>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!--                  Action                       -->
+    <record id="action_update_follower_action" model="ir.actions.act_window">
+        <field name="name">Employees: Update Follower</field>
+        <field name="res_model">hr.employee.new</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="context">{'update_old_emp': True}</field>
+        <field name="view_id" ref="hr_employee_update_follower_action_view_form"/>
+    </record>
+
+    <!--                  Change contract info                      -->
+    <record id="hr_employee_update_contract_info_action_view_form" model="ir.ui.view">
+        <field name="name">hr.employee.update.follower.view.form</field>
+        <field name="model">hr.employee.new</field>
+        <field name="active">false</field>
+        <field name="arch" type="xml">
+            <form string="Contract">
+                <sheet>
+                    <group string="Contract" groups="hr_payroll.group_hr_payroll_user">
+                        <group>
+                            <field name="first_contract_type_id"
+                                   options="{'no_open': True, 'no_create': True}"/>
+                            <field name="first_contract_month"/>
+                            <field name="first_contract_salary"
+                                   attrs="{'required': [('first_contract_type_id', '!=', False)]}"/>
+                        </group>
+                        <group>
+                            <field name="second_contract_type_id"
+                                   options="{'no_open': True, 'no_create': True}"/>
+                            <field name="second_contract_month"/>
+                            <field name="second_contract_salary"
+                                   attrs="{'required': [('second_contract_type_id', '!=', False)]}"/>
+                        </group>
+                    </group>
+                    <group string="Contract update Note">
+                        <field name="contract_note" nolabel="1"/>
+                    </group>
+                    <group>
+                        <field name="send_email_update_contract"/>
+                    </group>
+                    <footer>
+                        <button string="Confirm" class="oe_highlight" type="object"
+                                name="update_contract_email_action"/>
+                        <button string="Cancel" class="btn-default" special="cancel"/>
+                    </footer>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!--                  Action                       -->
+    <record id="action_update_contract_info_action" model="ir.actions.act_window">
+        <field name="name">Employees: Update contract</field>
+        <field name="res_model">hr.employee.new</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="context">{'update_old_emp': True}</field>
+        <field name="view_id" ref="hr_employee_update_contract_info_action_view_form"/>
+    </record>
+
+    <record id="hr_employee_new_request_lines_view_form" model="ir.ui.view">
+        <field name="name">hr.employee.new.view.form</field>
+        <field name="model">hr.employee.new</field>
+        <field name="arch" type="xml">
+            <form string="Employee List">
+                <header>
+                    <button name="submit" type="object" string="Submit" class="btn-primary"
+                            attrs="{'invisible': ['|',('state', '!=', 'draft'),('id', '=', False)]}"
+                            confirm="Submit request and send email to HR, DL and IT?"
+                            groups="hr_payroll.group_hr_payroll_user, hr_core.group_hr_rec,hr_recruitment.group_hr_recruitment_manager"/>
+                    <button name="action_hr_employee_to_onboard_action" type="object" string="Set to onboard"
+                            groups="hr.group_hr_manager"
+                            states="submit" class="btn-primary"/>
+                    <button name="reject" type="object" string="OL Reject" states="submit"
+                            confirm="Set employee to OL Reject and send email to HR, DL and IT?"
+                            groups="hr_core.group_hr_rec,hr_recruitment.group_hr_recruitment_manager"/>
+                    <button name="to_draft" type="object" string="To draft" states="submit,rejected"
+                            confirm="Set to draft?" context="{'update_info': True}"
+                            groups="hr_payroll.group_hr_payroll_user, hr_core.group_hr_rec,hr_recruitment.group_hr_recruitment_manager"/>
+                    <button name="to_draft" type="object" string="To draft (System)" states="onboard"
+                            confirm="Remove all related to this record?" class="btn-warning"
+                            context="{'allow_admin': True}"
+                            groups="base.group_system"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,submit,onboard"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="full_name"/>
+                        <h1>
+                            <field name="full_name" nolabel="1"
+                                   attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                        </h1>
+                    </div>
+                    <div class="oe_inline" attrs="{'invisible': [('state', '!=', 'onboard')]}"
+                         groups="hr.group_hr_manager">
+                        <button name="welcome_email_action" type="object" string="Welcome email sent" class="bg-info"
+                                confirm="Re-send welcome email?" style="margin-right: 10px;"
+                                groups="hr.group_hr_manager" attrs="{'invisible': [('state', '!=', 'onboard')]}"/>
+                        &#160;&#160;<field name="email_count" nolabel="1"/>
+                        Lần
+                    </div>
+                    <separator string="Information"/>
+                    <group attrs="{'readonly': [('state', '!=', 'draft')]}">
+                        <group>
+                            <field name="request_type" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="old_emp" invisible="1"/>
+                            <field name="internship_emp" invisible="1"/>
+                            <label for="old_emp_type" string=" "/>
+                            <field name="old_emp_type" nolabel="1" widget="radio"
+                                   attrs="{'invisible': [('request_type', '!=', 'old')],
+                                   'required': [('request_type', '=', 'old')],
+                                   'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="employee_id" options="{'no_create': True}"
+                                   attrs="{'invisible': [('request_type', 'not in', ['old', 'internship'])],
+                                   'required': [('request_type', 'in', ['old', 'internship'])],
+                                   'readonly': [('state', '!=', 'draft')]}"
+
+                            />
+                            <field name="start_work_date" readonly="1" class="text-warning"
+                                   attrs="{'invisible': ['|','|',('employee_id', '=', False),
+                                   ('start_work_date', '=', False),('state', '!=', 'onboard')]}"/>
+                            <field name="barcode" readonly="1" class="text-warning"
+                                   attrs="{'invisible': ['|',('employee_id', '=', False),('barcode', '=', False)]}"/>
+                            <field name="work_email" readonly="1" class="text-warning"
+                                   attrs="{'invisible': ['|',('employee_id', '=', False),('work_email', '=', False)]}"/>
+                            <field name="code" readonly="1"
+                                   attrs="{'invisible': ['|',('employee_id', '=', False),('code', '=', False)]}"/>
+                            <field name="account"
+                                   attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="personal_email"
+                                   attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            
+                            <field name="mail_group_ids"
+                                   attrs="{'readonly': [('state', '!=', 'draft')]}"
+                                   options="{'no_open': True, 'no_create': True}" widget="many2many_tags"/>
+                            <field name="source_id" context="{'rec_utm_source': True}"
+                                   domain="[('rec_utm_source', '=', True)]"
+                                   attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="follower" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="create_uid" string="Created By" attrs="{'invisible': [('id', '=', False)]}"/>
+                            <label for="user_id" class="oe_inline"/>
+                            <div class="oe_inline">
+                                <field name="user_id" context="{'hr_rec': True}"
+                                       options="{'no_open': True, 'no_create': True}"
+                                       attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                <button name="update_follower_action" type="object" string="Update" class="bg-info ml-1"
+                                        groups="hr.group_hr_manager, hr_core.group_hr_rec,hr_recruitment.group_hr_recruitment_manager"
+                                        attrs="{'invisible': [('state', '!=', 'submit')]}"/>
+                            </div>
+                        </group>
+                        <group>
+                            <field name="company_id" attrs="{'readonly': [('state', '!=', 'draft')]}"
+                                   options="{'no_open': True, 'no_create': True}"/>
+                            <field name="department_id" options="{'no_open': True, 'no_create': True}"
+                                   attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="department_part_id" options="{'no_open': True, 'no_create': True}"/>
+                            <field name="job_id" options="{'no_open': True, 'no_create': True}"
+                                   attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="skill_id" options="{'no_open': True, 'no_create': True}"
+                                   attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <label for="expected_date" class="oe_inline"/>
+                            <div class="oe_inline">
+                                <field name="expected_date" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                <button name="update_expected_date_action" type="object" string="Update"
+                                        class="bg-info ml-1"
+                                        groups="hr.group_hr_manager, hr_core.group_hr_rec,hr_recruitment.group_hr_recruitment_manager"
+                                        attrs="{'invisible': [('state', '!=', 'submit')]}"/>
+                            </div>
+                            <field name="account_type"
+                                   attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="work_location_id"
+                                   options="{'no_open': True, 'no_create': True}"
+                                   attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="usb" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                        </group>
+                    </group>
+                    <separator string="Contract" attrs="{'invisible': [('body_shop', '=', True)]}"
+                               groups="hr_payroll.group_hr_payroll_user,hr_core.group_hr_rec,hr_recruitment.group_hr_recruitment_manager"/>
+                    <button name="update_contract_info_action" type="object" string="Update Contract Info"
+                            class="bg-info ml-1"
+                            groups="hr_payroll.group_hr_payroll_user"
+                            attrs="{'invisible': [('state', 'not in', ['submit', 'onboard'])]}"/>
+                    <group string="Contract update Note"
+                           attrs="{'invisible': [('contract_note', 'in', ['', None, False])]}">
+                        <field name="contract_note" nolabel="1" readonly="1"
+                               attrs="{'invisible': [('contract_note', 'in', ['', None, False])]}"/>
+                    </group>
+                    <group groups="hr_payroll.group_hr_payroll_user,hr_core.group_hr_rec,hr_recruitment.group_hr_recruitment_manager"
+                           attrs="{'invisible': [('body_shop', '=', True)]}">
+                        <group>
+                            <field name="first_contract_type_id"
+                                   options="{'no_open': True, 'no_create': True}"
+                                   attrs="{'readonly': [('state', '!=', 'draft')], 'required': [('body_shop', '=', False)]}"/>
+                            <field name="first_contract_month"
+                                   attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="first_contract_salary" attrs="{'readonly': [('state', '!=', 'draft')],
+                            'required': [('first_contract_type_id', '!=', False),('body_shop', '=', False)]}"/>
+                        </group>
+                        <group>
+                            <field name="second_contract_type_id"
+                                   options="{'no_open': True, 'no_create': True}"
+                                   attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="second_contract_month"
+                                   attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="second_contract_salary" attrs="{'readonly': [('state', '!=', 'draft')],
+                            'required': [('second_contract_type_id', '!=', False)]}"/>
+                        </group>
+                    </group>
+                    <group string="More info" col="2">
+                        <field name="internship" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                        <field name="body_shop" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                    </group>
+                    <group string="Notes">
+                        <field name="note" nolabel="1"
+                               attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- Tree view: In ra danh sach nhan vien Onboard -->
+    <record id="hr_employee_new_request_lines_view_tree" model="ir.ui.view">
+        <field name="name">hr.employee.new.view.lines.tree</field>
+        <field name="model">hr.employee.new</field>
+        <field name="arch" type="xml">
+            <tree string="Employees OB">
+                <field name="employee_id" invisible="1"/>
+                <field name="full_name"/>
+                <field name="code" readonly="True"/>
+                <field name="account"/>
+                <field name="company_id"/>
+                <field name="department_id"/>
+                <field name="job_id"/>
+                <field name="skill_id"/>
+                <field name="personal_email" invisible="1"/>
+                <field name="mail_group_ids" widget="many2many_tags" invisible="1"/>
+                <field name="expected_date" invisible="1"/>
+                <field name="account_type" invisible="1"/>
+                <field name="usb" invisible="1"/>
+                <field name="internship"/>
+                <field name="start_work_date"
+                       attrs="{'invisible': ['|','|',('employee_id', '=', False),
+                                   ('start_work_date', '=', False),('state', '!=', 'onboard')]}"/>
+                <field name="first_contract_salary"
+                       groups="hr_payroll.group_hr_payroll_user,hr_core.group_hr_rec,hr_recruitment.group_hr_recruitment_manager"/>
+                <field name="second_contract_salary"
+                       groups="hr_payroll.group_hr_payroll_user,hr_core.group_hr_rec,hr_recruitment.group_hr_recruitment_manager"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="hr_employee_new_action_search" model="ir.ui.view">
+        <field name="name">hr.employee.new.action.search</field>
+        <field name="model">hr.employee.new</field>
+        <field name="arch" type="xml">
+            <search string="Search">
+                <field name="name"
+                       filter_domain="['|','|', '|', ('name','ilike',self), ('full_name','ilike',self), ('code','ilike',self), ('account','ilike',self)]"
+                       string="Name or account"/>
+                <field name="department_id"/>
+                <field name="job_id"/>
+                <field name="skill_id"/>
+                <separator/>
+                <filter string="Submitted" name="submit_filter" domain="[('state', '=', 'submit')]"/>
+                <filter string="Onboard" name="onboardt_filter" domain="[('state', '=', 'onboard')]"/>
+                <filter string="Rejected" name="rejected_filter" domain="[('state', '=', 'rejected')]"/>
+                <separator/>
+                <filter string="Internship" name="internship_filter" domain="[('internship', '=', True)]"/>
+                <filter string="Bodyshop" name="body_shop_filter" domain="[('body_shop', '=', True)]"/>
+                <group expand="0" string="Group By" colspan="4">
+                    <filter string="Department" name="department_id" domain="[]"
+                            context="{'group_by':'department_id'}"/>
+                    <filter string="Company" name="company_id" domain="[]" context="{'group_by':'company_id'}"/>
+                    <filter string="Expected date" name="expected_date" domain="[]"
+                            context="{'group_by':'expected_date'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+    <record id="da_view_employee_inherit_filter_view" model="ir.ui.view">
+        <field name="name">da.hr.employee.inherit.filter.form</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_filter"/>
+        <field name="priority">30</field>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="after">
+                <filter string="Within 3 months" name="within_3_months_filter" domain="[('old_emp_type', '=', 'within_3_months')]"/>
+                <filter string="Re-recruiting" name="re_recruiting_filter" domain="[('old_emp_type', '=', 're_recruiting')]"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!--                  Action                       -->
+    <record id="action_hr_employee_new_request" model="ir.actions.act_window">
+        <field name="name">New Employees</field>
+        <field name="res_model">hr.employee.new</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'update_old_emp': True}</field>
+    </record>
+    <record id="action_hr_employee_new_onboard_request" model="ir.actions.act_window">
+        <field name="name">New Employees</field>
+        <field name="res_model">hr.employee.new</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'update_old_emp': True}</field>
+        <field name="domain">[('state','=','onboard')]</field>
+    </record>
+    <record id="action_hr_employee_new_submit_request" model="ir.actions.act_window">
+        <field name="name">New Employees</field>
+        <field name="res_model">hr.employee.new</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'update_old_emp': True}</field>
+        <field name="domain">[('state','=','submit')]</field>
+    </record>
+    <record id="action_hr_employee_new_reject_request" model="ir.actions.act_window">
+        <field name="name">New Employees</field>
+        <field name="res_model">hr.employee.new</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'update_old_emp': True}</field>
+        <field name="domain">[('state','=','rejected')]</field>
+    </record>
+
+</odoo>

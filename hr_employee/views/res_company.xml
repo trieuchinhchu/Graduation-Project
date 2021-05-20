@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_res_company_da_employee" model="ir.ui.view">
+            <field name="name">res.company.employee.da.form.inherit</field>
+            <field name="model">res.company</field>
+            <field name="inherit_id" ref="base.view_company_form"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//notebook/page[@name='hr_config']/group[1]" position="after">
+                        <group string="Welcome Email template" name="welcome_mail_template">
+                            <field name="welcome_template_id" nolabel="1"/>
+                        </group>
+                    </xpath>
+                </data>
+            </field>
+        </record>
+
+    </data>
+</odoo>

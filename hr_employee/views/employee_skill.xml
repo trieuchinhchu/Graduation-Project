@@ -1,0 +1,607 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <record id="da_skill_employee_new" model="ir.ui.view">
+        <field name="name">hr.employee</field>
+        <field name="model">hr.employee</field>
+        <field name="active">False</field>
+        <field name="sequence">200</field>
+        <field name="arch" type="xml">
+            <form string="DA Employee" create="0" delete="0">
+                <header>
+                    <button name="employee_update_infor" type="object" class="btn btn-primary" string="Send" confirm="Are You Sure?"
+                        attrs="{'invisible': [('emp_info_state','=','hr_confirm')]}"/>
+                    <field name="emp_info_state" widget="statusbar" />
+                    <field name="permission_view" invisible="1"/>
+                </header>
+                <sheet>
+                    <notebook>
+                        <page name="private_employee_infor" string="Personal Information">
+                            <h5 style="font-style: bo;font-family: bold;color: black;">Personal information</h5>
+                            <div class="form-group row form-field ">
+                                <div class=" col-lg-3 col-md-4">
+                                <label class="col-form-label " for="name">
+                                    Full Name
+                                </label>
+                                <br></br>
+                                    <field name="name" required="True"/>
+                                </div>
+                                <div class="o_website_form_custom col-lg-7 col-md-8">
+                                    
+                                    <label class="col-form-label " for="gender">
+                                        Gender
+                                    </label>
+                                    <br></br>
+                                    <field name="gender" required="True"/>
+                                </div>
+                            </div>
+                            <div class="row form-group row form-field">
+                                <div class=" o_website_form_custom col-lg-3 col-md-4">
+                                    <label class="col-form-label " for="birthday" string="Date of Birth"></label>
+                                    <br></br>
+                                    <field name="birthday" required="True" style="width:100%;"/>
+                                </div>
+                                <div class=" col-lg-7 col-md-8">
+                                    <label class="col-form-label " for="work_phone" string="Phone"></label>
+                                    <br></br>
+                                    <field name="work_phone" required="True"/>
+                                </div>
+                            </div>
+                            <div class="form-group row form-field">
+                                <div class=" o_fake_not_editable col-lg-3 col-md-4">
+                                    <label class="col-form-label " for="identification_id" string="Identification No"></label>
+                                    <br></br>
+                                    <field name="identification_id" required="True"/>
+                                </div>
+                                <div class="col-lg-3 col-md-4">
+                                    <div class=" o_website_form_custom">
+                                        <label class="col-form-label " for="id_date" string="Identification Date"></label>
+                                        <br></br>
+                                        <field name="id_date" required="True" style="width:100%;"/>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-4">
+                                    <div class=" o_website_form_custom o_fake_not_editable">
+                                        <label class="col-form-label " for="place_for_id" string="Place for ID"></label>
+                                        <br></br>
+                                        <field name="place_for_id" required="True"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row form-field">
+                                <div class="o_fake_not_editable col-lg-3 col-md-4">
+                                    
+                                    <label class="col-form-label " for="passport_id" string="Passport No"></label>
+                                    <br></br>
+                                    <field name="passport_id"/>
+                                </div>
+                                <div class="col-lg-3 col-md-4">
+                                        <label class="col-form-label " for="passport_date" string="Passport Date"></label>
+                                        <br></br>
+                                        <field name="passport_date" style="width:100%;"/>
+                                </div>
+                                <div class="col-lg-4 col-md-4">
+                                    <div class="o_website_form_custom o_fake_not_editable">
+                                        
+                                        <label class="col-form-label " for="place_for_passport" string="Place for Passport"></label>
+                                        <br></br>
+                                        <field name="place_for_passport"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row form-field">
+                                <div class="o_fake_not_editable col-lg-3 col-md-4">
+                                    <label class="col-form-label " for="tax_code"/>
+                                    <br></br>
+                                    <field name="tax_code"/>
+                                </div>
+                                <div class="col-lg-3 col-md-4">
+                                        <label class="col-form-label " for="id_tax"/>
+                                        <br></br>
+                                        <field name="id_tax"/>
+                                </div>
+                            </div>
+                            <div class="row form-group form-field o_website_form_custom">
+                                <div class="col-lg-3 col-md-4">
+                                    <label class="col-form-label o_fake_editable" for="is_bank" string="Have TP Bank Account">
+                                    </label>
+                                </div>
+                                <div class="col-lg-7 col-md-8">
+                                    <field name="is_bank" required="True" widget="radio" options="{'horizontal': true}"/>
+                                </div>
+                            </div>
+                            <div class="row form-group form-field o_website_form_custom" attrs="{'invisible': [('is_bank', '!=', 'yes')]}">
+                                <div class="col-lg-3 col-md-4">
+                                    <label class="col-form-label o_fake_editable" for="account_number" string="TP Bank account number">
+                                    </label>
+                                </div>
+                                <div class="col-lg-7 col-md-8">
+                                    <field name="account_number" attrs="{'required': [('is_bank', '=', 'yes')]}"/>
+                                </div>
+                            </div>
+                            <div class="row form-group form-field o_website_form_custom">
+                                <div class="col-lg-3 col-md-4">
+                                    <label class="col-form-label " for="sinid" string="Social Insurance Number">
+                                    </label>
+                                </div>
+                                <div class="col-lg-7 col-md-8">
+                                    <field name="sinid"/>
+                                </div>
+                            </div>
+                            <div class="form-group row form-field  o_fake_not_editable">
+                                <div class="col-lg-3 col-md-4">
+                                   <label class="col-form-label " for="sinid" string="Place of Birth"/>
+                                </div>
+                                <div class="col-lg-7 col-md-8">
+                                    <label class="col-form-label " for="place_of_birth" string="Street address">
+                                    </label>
+                                    <div class="controls">
+                                        <field name="place_of_birth" required="True"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row form-field o_fake_not_editable">
+                                <div class="col-lg-3 col-md-4">
+                                </div>
+                                <div class="col-lg-2 col-md-3">
+                                    <label class="col-form-label " for="" string="City/District"></label>
+                                    <div class="controls">
+                                        <field name="place_disctrict" options="{'no_create': True}" required="True" style="width:100%;"/>
+                                    </div>
+                                </div>
+                                <!-- home_disctrict -->
+                                <div class="col-lg-2 col-md-3">
+                                    <label class="col-form-label " for="" string="State / Province"></label>
+                                    <div class="controls">
+                                        <field name="place_state" options="{'no_create': True}" required="True" style="width:100%;"/>
+                                    </div>
+                                </div>
+                                <div class="col-lg-2 col-md-3">
+                                    <label class="col-form-label " for="" string="Country"></label>
+                                    <div class="controls">
+                                        <field name="place_country" options="{'no_create': True}" required="True" style="width:100%;"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row form-field  o_fake_not_editable">
+                                <div class="col-lg-3 col-md-4">
+                                    <label class="col-form-label " for="" string="Home Address"></label>
+                                </div>
+                                <div class="col-lg-7 col-md-8">
+                                    <label class="col-form-label " for="home_address" string="Street address">
+                                    </label>
+                                    <div class="controls">
+                                        <field name="home_address" required="True"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row form-field o_fake_not_editable">
+                                <div class="col-lg-3 col-md-4">
+                                </div>
+                                <div class="col-lg-2 col-md-3">
+                                    
+                                    <label class="col-form-label " for="" string="City/District"></label>
+                                    <div class="controls">
+                                        <field name="home_disctrict" options="{'no_create': True}" required="True" style="width:100%;"/>
+                                    </div>
+                                </div>
+                                <!-- home_disctrict -->
+                                <div class="col-lg-2 col-md-3">
+                                    
+                                    <label class="col-form-label " for="" string="State / Province"></label>
+                                    <div class="controls">
+                                        <field name="home_state" options="{'no_create': True}" required="True" style="width:100%;"/>
+                                    </div>
+                                </div>
+                                <div class="col-lg-2 col-md-3">
+                                    
+                                    <label class="col-form-label " for="" string="Country"></label>
+                                    <div class="controls">
+                                        <field name="home_country" options="{'no_create': True}" required="True" style="width:100%;"/>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group row form-field  o_fake_not_editable">
+                                <div class="col-lg-3 col-md-4">
+                                    <label class="col-form-label " for="" string="Current Address"></label>
+                                </div>
+                                <div class="col-lg-7 col-md-8">
+                                    
+                                    <label class="col-form-label " for="" string="Street address"></label>
+                                    <div class="controls">
+                                        <field name="street" required="True"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row form-field o_fake_not_editable">
+                                <div class="col-lg-3 col-md-4">
+                                    <label class="col-form-label " for="">
+                                    </label>
+                                </div>
+                                <div class="col-lg-2 col-md-3">
+                                    <label class="col-form-label " for="" string="City/Disctrict"></label>
+                                    <div class="controls">
+                                        <field name="current_district" options="{'no_create': True}" required="True" style="width:100%;"/>
+                                    </div>
+                                </div>
+                                <div class="col-lg-2 col-md-3">
+                                    <label class="col-form-label " for="" string="State / Province"></label>
+                                    <div class="controls">
+                                        <field name="state_id" options="{'no_create': True}" required="True" style="width:100%;"/>
+                                    </div>
+                                </div>
+                                <div class="col-lg-2 col-md-3">
+                                    <label class="col-form-label " for="" string="Country"></label>
+                                    <div class="controls">
+                                        <field name="country_id" options="{'no_create': True}" required="True" style="width:100%;"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row form-field">
+                                <div class="col-lg-3 col-md-4">
+                                    <label class="col-form-label " for="social_facebook" string="Link Facebook">
+                                    </label>
+                                </div>
+                                <div class="col-lg-7 col-md-8">
+                                    <field name="social_facebook"/>
+                                </div>
+                            </div>
+                            <div class="form-group row form-field  o_fake_not_editable">
+                                <div class="col-lg-3 col-md-4">
+                                    <label class="col-form-label " for="personal_email" string="Personal
+                                        email">
+                                    </label>
+                                </div>
+                                <div class="col-lg-7 col-md-8">
+                                    <field name="personal_email" required="True"/>
+                                </div>
+                            </div>
+                                                <div class="form-group row form-field  o_fake_not_editable">
+                                <div class="col-lg-3 col-md-4">
+                                    <label class="col-form-label " for="" string="Literacy">
+                                    </label>
+                                    <div class="controls">
+                                        <field name="certificate" required="True"/>
+                                    </div>
+                                </div>
+                                <div class="col-lg-7 col-md-8">
+                                    <label class="col-form-label " for="school_id" string="School Name">
+                                    </label>
+                                    <div class="control-group">
+                                        <div class="controls">
+                                            <field name="school_id" options="{'no_create': True}" required="True" style="width:100%;"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row form-field  o_fake_not_editable">
+                                <div class="col-lg-3 col-md-4">
+                                    <label class="col-form-label " for="study_field" string="Specialized">
+                                    </label>
+                                    <div class="controls">
+                                        <field name="study_field" required="True"/>
+                                        <p class="help-block"/>
+                                    </div>
+                                </div>
+                                <div class="col-lg-7 col-md-8">
+                                    <label class="col-form-label " for="graduation_year" string="Graduation Year">
+                                    </label>
+                                    <div class="control-group">
+                                        <div class="controls">
+                                            <field name="graduation_year" required="True"/>
+                                            <p class="help-block"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <h5 style="font-style: bo;font-family: bold;color: black;">Family information</h5>
+                            <div class="row form-group form-field  o_website_form_custom">
+                                <div class="col-lg-3 col-md-4">
+                                    
+                                    <label class="col-form-label " for="spouse_name">
+                                        Spouse Name
+                                    </label>
+                                    <div class="control-group">
+                                        <div class="controls">
+                                            <field name="spouse_name"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-4">
+                                    <label class="col-form-label " for="spouse_job">
+                                        Spouse Job
+                                    </label>
+                                    <div class="control-group">
+                                        <div class="controls">
+                                            <field name="spouse_job"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-4">
+                                    <label class="col-form-label " for="spouse_year">
+                                        Spouse Year
+                                    </label>
+                                    <div class="control-group">
+                                        <div class="controls">
+                                            <field name="spouse_year"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row form-group form-field o_website_form_custom" name="children">
+                                <div class="col-lg-3 col-md-4">
+                                    <label class="col-form-label " for="children">
+                                        Number Children
+                                    </label>
+                                </div>
+                                <div class="col-lg-7 col-md-8">
+                                    <div class="control-group">
+                                        <div class="controls">
+                                            <field name="children"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row form-group form-field o_website_form_custom" name="children">
+                                <div class="col-lg-3 col-md-4">
+                                    <label class="col-form-label " for="" string="Children &amp; Dependents">
+                                        
+                                    </label>
+                                </div>
+                                <div class="col-lg-7 col-md-8">
+                                    <div class="control-group">
+                                        <div class="controls">
+                                            <field name="dependent_ids" nolabel="1" context="{'active_id': id, 'default_parent_id': id}">
+                                                <tree editable="top">
+                                                    <field name="parent_id" invisible="1"/>
+                                                    <field name="name"/>
+                                                    <field name="date_of_birth"/>
+                                                    <field name="study_school"/>
+                                                    <field name="relation"/>
+                                                </tree>
+                                                <form string="Dependent People">
+                                                    <group>
+                                                        <group colspan="4">
+                                                            <group string="Thông tin cơ bản">
+                                                                <field name="parent_id" invisible="1"/>
+                                                                <field name="name" string="Họ và tên"/>
+                                                                <field name="date_of_birth" string="Ngày sinh"
+                                                                    options="{'datepicker': {'showType': False}}"/>
+                                                                <field name="study_school" string="Trường học"/>
+                                                            </group>
+                                                            <group string="Thông tin người phụ thuộc">
+                                                                <field name="is_dependent"/>
+                                                                <field name="relation" string="Quan hệ với người nộp thuế"
+                                                                    attrs="{'invisible': [('is_dependent','=', False)]}"/>
+                                                                <field name="register_date" widget="date"
+                                                                    attrs="{'invisible': [('is_dependent','=', False)]}"
+                                                                    string="Thời điểm bắt đầu tính giảm trừ"
+                                                                    options="{'datepicker': {'showType': 'months'}}"/>
+                                                                <field name="end_date" widget="date"
+                                                                    attrs="{'invisible': [('is_dependent','=', False)]}"
+                                                                    options="{'datepicker': {'showType': 'months'}}"
+                                                                    string="Thời điểm kết thúc tính giảm trừ"/>
+                                                            </group>
+                                                        </group>
+                                                        <group attrs="{'invisible': [('is_dependent','=', False)]}">
+                                                            <div style="width='100%'">
+                                                                Người phụ thuộc đã có CMT/Hộ chiếu
+                                                            </div>
+                                                            <field name="has_id" nolabel="1"/>
+                                                        </group>
+                                                        <group colspan="4" attrs="{'invisible': [('is_dependent','=', False)]}">
+                                                            <group string="Chứng minh thư / Hộ chiếu"
+                                                                attrs="{'invisible': [('has_id', '=', False)]}">
+                                                                <field name="sinid" attrs="{'invisible': [('has_id', '=', False)]}"
+                                                                    string="Mã số thuế của người phụ thuộc (nếu có)"/>
+                                                                <field name="identification_id" string="Chứng minh thư / thẻ căn cước"
+                                                                    attrs="{'invisible': [('has_id', '=', False)]}"/>
+                                                                <field name="passport_id" string="Hộ chiếu"
+                                                                    attrs="{'invisible': [('has_id', '=', False)]}"/>
+                                                                <field name="country_id" string="Quốc tịch"
+                                                                        attrs="{'invisible': [('has_id', '=', False)]}"
+                                                                        options='{"no_create": True}'/>
+                                                            </group>
+                                                            <group string="Giấy khai sinh" attrs="{'invisible': [('has_id', '=', True)]}">
+                                                                <field name="birth_no" string="Số"
+                                                                    attrs="{'invisible': [('has_id', '=', True)]}"/>
+                                                                <field name="book_no" string="Quyển số"
+                                                                    attrs="{'invisible': [('has_id', '=', True)]}"/>
+                                                                <label for="street" string="Nơi đăng ký"/>
+                                                                <div class="o_address_format" attrs="{'invisible': [('has_id', '=', True)]}">
+                                                                    <field name="country_id" placeholder="Quốc gia" class="o_address_country"
+                                                                        options='{"no_create": True}'/>
+                                                                    <field name="state_id" placeholder="Tỉnh/ Thành phố"
+                                                                        context="{'country_id': country_id}"
+                                                                        options='{"no_create": True}'/>
+                                                                    <field name="city" placeholder="Quận/Huyện" />
+                                                                    <field name="street" placeholder="Phường/Xã" class="o_address_street"/>
+                                                                </div>
+                                                            </group>
+                                                        </group>
+                                                    </group>
+                                                </form>
+                                            </field>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <h5 style="font-style: bo;font-family: bold;color: black;">Contact </h5>
+                            <div class="row form-group form-field  o_website_form_custom">
+                                <div class="col-lg-3 col-md-4">
+                                    <label class="col-form-label " for="emergency_contact">
+                                        Emergency Name
+                                    </label>
+                                </div>
+                                <div class="col-lg-7 col-md-8">
+                                    <div class="control-group">
+                                        <div class="controls">
+                                            <field name="emergency_contact" required="True"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row form-group form-field  o_website_form_custom">
+                                <div class="col-lg-3 col-md-4">
+                                    <label class="col-form-label " for="emergency_relation">
+                                        Relationship
+                                    </label>
+                                </div>
+                                <div class="col-lg-7 col-md-8">
+                                    <div class="controls">
+                                        <field name="emergency_relation" required="True"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row form-group form-field  o_website_form_custom">
+                                <div class="col-lg-3 col-md-4">
+                                    <label class="col-form-label " for="emergency_phone">
+                                        Emergency Phone
+                                    </label>
+                                </div>
+                                <div class="col-lg-7 col-md-8">
+                                    <div class="controls">
+                                        <field name="emergency_phone" required="True"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <h5 style="font-style: bo;font-family: bold;color: black;">Vehicle information </h5>
+                            <div class="row form-group form-field o_website_form_custom">
+                                <div class="col-lg-3 col-md-4">
+                                    <label class="col-form-label o_fake_editable" for="is_vehicle">
+                                        Have Vehicle
+                                    </label>
+                                </div>
+                                <div class="col-lg-7 col-md-8">
+                                    <div class="control-group">
+                                        <div class="controls">
+                                            <field name="is_vehicle" required="True" widget="radio" options="{'horizontal': true}"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row form-group form-field o_website_form_custom"  attrs="{'invisible': [('is_vehicle', '=', 'no')]}">
+                                <div class="col-lg-3 col-md-4">
+                                    <label class="col-form-label " for="manufacturer">
+                                        Manufacturer
+                                    </label>
+                                </div>
+                                <div class="col-lg-7 col-md-8">
+                                    <div class="control-group">
+                                        <div class="controls">
+                                            <field name="manufacturer" style="width:100%;"  attrs="{'required': [('is_vehicle', '=', 'yes')]}"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row form-group form-field o_website_form_custom"  attrs="{'invisible': [('is_vehicle', '=', 'no')]}">
+                                <div class="col-lg-3 col-md-4">
+                                    <label class="col-form-label " for="vehicle_name">
+                                        Vehicle name
+                                    </label>
+                                </div>
+                                <div class="col-lg-7 col-md-8">
+                                    <div class="control-group">
+                                        <div class="controls">
+                                            <field name="vehicle_name"  attrs="{'required': [('is_vehicle', '=', 'yes')]}"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row form-group form-field o_website_form_custom"  attrs="{'invisible': [('is_vehicle', '=', 'no')]}">
+                                <div class="col-lg-3 col-md-4">
+                                    <label class="col-form-label " for="vehicle_color">
+                                        Vehicle color
+                                    </label>
+                                </div>
+                                <div class="col-lg-7 col-md-8">
+                                    <div class="control-group">
+                                        <div class="controls">
+                                            <field name="vehicle_color"  attrs="{'required': [('is_vehicle', '=', 'yes')]}"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row form-group form-field o_website_form_custom"  attrs="{'invisible': [('is_vehicle', '=', 'no')]}">
+                                <div class="col-lg-3 col-md-4">
+                                    <label class="col-form-label " for="vehicle_license">
+                                        License plate
+                                    </label>
+                                </div>
+                                <div class="col-lg-7 col-md-8">
+                                    <div class="control-group">
+                                        <div class="controls">
+                                            <field name="vehicle_license"  attrs="{'required': [('is_vehicle', '=', 'yes')]}"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </page>
+                        <page name="skill" string="Skill">
+                            
+                            <div class="row">
+                                <div class="o_hr_skills_group o_group_skills col-lg-12 d-flex flex-column">
+                                    <separator string="Skills"/>
+                                    <field mode="tree" nolabel="1" name="employee_skill_ids" widget="hr_skills" context="{'active_id': id}">
+                                        <tree>
+                                            <field name="skill_type_id" invisible="1"/>
+                                            <field name="skill_id"/>
+                                            <field name="skill_note"/>
+                                            <field name="experiences"/>
+                                            <field name="note_experiences"/>
+                                            <field name="skill_level_id"/>
+                                            <field name="level_progress" widget="progressbar" invisible="1"/>
+                                        </tree>
+                                    </field>
+                                </div>
+                            </div>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="da_skill_employee_action" model="ir.actions.act_window">
+        <field name="name">
+            Employee Infor
+        </field>
+        <field name="res_model">hr.employee</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+        <field name="target">current</field>
+        <field name="context">{'form_view_initial_mode': 'edit'}</field>
+        <field name="view_id" ref="da_skill_employee_new"/>
+    </record>
+
+    <record id="da_infor_employee_popup" model="ir.ui.view">
+        <field name="name">hr.employee</field>
+        <field name="model">hr.employee</field>
+        <field name="active">False</field>
+        <field name="sequence">200</field>
+        <field name="arch" type="xml">
+            <form string="DA Employee" create="0" delete="0">
+                <sheet>
+                    <h5>You have successfully updated your information. We have sent a notice to HR</h5>
+                </sheet>
+                <footer>
+                    <button string="OK" class="btn btn-default" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="da_infor_employee_popup_action" model="ir.actions.act_window">
+        <field name="name">Success</field>
+        <field name="res_model">hr.employee</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+        <field name="active">True</field>
+        <field name="target">new</field>
+        <field name="view_id" ref="da_infor_employee_popup"/>
+    </record>
+</odoo>

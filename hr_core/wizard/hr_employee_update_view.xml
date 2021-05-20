@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="hr_employee_update_wizard_form" model="ir.ui.view">
+            <field name="name">hr.employee.update.form</field>
+            <field name="model">hr.employee.update</field>
+            <field name="arch" type="xml">
+                <form string="Employee Update Wizard" create="0" delete="0">
+                    <sheet>
+                        <group string="Upload Type">
+                            <field name="type" nolabel="1"/>
+                        </group>
+                        <group string="File upload">
+                            <label for="file_save" string="File upload"/>
+                            <div class="o_row" style="max-width: 50%">
+                                <field name="file_save" widget="binary" filename="file_name"/>
+                                <field name="file_name" invisible="1"/>
+                                <div attrs="{'invisible': [('type', 'not in', ['info', 'resignation'])]}">
+                                    Or&#160;
+                                    <a class="o_attachment_download"
+                                       href="/hr_core/static/src/xls/upload_emp_info.xls?download=1" target="_blank">
+                                        Download template
+                                    </a>
+                                </div>
+                                <div attrs="{'invisible': [('type', '!=', 'contract')]}">
+                                    Or&#160;
+                                    <a class="o_attachment_download"
+                                       href="/hr_core/static/src/xls/upload_emp_contract.xls?download=1" target="_blank">
+                                        Download template
+                                    </a>
+                                </div>
+                            </div>
+                        </group>
+                        <footer>
+                            <button name="update_employee_info" string="Update Emp Info" type="object" class="oe_highlight"
+                                    attrs="{'invisible': [('type', 'not in', ['info', 'resignation'])]}"
+                                    confirm="Hành động này sẽ ghi đè lên thông tin nhân viên hiện tại. Bạn có chăc chắn muốn tiếp tục?"/>
+                            <button name="upload_dependent_info" string="Upload dependent" type="object" class="oe_highlight"
+                                    attrs="{'invisible': [('type', '!=', 'dependent')]}"
+                                    confirm="Hành động này sẽ ghi đè lên thông tin nhân viên hiện tại. Bạn có chăc chắn muốn tiếp tục?"/>
+                            <button name="upload_contract_info" string="Upload contract info" type="object" class="oe_highlight"
+                                    attrs="{'invisible': [('type', '!=', 'contract')]}"
+                                    confirm="Hành động này sẽ tạo mới các bản ghi hợp đồng cho nhân viên. Bạn có chăc chắn muốn tiếp tục?"/>
+                            <button string="Discard" class="oe_link btn-default" special="cancel"/>
+                        </footer>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="employee_update_wizard_action" model="ir.actions.act_window">
+            <field name="name">Employee Update Info form</field>
+            <field name="res_model">hr.employee.update</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="hr_employee_update_wizard_form"/>
+            <field name="target">current</field>
+        </record>
+
+        <menuitem id="menu_employee_update_wizard" action="employee_update_wizard_action"
+                  parent="hr.menu_human_resources_configuration"
+                  name="Employee Update" groups="base.group_system" sequence="100"/>
+    </data>
+</odoo>

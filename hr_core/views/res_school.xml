@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="res_school_view_tree" model="ir.ui.view">
+        <field name="name">res.school.tree</field>
+        <field name="model">res.school</field>
+        <field name="arch" type="xml">
+            <tree string="DA school" editable="top">
+                <field name="name"/>
+                <field name="code"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="da_res_school_action" model="ir.actions.act_window">
+        <field name="name">DA school</field>
+        <field name="res_model">res.school</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                You have no school found.
+            </p>
+        </field>
+    </record>
+
+    <menuitem
+            id="menu_res_school"
+            action="da_res_school_action"
+            parent="hr.menu_human_resources_configuration"
+            groups="hr.group_hr_manager"
+            sequence="20"/>
+
+</odoo>

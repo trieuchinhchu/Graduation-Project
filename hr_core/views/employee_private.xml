@@ -1,0 +1,475 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="employee_inherit_form_view_private" model="ir.ui.view">
+        <field name="name">hr.employee.inherit.form</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="priority">10</field>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='personal_information']"
+                   position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//page[@name='personal_information']/group/group/field[@name='country_id']"
+                   position="replace">
+                <field name="country_id" options="{'no_create': True}" />
+            </xpath>
+            <xpath expr="//page[@name='personal_information']" position="before">
+                <page name="private_employee_infor" string="Personal Information" groups="hr.group_hr_user">
+                    <h5 style="font-style: bo;font-family: bold;color: black;">Personal information</h5>
+                    <div class="form-group row form-field ">
+                        <div class="o_website_form_required col-lg-3 col-md-4">
+                        <label class="col-form-label o_fake_editable" for="name">
+                            Full Name
+                        </label>
+                        <br/>
+                            <field name="name"/>
+                        </div>
+                        <div class="o_website_form_custom col-lg-7 col-md-8">
+                            
+                            <label class="col-form-label o_fake_editable" for="gender">
+                                Gender
+                            </label>
+                            <br/>
+                            <field name="gender"/>
+                        </div>
+                    </div>
+                    <div class="row form-group row form-field">
+                        <div class="o_website_form_required o_website_form_custom col-lg-3 col-md-4">
+                            <label class="col-form-label o_fake_editable" for="birthday">Date of Birth</label>
+                            <br/>
+                            <field name="birthday"/>
+                        </div>
+                        <div class="o_website_form_required col-lg-7 col-md-8">
+                            <label class="col-form-label o_fake_editable" for="work_phone">Phone</label>
+                            <br/>
+                            <field name="work_phone"/>
+                        </div>
+                    </div>
+                    <div class="form-group row form-field">
+                        <div class="o_website_form_required o_fake_not_editable col-lg-3 col-md-4">
+                            <label class="col-form-label o_fake_editable" for="identification_id">ID No</label>
+                            <br/>
+                            <field name="identification_id"/>
+                        </div>
+                        <div class="col-lg-3 col-md-4">
+                            <div class="o_website_form_required o_website_form_custom">
+                                <label class="col-form-label o_fake_editable" for="id_date">ID Date</label>
+                                <br/>
+                                <field name="id_date"/>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4">
+                            <div class="o_website_form_required o_website_form_custom o_fake_not_editable">
+                                <label class="col-form-label o_fake_editable" for="place_for_id" string="Place for ID"></label>
+                                <br/>
+                                <field name="place_for_id"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row form-field">
+                        <div class="o_fake_not_editable col-lg-3 col-md-4">
+                            
+                            <label class="col-form-label o_fake_editable" for="passport_id" string="Passport No"></label>
+                            <br/>
+                            <field name="passport_id"/>
+                        </div>
+                        <div class="col-lg-3 col-md-4">
+                                <label class="col-form-label o_fake_editable" for="passport_date" string="Passport Date"></label>
+                                <br/>
+                                <field name="passport_date"/>
+                        </div>
+                        <div class="col-lg-4 col-md-4">
+                            <div class="o_website_form_custom o_fake_not_editable">
+                                
+                                <label class="col-form-label o_fake_editable" for="place_for_passport" string="Place for Passport"></label>
+                                <br/>
+                                <field name="place_for_passport"/>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row form-group form-field o_website_form_custom">
+                        <div class="col-lg-3 col-md-4">
+                            <label class="col-form-label o_fake_editable" for="is_bank" string="Have TP Bank Account">
+                            </label>
+                        </div>
+                        <div class="col-lg-7 col-md-8">
+                            <field name="is_bank" />
+                        </div>
+                    </div>
+                    <div class="row form-group form-field o_website_form_custom" attrs="{'invisible': [('is_bank', '!=', 'yes')]}">
+                        <div class="col-lg-3 col-md-4">
+                            <label class="col-form-label o_fake_editable" for="account_number" string="TP Bank account number">
+                            </label>
+                        </div>
+                        <div class="col-lg-7 col-md-8">
+                            <field name="account_number"/>
+                        </div>
+                    </div>
+                    <div class="form-group row form-field">
+                        <div class="o_fake_not_editable col-lg-3 col-md-4">
+                            <label class="col-form-label " for="tax_code"/>
+                            <br></br>
+                            <field name="tax_code"/>
+                        </div>
+                        <div class="col-lg-3 col-md-4">
+                                <label class="col-form-label " for="id_tax"/>
+                                <br></br>
+                                <field name="id_tax"/>
+                        </div>
+                    </div>
+                    <div class="row form-group form-field o_website_form_custom">
+                        <div class="col-lg-3 col-md-4">
+                            <label class="col-form-label o_fake_editable" for="sinid" string="Social Insurance
+                                Number">
+                            </label>
+                        </div>
+                        <div class="col-lg-7 col-md-8">
+                            <field name="sinid"/>
+                        </div>
+                    </div>
+                    <div class="form-group row form-field  o_fake_not_editable">
+                                <div class="col-lg-3 col-md-4">
+                                    <label class="col-form-label o_fake_editable" for="account_number" string="Place of Birth">
+                                    </label>
+                                </div>
+                                <div class="col-lg-7 col-md-8">
+                                    <label class="col-form-label o_fake_editable" for="place_of_birth" string="Street address">
+                                    </label>
+                                    <div class="controls">
+                                        <field name="place_of_birth" required="True"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row form-field o_fake_not_editable">
+                                <div class="col-lg-3 col-md-4">
+                                </div>
+                                <div class="col-lg-2 col-md-3">
+                                    
+                                    <label class="col-form-label o_fake_editable" for="" string="City/District"/>
+                                    <div class="controls">
+                                        <field name="place_disctrict" options="{'no_create': True}" required="True"/>
+                                    </div>
+                                </div>
+                                <!-- home_disctrict -->
+                                <div class="col-lg-3 col-md-4">
+                                    
+                                    <label class="col-form-label o_fake_editable" for="" string="State / Province"/>
+                                    <div class="controls">
+                                        <field name="place_state" options="{'no_create': True}" required="True"/>
+                                    </div>
+                                </div>
+                                <div class="col-lg-2 col-md-3">
+                                    
+                                    <label class="col-form-label o_fake_editable" for="" string="Country"/>
+                                    <div class="controls">
+                                        <field name="place_country" options="{'no_create': True}" required="True"/>
+                                    </div>
+                                </div>
+                            </div>
+                    <div class="form-group row form-field o_website_form_required o_fake_not_editable">
+                        <div class="col-lg-3 col-md-4">
+                            <label class="col-form-label o_fake_editable" for="" string="Home Address"/>
+                        </div>
+                        <div class="col-lg-7 col-md-8">
+                            <label class="col-form-label o_fake_editable" for="" string="Street address"/>
+                            <div class="controls">
+                                <field name="home_address"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row form-field o_fake_not_editable">
+                        <div class="col-lg-3 col-md-4">
+                        </div>
+                        <div class="col-lg-2 col-md-3">
+                            
+                            <label class="col-form-label o_fake_editable" for="home_disctrict" string="City/District"></label>
+                            <div class="controls">
+                                <field name="home_disctrict"/>
+                            </div>
+                        </div>
+                        <!-- home_disctrict -->
+                        <div class="col-lg-3 col-md-4">
+                            
+                            <label class="col-form-label o_fake_editable" for="home_state" string="State / Province"></label>
+                            <div class="controls">
+                                <field name="home_state"/>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 col-md-3">
+                            
+                            <label class="col-form-label o_fake_editable" for="home_country" string="Country"></label>
+                            <div class="controls">
+                                <field name="home_country"/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group row form-field o_website_form_required o_fake_not_editable">
+                        <div class="col-lg-3 col-md-4">
+                            <label class="col-form-label o_fake_editable" for="" string="Current Address "></label>
+                           
+                        </div>
+                        <div class="col-lg-7 col-md-8">
+                            
+                            <label class="col-form-label o_fake_editable" for="street" string="Street address"></label>
+                            <div class="controls">
+                                <field name="street"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row form-field o_fake_not_editable">
+                        <div class="col-lg-3 col-md-4">
+                            <label class="col-form-label o_fake_editable" for="current_district">
+                            </label>
+                        </div>
+                        <div class="col-lg-2 col-md-3">
+                            <label class="col-form-label o_fake_editable" for="current_district" string="Disctrict/City"></label>
+                            <div class="controls">
+                                <field name="current_district"/>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-4">
+                            <label class="col-form-label o_fake_editable" for="state_id" string="State / Province"></label>
+                            <div class="controls">
+                                <field name="state_id"/>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 col-md-3">
+                            <label class="col-form-label o_fake_editable" for="country_id" string="Country"></label>
+                            <div class="controls">
+                                <field name="country_id" widget="many2one"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row form-field">
+                        <div class="col-lg-3 col-md-4">
+                            <label class="col-form-label o_fake_editable" for="social_facebook">Link Facebook
+                            </label>
+                        </div>
+                        <div class="col-lg-7 col-md-8">
+                            <field name="social_facebook"/>
+                        </div>
+                    </div>
+                    <div class="form-group row form-field o_website_form_required o_fake_not_editable">
+                        <div class="col-lg-3 col-md-4">
+                            <label class="col-form-label o_fake_editable" for="personal_email" string="Personal email">
+                            </label>
+                        </div>
+                        <div class="col-lg-7 col-md-8">
+                            <field name="personal_email"/>
+                        </div>
+                    </div>
+                    <div class="form-group row form-field o_website_form_required o_fake_not_editable">
+                        <div class="col-lg-3 col-md-4">
+                            <label class="col-form-label o_fake_editable" for="" string="Literacy">
+                            </label>
+                            <div class="controls">
+                                <field name="certificate"/>
+                            </div>
+                        </div>
+                        <div class="col-lg-7 col-md-8">
+                            <label class="col-form-label o_fake_editable" for="school_id" string="School Name">
+                            </label>
+                            <div class="control-group">
+                                <div class="controls">
+                                    <field name="school_id"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row form-field o_website_form_required o_fake_not_editable">
+                        <div class="col-lg-3 col-md-4">
+                            <label class="col-form-label o_fake_editable" for="study_field" string="Specialized">
+                            </label>
+                            <div class="controls">
+                                
+                                <field name="study_field"/>
+                                <p class="help-block"/>
+                            </div>
+                        </div>
+                        <div class="col-lg-7 col-md-8">
+                            <label class="col-form-label o_fake_editable" for="graduation_year" string="Graduation Year">
+                            </label>
+                            <div class="control-group">
+                                <div class="controls">
+                                <field name="graduation_year"/>
+                                <p class="help-block"/>
+                            </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <h5 style="font-style: bo;font-family: bold;color: black;">Family information</h5>
+                    <div class="row form-group form-field o_website_form_required o_website_form_custom">
+                        <div class="col-lg-3 col-md-4">
+                            
+                            <label class="col-form-label o_fake_editable" for="spouse_name">
+                                Spouse Name
+                            </label>
+                            <div class="control-group">
+                                <div class="controls">
+                                    <field name="spouse_name"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-4">
+                            <label class="col-form-label o_fake_editable" for="spouse_job">
+                                Spouse Job
+                            </label>
+                            <div class="control-group">
+                                <div class="controls">
+                                    <field name="spouse_job"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4">
+                            <label class="col-form-label o_fake_editable" for="spouse_year">
+                                Spouse Year
+                            </label>
+                            <div class="control-group">
+                                <div class="controls">
+                                    <field name="spouse_year"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row form-group form-field o_website_form_custom" name="children">
+                        <div class="col-lg-3 col-md-4">
+                            <label class="col-form-label o_fake_editable" for="children">
+                                Number Children
+                            </label>
+                        </div>
+                        <div class="col-lg-7 col-md-8">
+                            <div class="control-group">
+                                <div class="controls">
+                                    <field name="children"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <h5 style="font-style: bo;font-family: bold;color: black;">Contact </h5>
+                    <div class="row form-group form-field o_website_form_required o_website_form_custom">
+                        <div class="col-lg-3 col-md-4">
+                            <label class="col-form-label o_fake_editable" for="emergency_contact">
+                                Emergency Name
+                            </label>
+                        </div>
+                        <div class="col-lg-7 col-md-8">
+                            <div class="control-group">
+                                <div class="controls">
+                                    <field name="emergency_contact"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row form-group form-field o_website_form_required o_website_form_custom">
+                        <div class="col-lg-3 col-md-4">
+                            <label class="col-form-label o_fake_editable" for="emergency_relation">
+                                Relationship
+                            </label>
+                        </div>
+                        <div class="col-lg-7 col-md-8">
+                            <div class="controls">
+                                <field name="emergency_relation"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row form-group form-field o_website_form_required o_website_form_custom">
+                        <div class="col-lg-3 col-md-4">
+                            <label class="col-form-label o_fake_editable" for="emergency_phone">
+                                Emergency Phone
+                            </label>
+                        </div>
+                        <div class="col-lg-7 col-md-8">
+                            <div class="controls">
+                                <field name="emergency_phone"/>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <h5 style="font-style: bo;font-family: bold;color: black;">Vehicle information </h5>
+                    <div class="row form-group form-field o_website_form_custom">
+                        <div class="col-lg-3 col-md-4">
+                            <label class="col-form-label o_fake_editable" for="is_vehicle">
+                                Have Vehicle
+                            </label>
+                        </div>
+                        <div class="col-lg-7 col-md-8">
+                            <div class="control-group">
+                                <div class="controls">
+                                    <field name="is_vehicle"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row form-group form-field o_website_form_custom" attrs="{'invisible': [('is_vehicle', '=', 'no')]}">
+                        <div class="col-lg-3 col-md-4">
+                            <label class="col-form-label o_fake_editable" for="manufacturer">
+                                Manufacturer
+                            </label>
+                        </div>
+                        <div class="col-lg-7 col-md-8">
+                            <div class="control-group">
+                                <div class="controls">
+                                    <field name="manufacturer" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row form-group form-field o_website_form_custom" attrs="{'invisible': [('is_vehicle', '=', 'no')]}">
+                        <div class="col-lg-3 col-md-4">
+                            <label class="col-form-label o_fake_editable" for="vehicle_name">
+                                Vehicle name
+                            </label>
+                        </div>
+                        <div class="col-lg-7 col-md-8">
+                            <div class="control-group">
+                                <div class="controls">
+                                    <field name="vehicle_name" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row form-group form-field o_website_form_custom" attrs="{'invisible': [('is_vehicle', '=', 'no')]}">
+                        <div class="col-lg-3 col-md-4">
+                            <label class="col-form-label o_fake_editable" for="vehicle_color">
+                                Vehicle color
+                            </label>
+                        </div>
+                        <div class="col-lg-7 col-md-8">
+                            <div class="control-group">
+                                <div class="controls">
+                                    <field name="vehicle_color" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row form-group form-field o_website_form_custom" attrs="{'invisible': [('is_vehicle', '=', 'no')]}">
+                        <div class="col-lg-3 col-md-4">
+                            <label class="col-form-label o_fake_editable" for="vehicle_license">
+                                License plate
+                            </label>
+                        </div>
+                        <div class="col-lg-7 col-md-8">
+                            <div class="control-group">
+                                <div class="controls">
+                                    <field name="vehicle_license" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <group string="Các loại giấy tờ đang giữ">
+                    <field name="document_ids" string="" widget="many2many_checkboxes"/>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="res_district_view_tree" model="ir.ui.view">
+        <field name="name">res.district.tree</field>
+        <field name="model">res.district</field>
+        <field name="arch" type="xml">
+            <tree string="da District" editable="top">
+                <field name="name"/>
+                <field name="code"/>
+                <field name="state_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="da_res_district_action" model="ir.actions.act_window">
+        <field name="name">da District</field>
+        <field name="res_model">res.district</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                You have no district found.
+            </p>
+        </field>
+    </record>
+
+    <menuitem
+            id="menu_res_district"
+            action="da_res_district_action"
+            parent="hr.menu_human_resources_configuration"
+            groups="hr.group_hr_manager"
+            sequence="20"/>
+
+    <record id="res_manufacturer_view_tree" model="ir.ui.view">
+        <field name="name">res.manufacturer.tree</field>
+        <field name="model">res.manufacturer</field>
+        <field name="arch" type="xml">
+            <tree string="da manufacturer" editable="top">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="da_res_manufacturer_action" model="ir.actions.act_window">
+        <field name="name">da manufacturer</field>
+        <field name="res_model">res.manufacturer</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                You have no manufacturer found.
+            </p>
+        </field>
+    </record>
+
+    <menuitem
+            id="menu_res_manufacturer"
+            action="da_res_manufacturer_action"
+            parent="hr.menu_human_resources_configuration"
+            groups="hr.group_hr_manager"
+            sequence="23"/>
+
+</odoo>

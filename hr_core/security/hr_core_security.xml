@@ -1,0 +1,195 @@
+<?xml version="1.0" ?>
+<odoo>
+
+    <record id="group_hr_dl" model="res.groups">
+        <field name="name">Department Leader</field>
+        <field name="category_id" ref="base.module_category_human_resources"/>
+        <field name="implied_ids" eval="[(6, 0, [ref('base.group_user')])]"/>
+        <field name="comment">The user will be able to approve document created by employees.</field>
+    </record>
+
+    <record id="group_hr_it" model="res.groups">
+        <field name="name">IT</field>
+        <field name="category_id" ref="base.module_category_human_resources"/>
+        <field name="implied_ids" eval="[(6, 0, [ref('base.group_user')])]"/>
+        <field name="comment">IT support.</field>
+    </record>
+
+    <record id="group_hr_client_user" model="res.groups">
+        <field name="name">Client user</field>
+        <field name="category_id" ref="base.module_category_human_resources"/>
+        <field name="comment">Client User.</field>
+    </record>
+
+    <record id="group_hr_rec" model="res.groups">
+        <field name="name">REC</field>
+        <field name="category_id" ref="base.module_category_human_resources"/>
+        <field name="implied_ids" eval="[(6, 0, [ref('hr.group_hr_user')])]"/>
+        <field name="comment">REC support.</field>
+    </record>
+
+    <record model="ir.rule" id="res_partner_da_public_rule">
+        <field name="name">res_partner: da employee: write access on own account</field>
+        <field name="model_id" ref="base.model_res_partner"/>
+        <field name="domain_force">[('id', '=', user.partner_id.id)]</field>
+        <field name="groups" eval="[(4, ref('base.group_user'))]"/>
+        <field name="perm_create" eval="False"/>
+        <field name="perm_unlink" eval="False"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_read" eval="True"/>
+    </record>
+
+    <record model="ir.rule" id="model_hr_dependent_people_client_user">
+        <field name="name">client_user: da employee: write access on own account</field>
+        <field name="model_id" ref="model_hr_dependent_people"/>
+        <field name="domain_force">[]</field>
+        <field name="groups" eval="[(4, ref('da_client_user.group_client'))]"/>
+        <field name="perm_create" eval="False"/>
+        <field name="perm_unlink" eval="False"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_read" eval="False"/>
+    </record>
+
+     <record model="ir.rule" id="model_hr_dependent_people_client_user_access">
+        <field name="name">client_user_access: da employee: write access on own account</field>
+        <field name="model_id" ref="model_hr_dependent_people"/>
+        <field name="domain_force">[('parent_id.user_id', '=', user.id)]</field>
+        <field name="groups" eval="[(4, ref('da_client_user.group_client'))]"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_unlink" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_read" eval="True"/>
+    </record>
+
+    <!--    hr_dependent_people-->
+    <record id="da_dependent_people_read_own_rule" model="ir.rule">
+        <field name="name">dependent people Read Own</field>
+        <field name="domain_force">[('parent_id.user_id','=',user.id)]</field>
+        <field name="groups" eval="[(4, ref('base.group_user'))]"/>
+        <field name="model_id" ref="model_hr_dependent_people"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_unlink" eval="False"/>
+    </record>
+
+    <record id="da_dependent_people_hr_rule" model="ir.rule">
+        <field name="name">dependent people Hr All</field>
+        <field name="domain_force">[(1,'=',1)]</field>
+        <field name="groups" eval="[(4, ref('hr.group_hr_manager'))]"/>
+        <field name="model_id" ref="model_hr_dependent_people"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_unlink" eval="True"/>
+    </record>
+
+
+    <record id="da_employee_read_own_rule" model="ir.rule">
+        <field name="name">Employee Read Own</field>
+        <field name="domain_force">[('user_id','=',user.id)]</field>
+        <field name="groups" eval="[(4, ref('base.group_user'))]"/>
+        <field name="model_id" ref="hr.model_hr_employee"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_create" eval="False"/>
+        <field name="perm_unlink" eval="False"/>
+    </record>
+
+    <record id="da_employee_read_all_rule" model="ir.rule">
+        <field name="name">Employee Read All</field>
+        <field name="domain_force">[(1,'=',1)]</field>
+        <field name="groups" eval="[(4, ref('base.group_user'))]"/>
+        <field name="model_id" ref="hr.model_hr_employee"/>
+        <field name="perm_write" eval="False"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_create" eval="False"/>
+        <field name="perm_unlink" eval="False"/>
+    </record>
+
+    <record id="da_employee_hr_rule" model="ir.rule">
+        <field name="name">Employee Hr All</field>
+        <field name="domain_force">[(1,'=',1)]</field>
+        <field name="groups" eval="[(4, ref('hr.group_hr_user')),(4, ref('hr.group_hr_manager'))]"/>
+        <field name="model_id" ref="hr.model_hr_employee"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_unlink" eval="True"/>
+    </record>
+
+    <data noupdate="1">
+        <delete model="ir.rule" search="[('id', '=', ref('base.res_users_rule'))]"/>
+        <delete model="ir.rule" search="[('id', '=', ref('hr.hr_job_comp_rule'))]"/>
+        <delete model="ir.rule" search="[('id', '=', ref('hr.hr_dept_comp_rule'))]"/>
+        <delete model="ir.rule" search="[('id', '=', ref('hr.hr_employee_comp_rule'))]"/>
+    </data>
+
+    <data noupdate="0">
+        <record id="res_da_users_rule" model="ir.rule">
+            <field name="name">DA user rule</field>
+            <field name="model_id" ref="base.model_res_users"/>
+            <field eval="True" name="global"/>
+            <field name="domain_force">
+                ['|','|',('company_id','=',False),('company_ids','child_of',[user.company_id.id]),('company_id','in',user.company_ids.ids)]
+            </field>
+        </record>
+
+        <record id="res_da_users_rule_access_create" model="ir.rule">
+            <field name="name">DA user rule skill create</field>
+            <field name="model_id" ref="model_hr_employee"/>
+            <field name="groups" eval="[(4, ref('hr_core.group_hr_client_user'))]"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="perm_unlink">Fasle</field>
+            <field name="perm_write">Fasle</field>
+            <field name="perm_read">Fasle</field>
+            <field name="perm_create">True</field>
+        </record>
+
+        <record id="res_da_users_rule_access" model="ir.rule">
+            <field name="name">DA user rule</field>
+            <field name="model_id" ref="model_hr_employee"/>
+            <field name="groups" eval="[(4, ref('hr_core.group_hr_client_user'))]"/>
+            <field name="domain_force">[('account', '=', user.login)]</field>
+            <field name="perm_unlink">Fasle</field>
+        </record>
+
+        
+
+        <record model="ir.rule" id="hr_multi_comp_rule">
+            <field name="name">HR multi-company</field>
+            <field name="model_id" ref="hr.model_hr_employee"/>
+            <field name="global" eval="True"/>
+            <field name="domain_force">
+                ['|','|','|',('company_id','=',False),('company_id','child_of',[user.company_id.id]),('company_id','in',user.company_ids.ids),('user_id.company_ids','child_of',user.company_ids.ids)]
+            </field>
+        </record>
+
+        <record id="hr_core_dept_comp_rule" model="ir.rule">
+            <field name="name">Department multi company rule</field>
+            <field name="model_id" ref="hr.model_hr_department"/>
+            <field name="global" eval="True"/>
+            <field name="domain_force">
+                ['|','|',('company_id','=',False),('company_id','child_of',[user.company_id.id]),('company_id','in',user.company_ids.ids)]
+            </field>
+        </record>
+
+        <record id="hr_core_job_comp_rule" model="ir.rule">
+            <field name="name">Job multi company rule</field>
+            <field name="model_id" ref="hr.model_hr_job"/>
+            <field name="global" eval="True"/>
+            <field name="domain_force">
+                ['|','|',('company_id','=',False),('company_id','child_of',[user.company_id.id]),('company_id','in',user.company_ids.ids)]
+            </field>
+        </record>
+
+        <record id="da_location_comp_rule" model="ir.rule">
+            <field name="name">DA Location multi company rule</field>
+            <field name="model_id" ref="model_da_location"/>
+            <field name="global" eval="True"/>
+            <field name="domain_force">
+                ['|','|',('company_id','=',False),('company_id','child_of',[user.company_id.id]),('company_id','in',user.company_ids.ids)]
+            </field>
+        </record>
+    </data>
+</odoo>

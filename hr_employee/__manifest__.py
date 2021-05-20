@@ -1,31 +1,26 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "DA Employee",
-
-    'summary': """
-        Short (1 phrase/line) summary of the module's purpose, used as
-        subtitle on modules listing or apps.openerp.com""",
-
-    'description': """
-        Long description of module's purpose
-    """,
-
-    'author': "My Company",
-    'website': "http://www.yourcompany.com",
-
-    # Categories can be used to filter modules in modules listing
-    # Check https://github.com/odoo/odoo/blob/12.0/odoo/addons/base/data/ir_module_category_data.xml
-    # for the full list
-    'category': 'Uncategorized',
+    'name': 'HR Employee',
     'version': '0.1',
-
-    # any module necessary for this one to work correctly
-    'depends': ['base', 'hr'],
-
-    # always loaded
+    'summary': 'This module add employee form info',
+    'description': 'This module allow you can overrides odoo hr core.',
+    'category': 'Human Resources',
+    'author': 'DA (chinh.chutrieu)',
+    'depends': ['base', 'website', 'mail', 'contacts', 'hr', 'hr_payroll', 'hr_core',
+                'hr_recruitment', 'hr_attendance', 'swr_datepicker'],
     'data': [
-
+        'data/website_data.xml',
+        'security/hr_employee_new_security.xml',
+        'security/ir.model.access.csv',
+        'views/assets.xml',
+        'views/hr_employee_new_views.xml',
+        'views/hr_employee_views.xml',
+        'views/res_company.xml',
+        'views/menu_view.xml',
+        'views/employee_skill.xml',
     ],
+    'license': 'AGPL-3',
     'installable': True,
-    'application': True,
+    'auto_install': False,
+    'application': True
 }
