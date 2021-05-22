@@ -15,5 +15,3 @@ model_ir_exports_client,model_ir_exports_client,base.model_ir_exports,da_client_
 model_res_partner_client,model_res_partner_client,base.model_res_partner,da_client_user.group_client,1,0,0,0
 model_mail_channel_client,model_mail_channel_client,mail.model_mail_channel,da_client_user.group_client,1,0,0,0
 model_mail_channel_partner_client,model_mail_channel_partner_client,mail.model_mail_channel_partner,da_client_user.group_client,1,0,0,0
-model_calendar_event_client,model_calendar_event_client,calendar.model_calendar_event,da_client_user.group_client,1,0,0,0
-model_calendar_attendee_client,model_calendar_attendee_client,calendar.model_calendar_attendee,da_client_user.group_client,1,0,0,0

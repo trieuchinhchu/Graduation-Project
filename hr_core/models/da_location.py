@@ -1,10 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from werkzeug import urls
-
 from odoo import models, api, fields, _
-from odoo.exceptions import ValidationError
-from odoo.http import request
 
 
 class DAEmployeeLocation(models.Model):

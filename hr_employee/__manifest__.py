@@ -7,7 +7,7 @@
     'category': 'Human Resources',
     'author': 'DA (chinh.chutrieu)',
     'depends': ['base', 'website', 'mail', 'contacts', 'hr', 'hr_payroll', 'hr_core',
-                'hr_recruitment', 'hr_attendance', 'swr_datepicker'],
+                'hr_attendance', 'swr_datepicker', 'da_client_user'],
     'data': [
         'data/website_data.xml',
         'security/hr_employee_new_security.xml',

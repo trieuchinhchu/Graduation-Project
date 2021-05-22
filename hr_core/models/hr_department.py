@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 
-from unidecode import unidecode
-
 from odoo import models, fields, api, _
 
 

@@ -404,53 +404,6 @@
                                         </div>
                                     </div>
                                 </div>
-                                
-                                <div class="row form-group form-field o_website_form_custom">
-                                    <div class="col-lg-3 col-md-4">
-                                        <label class="col-form-label o_fake_editable" for="dependent_ids">
-                                            Children
-                                        </label>
-                                    </div>
-                                    <div class="col-lg-7 col-md-8">
-                                        <table class="table table-sm table-reports">
-                                            <thead>
-                                                <tr>
-                                                    <th style="width: 182px;">Full Name</th>
-                                                    <th style="width: 182px;">Birthday</th>
-                                                    <th style="width: 182px;">Schoools</th>
-                                                    <th style="display: none;">Abc</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr t-foreach="dependent_ids" t-as="chil">
-                                                    <td>
-                                                        <input style="width: 182px;" type="text" class="o_website_form_input" t-att-value="chil['name']" name="childs[]"/>
-                                                    </td>
-                                                    <td>
-                                                        <input style="width: 182px;" type="date" class="o_website_form_input" t-att-value="chil['date_of_birth']" name="childs_date[]"/>
-                                                    </td>
-                                                    <td>
-                                                        <input style="width: 182px;" type="text" class="o_website_form_input" t-att-value="chil['study_school']" name="childs_study[]"/>
-                                                    </td>
-                                                    <td>
-                                                        <input type="text" class="o_website_form_input" style="display: none;" t-att-value="chil['id']" name="childs_id[]"/>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                                <div class="row form-group form-field o_website_form_custom">
-                                    <div class="col-lg-3 col-md-4">
-                                        <label class="col-form-label o_fake_editable" for="add_dependent_ids">
-                                        </label>
-                                    </div>
-                                    <div class="col-lg-7 col-md-8">
-                                        <div class="input_fields_wrap" style="width: 117%;">
-                                            <a href="#" style="color: blue;" class="add_field_button">Add More Fields</a>
-                                        </div>
-                                    </div>
-                                </div>
                                 <h5 style="font-style: bo;font-family: bold;color: black;">Contact </h5>
                                 <div class="row form-group form-field o_website_form_required o_website_form_custom">
                                     <div class="col-lg-3 col-md-4">

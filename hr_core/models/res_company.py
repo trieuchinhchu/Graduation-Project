@@ -1,14 +1,9 @@
 # -*- coding: utf-8 -*-
 
-from collections import defaultdict
-from datetime import timedelta
 import datetime
 from pytz import timezone, utc
 from dateutil.relativedelta import relativedelta
-
 from odoo import models, fields, api, _
-from odoo.tools import float_utils
-from odoo.exceptions import ValidationError
 
 
 class DAResCompanyHoliday(models.Model):
@@ -21,8 +16,8 @@ class DAResCompanyHoliday(models.Model):
                                           help='After this day pm, dl can not approve request!')
     approve_day = fields.Integer(string='Approve day', default=2,
                                  help='After this day, pm, dl can approve request at late status!')
-    hr_email = fields.Char("HR Email")
-    rec_email = fields.Char("Rec Email")
+    hr_email = fields.Char("HR Email", default='hr@da.com.vn')
+    rec_email = fields.Char("Rec Email", default='rec@da.com.vn')
     it_email = fields.Char("IT Email", default='it@da.com.vn')
 
     _sql_constraints = [

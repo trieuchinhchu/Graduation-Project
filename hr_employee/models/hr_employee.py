@@ -86,7 +86,7 @@ class HrEmployeeWebsiteInherit(models.Model):
         self.update({'emp_info_state': 'hr_confirm'})
 
     def send_request_update_employee_info_email(self):
-        template = self.env.ref('da_hr_employee.email_to_new_emp_template')
+        template = self.env.ref('hr_employee.email_to_new_emp_template')
         for r in self:
             r.email_update_date = fields.Datetime.now()
             r.emp_info_state = 'employee_update'
@@ -144,7 +144,7 @@ class HrEmployeeWebsiteInherit(models.Model):
 
         if vals.get('code', _('New')) == _('New'):
             if vals.get('internship', False):
-                vals['code'] = self.env.ref('hr_core.seq_employee_internship_code').next_by_id() or _('New')
+                vals['code'] = self.env.ref('hr_core.sequence_employee_internship_code').next_by_id() or _('New')
             elif 'company_id' in vals:
                 vals['code'] = self.env['ir.sequence'].with_context(force_company=vals['company_id']). \
                                    next_by_code('employee.code') or _('New')

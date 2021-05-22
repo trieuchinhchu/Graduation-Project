@@ -131,22 +131,14 @@ class EmployeeFormController(http.Controller):
                 # return werkzeug.utils.redirect('/web/login', 303)
             user_id = request.env.user
             record = employee_obj.sudo().search([('user_id', '=', user_id.id)], limit=1)
-            dependent_ids = request.env['hr.dependent.people'].sudo().search([('parent_id', '=', record.id)])
             values.update({
                 'default_country_id': user_id.partner_id.country_id.id,
                 'default_state_id': user_id.partner_id.state_id.id,
                 'error': {},
                 'error_message': [],
-                'dependent_ids': dependent_ids
             })
-        elif res_id:
-            dependent_ids = request.env['hr.dependent.people'].sudo().search([('parent_id', '=', record.id)])
-            values.update({
-                'dependent_ids': dependent_ids
-            })
-        # dependent_people_ids = dependent_people_obj.search([('parent_id', '=', record.id)], limit=2)
+
         countries = request.env['res.country'].sudo().search([])
-        skill_ids = request.env['hr.skill'].sudo().search([])
         states = request.env['res.country.state'].sudo().search([])
         districts = request.env['res.district'].sudo().search([])
         values.update({key: record.sudo()[f'{key}'] for key in self.MANDATORY_FIELDS + self.OPTIONAL_FIELDS if
@@ -157,7 +149,6 @@ class EmployeeFormController(http.Controller):
         values.update({
             'countries': countries,
             'states': states,
-            'skill_ids': skill_ids,
             'partner': request.env.user.partner_id,
             'districts': districts
             # 'allow_update': False,

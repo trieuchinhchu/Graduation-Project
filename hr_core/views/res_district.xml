@@ -4,7 +4,7 @@
         <field name="name">res.district.tree</field>
         <field name="model">res.district</field>
         <field name="arch" type="xml">
-            <tree string="da District" editable="top">
+            <tree string="DA District" editable="top">
                 <field name="name"/>
                 <field name="code"/>
                 <field name="state_id"/>
@@ -13,7 +13,7 @@
     </record>
 
     <record id="da_res_district_action" model="ir.actions.act_window">
-        <field name="name">da District</field>
+        <field name="name">DA District</field>
         <field name="res_model">res.district</field>
         <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
@@ -52,12 +52,5 @@
             </p>
         </field>
     </record>
-
-    <menuitem
-            id="menu_res_manufacturer"
-            action="da_res_manufacturer_action"
-            parent="hr.menu_human_resources_configuration"
-            groups="hr.group_hr_manager"
-            sequence="23"/>
 
 </odoo>

@@ -19,8 +19,7 @@ class RecEmployeeInherit(models.Model):
     def name_search(self, name, args=None, operator='ilike', limit=100):
         recs = super(RecEmployeeInherit, self).name_search(name, args, operator, limit)
         if self._context.get('hr_rec', False):
-            user_ids = self.env.ref('hr_core.group_hr_rec').users.ids + \
-                       self.env.ref('hr_recruitment.group_hr_recruitment_manager').users.ids
+            user_ids = self.env.ref('hr_core.group_hr_rec').users.ids
             args += ['|', ('login', operator, unidecode(name.strip())), ('name', operator, unidecode(name.strip())),
                      ('id', 'in', user_ids)]
             return self.search(args, limit=limit).name_get()

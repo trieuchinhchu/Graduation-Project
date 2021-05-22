@@ -38,7 +38,8 @@ class HrEmployeeInherit(models.Model):
     hire_date = fields.Date(string='Hire Date 2', required=False, track_visibility='onchange',
                             help="Hire Date 2 is normally the date when someone begins working ... ")
     company_id = fields.Many2one('res.company', string='Company', default=lambda self: self.env.user.company_id)
-    identification_id = fields.Char(string='Identification No', groups="hr.group_hr_user,base.group_user,hr_core.group_hr_client_user")
+    identification_id = fields.Char(string='Identification No',
+                                    groups="hr.group_hr_user,base.group_user,hr_core.group_hr_client_user")
     tax_code = fields.Char(string='Tax Code')
     id_tax = fields.Char(string='ID Registration Tax')
     passport_id = fields.Char('Passport No', groups="hr.group_hr_user,base.group_user,hr_core.group_hr_client_user")
@@ -46,7 +47,8 @@ class HrEmployeeInherit(models.Model):
     place_for_passport = fields.Char('Place for Passport')
     id_date = fields.Date('ID Date')
     passport_date = fields.Date('Passport Date')
-    sinid = fields.Char('SIN No', help='Social Insurance Number', groups="hr.group_hr_user,base.group_user,hr_core.group_hr_client_user")
+    sinid = fields.Char('SIN No', help='Social Insurance Number',
+                        groups="hr.group_hr_user,base.group_user,hr_core.group_hr_client_user")
     vat = fields.Char(string='Tax ID', help="The Tax Identification Number. "
                                             "Complete it if the contact is subjected to government taxes. "
                                             "Used in some legal statements.")
@@ -56,10 +58,12 @@ class HrEmployeeInherit(models.Model):
         groups="hr.group_hr_user,base.group_user,hr_core.group_hr_client_user")
     street = fields.Char(related='address_home_id.street', readonly=False)
     street2 = fields.Char(related='address_home_id.street2', readonly=False)
-    place_of_birth = fields.Char('Place of Birth', groups="hr.group_hr_user,base.group_user,hr_core.group_hr_client_user")
+    place_of_birth = fields.Char('Place of Birth',
+                                 groups="hr.group_hr_user,base.group_user,hr_core.group_hr_client_user")
     zip = fields.Char(related='address_home_id.zip', readonly=False, change_default=True)
     city = fields.Char(related='address_home_id.city', readonly=False)
-    country_id = fields.Many2one('res.country', 'Nationality (Country)',groups="hr.group_hr_user,base.group_user,hr_core.group_hr_client_user")
+    country_id = fields.Many2one('res.country', 'Nationality (Country)',
+                                 groups="hr.group_hr_user,base.group_user,hr_core.group_hr_client_user")
     country = fields.Many2one(related='address_home_id.country_id', string='Country', ondelete='restrict',
                               readonly=False, store=True)
     state_id = fields.Many2one(related='address_home_id.state_id', readonly=False, string='State', ondelete='restrict',
@@ -72,7 +76,8 @@ class HrEmployeeInherit(models.Model):
                                     ('vocational', 'Trung cấp'),
                                     ('high_school', 'THPT'),
                                     ('other', 'Khác')], 'Certificate Level',
-                                   default='university',groups="hr.group_hr_user,base.group_user,hr_core.group_hr_client_user")
+                                   default='university',
+                                   groups="hr.group_hr_user,base.group_user,hr_core.group_hr_client_user")
     graduation_year = fields.Char('Graduation Year')
     emergency_relation = fields.Char('Emergency Relation')
     account_number = fields.Char(string='Bank Account Number',
@@ -82,23 +87,12 @@ class HrEmployeeInherit(models.Model):
     spouse_job = fields.Char(string="Spouse Job")
     spouse_name = fields.Char(string="Spouse Name")
     spouse_year = fields.Char(string="Spouse Year")
-    vehicle_name = fields.Char('Vehicle Name')
-    manufacturer = fields.Many2one(string='Manufacturer',comodel_name='res.manufacturer',ondelete='set null')
-    is_vehicle = fields.Selection(string='Have Vehicle', selection=[('no', 'No'), ('yes', 'Yes')])
     is_bank = fields.Selection(string='Have TP Bank Account', selection=[('no', 'No'), ('yes', 'Yes')])
-    vehicle_license = fields.Char('License plate')
-    vehicle_color = fields.Char('Vehicle Color')
-    vehicle_from_date = fields.Date('Vehicle From', default=fields.Date.today())
-    vehicle_to_date = fields.Date('Vehicle To', default=fields.Date.today())
-    dependent_ids = fields.One2many('hr.dependent.people', 'parent_id', string='Dependent(s)')
     document_ids = fields.Many2many('da.employee.docs', 'employee_document_rel', 'doc_id', 'employee_id',
                                     string='Employee Documents')
     work_location_id = fields.Many2one('da.location', default=_default_work_location)
-    work_location = fields.Selection([('ac6', 'Tầng 6 tòa nhà AC'),
-                                      ('ac8', 'Tầng 8 tòa nhà AC'),
-                                      ('hl9', 'Tầng 9 tòa nhà HL'),
-                                      ('60bm', 'Tòa nhà 60 Bạch Mai'),
-                                      ('other', 'Địa điểm khác')], required=False, default='ac6')
+    work_location = fields.Selection([('dp', 'Tầng 6 tòa nhà Đại Phát'),
+                                      ('other', 'Địa điểm khác')], required=False, default='dp')
     contract_id = fields.Many2one('hr.contract', compute='_compute_contract_id', string='Current Contract',
                                   help='Latest contract of the employee',
                                   groups="hr_contract.group_hr_contract_manager")
@@ -108,37 +102,47 @@ class HrEmployeeInherit(models.Model):
     resignation_reason = fields.Char("Resignation Reason")
     resignation_note = fields.Text("Resignation Notes")
     social_facebook = fields.Char(string="Socical Facebook")
-    home_country = fields.Many2one(string='Home Country',comodel_name='res.country',ondelete='set null')
-    home_state = fields.Many2one(string='Home State',comodel_name='res.country.state',ondelete='set null')
+    home_country = fields.Many2one(string='Home Country', comodel_name='res.country', ondelete='set null')
+    home_state = fields.Many2one(string='Home State', comodel_name='res.country.state', ondelete='set null')
     home_city = fields.Char(string="Home City")
-    home_disctrict = fields.Many2one(string='Home District',comodel_name='res.district',ondelete='set null')
-    current_district = fields.Many2one(string='Current District',comodel_name='res.district',ondelete='set null')
-    place_disctrict = fields.Many2one(string='Place District',comodel_name='res.district',ondelete='set null')
-    place_country = fields.Many2one(string='Place Country',comodel_name='res.country',ondelete='set null')
-    place_state = fields.Many2one(string='Place State',comodel_name='res.country.state',ondelete='set null')
-    school_id = fields.Many2one(string='School',comodel_name='res.school',ondelete='set null')
+    home_disctrict = fields.Many2one(string='Home District', comodel_name='res.district', ondelete='set null')
+    current_district = fields.Many2one(string='Current District', comodel_name='res.district', ondelete='set null')
+    place_disctrict = fields.Many2one(string='Place District', comodel_name='res.district', ondelete='set null')
+    place_country = fields.Many2one(string='Place Country', comodel_name='res.country', ondelete='set null')
+    place_state = fields.Many2one(string='Place State', comodel_name='res.country.state', ondelete='set null')
+    school_id = fields.Many2one(string='School', comodel_name='res.school', ondelete='set null')
     gender = fields.Selection([
         ('male', 'Male'),
         ('female', 'Female'),
-        ('other', 'Other')], default="male",groups="hr.group_hr_user,base.group_user,hr_core.group_hr_client_user")
-    birthday = fields.Date('Date of Birth',groups="hr.group_hr_user,base.group_user,hr_core.group_hr_client_user")
+        ('other', 'Other')], default="male", groups="hr.group_hr_user,base.group_user,hr_core.group_hr_client_user")
+    birthday = fields.Date('Date of Birth', groups="hr.group_hr_user,base.group_user,hr_core.group_hr_client_user")
     permission_view = fields.Boolean(string="Permission", compute='_compute_view_record')
-    ssnid = fields.Char('SSN No', help='Social Security Number', groups="hr.group_hr_user,base.group_user,hr_core.group_hr_client_user")
-    sinid = fields.Char('SIN No', help='Social Insurance Number', groups="hr.group_hr_user,base.group_user,hr_core.group_hr_client_user")
-    study_field = fields.Char("Field of Study", placeholder='Computer Science', groups="hr.group_hr_user,base.group_user,hr_core.group_hr_client_user")
-    study_school = fields.Char("School",  groups="hr.group_hr_user,base.group_user,hr_core.group_hr_client_user")
-    emergency_contact = fields.Char("Emergency Contact",  groups="hr.group_hr_user,base.group_user,hr_core.group_hr_client_user")
-    emergency_phone = fields.Char("Emergency Phone",  groups="hr.group_hr_user,base.group_user,hr_core.group_hr_client_user",default="")
-    children = fields.Integer(string='Number of Children', groups="hr.group_hr_user,base.group_user,hr_core.group_hr_client_user")
-    spouse_complete_name = fields.Char(string="Spouse Complete Name", groups="hr.group_hr_user,base.group_user,hr_core.group_hr_client_user")
-    spouse_birthdate = fields.Date(string="Spouse Birthdate", groups="hr.group_hr_user,base.group_user,hr_core.group_hr_client_user")
+    ssnid = fields.Char('SSN No', help='Social Security Number',
+                        groups="hr.group_hr_user,base.group_user,hr_core.group_hr_client_user")
+    study_field = fields.Char("Field of Study", placeholder='Computer Science',
+                              groups="hr.group_hr_user,base.group_user,hr_core.group_hr_client_user")
+    study_school = fields.Char("School",
+                               groups="hr.group_hr_user,base.group_user,hr_core.group_hr_client_user")
+    emergency_contact = fields.Char("Emergency Contact",
+                                    groups="hr.group_hr_user,base.group_user,hr_core.group_hr_client_user")
+    emergency_phone = fields.Char("Emergency Phone",
+                                  groups="hr.group_hr_user,base.group_user,hr_core.group_hr_client_user",
+                                  default="")
+    children = fields.Integer(string='Number of Children',
+                              groups="hr.group_hr_user,base.group_user,hr_core.group_hr_client_user")
+    spouse_complete_name = fields.Char(string="Spouse Complete Name",
+                                       groups="hr.group_hr_user,base.group_user,hr_core.group_hr_client_user")
+    spouse_birthdate = fields.Date(string="Spouse Birthdate",
+                                   groups="hr.group_hr_user,base.group_user,hr_core.group_hr_client_user")
     marital = fields.Selection([
         ('single', 'Single'),
         ('married', 'Married'),
         ('cohabitant', 'Legal Cohabitant'),
         ('widower', 'Widower'),
         ('divorced', 'Divorced')
-    ], string='Marital Status', groups="hr.group_hr_user,base.group_user,hr_core.group_hr_client_user", default='single')
+    ], string='Marital Status',
+        groups="hr.group_hr_user,base.group_user,hr_core.group_hr_client_user",
+        default='single')
     _sql_constraints = [
         ('work_email_uniq', 'unique( work_email )', 'Work email must be unique.')
     ]
@@ -146,10 +150,10 @@ class HrEmployeeInherit(models.Model):
     @api.multi
     def _compute_view_record(self):
         for r in self:
-            if  not self.env.user.has_group('base.group_system') and\
-                not self.env.user.has_group('hr.group_hr_user') and\
-                not self.env.user.has_group('hr.group_hr_manager') and\
-                self.env.user.id != r.user_id.id:
+            if not self.env.user.has_group('base.group_system') and \
+                    not self.env.user.has_group('hr.group_hr_user') and \
+                    not self.env.user.has_group('hr.group_hr_manager') and \
+                    self.env.user.id != r.user_id.id:
                 raise ValidationError(_("You don't have permission view Infor"))
             else:
                 r.permission_view = True
@@ -161,7 +165,7 @@ class HrEmployeeInherit(models.Model):
                 # Convert it into integer
                 val = int(record.graduation_year)
             except ValueError:
-                    raise ValidationError(_("No.. Graduation Year is not a number. It's a string"))
+                raise ValidationError(_("No.. Graduation Year is not a number. It's a string"))
 
     @api.constrains('identification_id')
     def _check_identification_id(self):
@@ -175,7 +179,7 @@ class HrEmployeeInherit(models.Model):
             now = datetime.today().date()
             if record.id_date and record.id_date > now:
                 raise ValidationError(_("ID date cannot be greater than the current date"))
-            
+
     @api.constrains('passport_date')
     def _check_passport_date(self):
         for record in self:
@@ -189,7 +193,6 @@ class HrEmployeeInherit(models.Model):
             now = datetime.today().date()
             if record.birthday and record.birthday > now:
                 raise ValidationError(_("Birthday cannot be greater than the current date"))
-
 
     @api.multi
     def name_get(self):

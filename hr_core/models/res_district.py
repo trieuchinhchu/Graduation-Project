@@ -1,13 +1,12 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-import re
 import logging
 from odoo import api, fields, models
-from odoo.osv import expression
-from psycopg2 import IntegrityError
-from odoo.tools.translate import _
+
 _logger = logging.getLogger(__name__)
+
+
 class CountryState(models.Model):
     _description = "District"
     _name = 'res.district'
@@ -29,9 +28,9 @@ class CountryState(models.Model):
             result.append((record.id, "{} ({})".format(record.name, record.state_id.code)))
         return result
 
+
 class Manufacturer(models.Model):
     _description = "Manufacturer"
     _name = 'res.manufacturer'
 
     name = fields.Char(string='Manufacturer Name', required=True)
-        

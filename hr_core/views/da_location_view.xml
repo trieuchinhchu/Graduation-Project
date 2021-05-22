@@ -43,11 +43,6 @@
         </field>
     </record>
 
-    <menuitem
-            id="menu_da_location"
-            action="da_location_action"
-            parent="hr.menu_human_resources_configuration"
-            groups="hr.group_hr_manager"
-            sequence="10"/>
+
 
 </odoo>

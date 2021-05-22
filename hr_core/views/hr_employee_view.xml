@@ -88,13 +88,6 @@
                 <attribute name="confirm">Are you sure you want to archived this employee</attribute>
             </xpath>
             <xpath expr="//page[@name='personal_information']/group[1]" position="after">
-                <group string="Thông tin gửi xe">
-                    <field name="manufacturer" string="Hãng xe"/>
-                    <field name="vehicle_name" string="Loại xe"/>
-                    <field name="vehicle_license" string="Biển số xe"/>
-                    <field name="vehicle_from_date" string="Ngày bắt đầu đăng ký"/>
-                    <field name="vehicle_to_date" string="Ngày kết thúc"/>
-                </group>
                 <group string="Các loại giấy tờ đang giữ">
                     <field name="document_ids" string="" widget="many2many_checkboxes"/>
                 </group>
@@ -217,93 +210,6 @@
                                         </group>
                                     </group>
                                 </page>
-                                <page string="Children &amp; Dependents">
-                                    <group>
-                                        <field name="dependent_ids" nolabel="1"
-                                               context="{'active_id': id, 'default_parent_id': id}">
-                                            <tree>
-                                                <field name="parent_id" invisible="1"/>
-                                                <field name="name"/>
-                                                <field name="date_of_birth"/>
-                                                <field name="study_school"/>
-                                                <field name="relation"/>
-                                                <field name="register_date" widget="date"
-                                                       options="{'datepicker': {'showType': 'months'}}"/>
-                                                <field name="end_date" widget="date"
-                                                       options="{'datepicker': {'showType': 'months'}}"/>
-                                            </tree>
-                                            <form string="Dependent People">
-                                                <group>
-                                                    <group colspan="4">
-                                                        <group string="Thông tin cơ bản">
-                                                            <field name="parent_id" invisible="1"/>
-                                                            <field name="name" string="Họ và tên"/>
-                                                            <field name="date_of_birth" string="Ngày sinh"
-                                                                   options="{'datepicker': {'showType': False}}"/>
-                                                            <field name="study_school" string="Trường học"/>
-                                                        </group>
-                                                        <group string="Thông tin người phụ thuộc">
-                                                            <field name="is_dependent"/>
-                                                            <field name="relation" string="Quan hệ với người nộp thuế"
-                                                                   attrs="{'invisible': [('is_dependent','=', False)]}"/>
-                                                            <field name="register_date" widget="date"
-                                                                   attrs="{'invisible': [('is_dependent','=', False)]}"
-                                                                   string="Thời điểm bắt đầu tính giảm trừ"
-                                                                   options="{'datepicker': {'showType': 'months'}}"/>
-                                                            <field name="end_date" widget="date"
-                                                                   attrs="{'invisible': [('is_dependent','=', False)]}"
-                                                                   options="{'datepicker': {'showType': 'months'}}"
-                                                                   string="Thời điểm kết thúc tính giảm trừ"/>
-                                                        </group>
-                                                    </group>
-                                                    <group attrs="{'invisible': [('is_dependent','=', False)]}">
-                                                        <div style="width='100%'">
-                                                            Người phụ thuộc đã có CMT/Hộ chiếu
-                                                        </div>
-                                                        <field name="has_id" nolabel="1"/>
-                                                    </group>
-                                                    <group colspan="4"
-                                                           attrs="{'invisible': [('is_dependent','=', False)]}">
-                                                        <group string="Chứng minh thư / Hộ chiếu"
-                                                               attrs="{'invisible': [('has_id', '=', False)]}">
-                                                            <field name="sinid"
-                                                                   attrs="{'invisible': [('has_id', '=', False)]}"
-                                                                   string="Mã số thuế của người phụ thuộc (nếu có)"/>
-                                                            <field name="identification_id"
-                                                                   string="Chứng minh thư / thẻ căn cước"
-                                                                   attrs="{'invisible': [('has_id', '=', False)]}"/>
-                                                            <field name="passport_id" string="Hộ chiếu"
-                                                                   attrs="{'invisible': [('has_id', '=', False)]}"/>
-                                                            <field name="country_id" string="Quốc tịch"
-                                                                   attrs="{'invisible': [('has_id', '=', False)]}"
-                                                                   options='{"no_create": True}'/>
-                                                        </group>
-                                                        <group string="Giấy khai sinh"
-                                                               attrs="{'invisible': [('has_id', '=', True)]}">
-                                                            <field name="birth_no" string="Số"
-                                                                   attrs="{'invisible': [('has_id', '=', True)]}"/>
-                                                            <field name="book_no" string="Quyển số"
-                                                                   attrs="{'invisible': [('has_id', '=', True)]}"/>
-                                                            <label for="street" string="Nơi đăng ký"/>
-                                                            <div class="o_address_format"
-                                                                 attrs="{'invisible': [('has_id', '=', True)]}">
-                                                                <field name="country_id" placeholder="Quốc gia"
-                                                                       class="o_address_country"
-                                                                       options='{"no_create": True}'/>
-                                                                <field name="state_id" placeholder="Tỉnh/ Thành phố"
-                                                                       context="{'country_id': country_id}"
-                                                                       options='{"no_create": True}'/>
-                                                                <field name="city" placeholder="Quận/ Huyện"/>
-                                                                <field name="street" placeholder="Phường/Xã"
-                                                                       class="o_address_street"/>
-                                                            </div>
-                                                        </group>
-                                                    </group>
-                                                </group>
-                                            </form>
-                                        </field>
-                                    </group>
-                                </page>
                             </notebook>
                         </div>
                     </div>
@@ -329,7 +235,7 @@
     </record>
 
     <record id="hr.open_view_employee_list_my" model="ir.actions.act_window">
-            <field name="name">da Group</field>
+            <field name="name">DA Group</field>
             <field name="res_model">hr.employee</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form,activity</field>
@@ -361,24 +267,5 @@
         <field name="view_id" ref="hr.hr_kanban_view_employees"/>
         <field name="act_window_id" ref="open_view_da_employee_list"/>
     </record>
-
-    <menuitem
-            name="Employees"
-            id="menu_open_view_employee_list_da"
-            parent="hr.menu_hr_root"
-            sequence="1"/>
-
-    <menuitem
-            id="hr.menu_open_view_employee_list_my"
-            action="open_view_da_employee_list"
-            parent="hr_core.menu_open_view_employee_list_da"
-            sequence="10"/>
-
-    <menuitem
-            id="menu_open_view_employee_list_my"
-            action="hr.open_view_employee_list_my"
-            parent="hr_core.menu_open_view_employee_list_da"
-            groups="hr.group_hr_user"
-            sequence="1"/>
 
 </odoo>

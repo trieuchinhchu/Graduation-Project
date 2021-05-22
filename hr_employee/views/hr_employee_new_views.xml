@@ -127,9 +127,9 @@
                     <group string="Contract update Note">
                         <field name="contract_note" nolabel="1"/>
                     </group>
-                    <group>
-                        <field name="send_email_update_contract"/>
-                    </group>
+<!--                    <group>-->
+<!--                        <field name="send_email_update_contract"/>-->
+<!--                    </group>-->
                     <footer>
                         <button string="Confirm" class="oe_highlight" type="object"
                                 name="update_contract_email_action"/>
@@ -189,8 +189,6 @@
                         <button name="welcome_email_action" type="object" string="Welcome email sent" class="bg-info"
                                 confirm="Re-send welcome email?" style="margin-right: 10px;"
                                 groups="hr.group_hr_manager" attrs="{'invisible': [('state', '!=', 'onboard')]}"/>
-                        &#160;&#160;<field name="email_count" nolabel="1"/>
-                        Lần
                     </div>
                     <separator string="Information"/>
                     <group attrs="{'readonly': [('state', '!=', 'draft')]}">
@@ -223,14 +221,14 @@
                             <field name="personal_email"
                                    attrs="{'readonly': [('state', '!=', 'draft')]}"/>
                             
-                            <field name="mail_group_ids"
-                                   attrs="{'readonly': [('state', '!=', 'draft')]}"
-                                   options="{'no_open': True, 'no_create': True}" widget="many2many_tags"/>
+<!--                            <field name="mail_group_ids"-->
+<!--                                   attrs="{'readonly': [('state', '!=', 'draft')]}"-->
+<!--                                   options="{'no_open': True, 'no_create': True}" widget="many2many_tags"/>-->
                             <field name="source_id" context="{'rec_utm_source': True}"
                                    domain="[('rec_utm_source', '=', True)]"
                                    attrs="{'readonly': [('state', '!=', 'draft')]}"/>
                             <field name="follower" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
-                            <field name="create_uid" string="Created By" attrs="{'invisible': [('id', '=', False)]}"/>
+<!--                            <field name="create_uid" string="Created By" attrs="{'invisible': [('id', '=', False)]}"/>-->
                             <label for="user_id" class="oe_inline"/>
                             <div class="oe_inline">
                                 <field name="user_id" context="{'hr_rec': True}"
@@ -246,11 +244,11 @@
                                    options="{'no_open': True, 'no_create': True}"/>
                             <field name="department_id" options="{'no_open': True, 'no_create': True}"
                                    attrs="{'readonly': [('state', '!=', 'draft')]}"/>
-                            <field name="department_part_id" options="{'no_open': True, 'no_create': True}"/>
+<!--                            <field name="department_part_id" options="{'no_open': True, 'no_create': True}"/>-->
                             <field name="job_id" options="{'no_open': True, 'no_create': True}"
                                    attrs="{'readonly': [('state', '!=', 'draft')]}"/>
-                            <field name="skill_id" options="{'no_open': True, 'no_create': True}"
-                                   attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+<!--                            <field name="skill_id" options="{'no_open': True, 'no_create': True}"-->
+<!--                                   attrs="{'readonly': [('state', '!=', 'draft')]}"/>-->
                             <label for="expected_date" class="oe_inline"/>
                             <div class="oe_inline">
                                 <field name="expected_date" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
@@ -329,9 +327,9 @@
                 <field name="company_id"/>
                 <field name="department_id"/>
                 <field name="job_id"/>
-                <field name="skill_id"/>
+<!--                <field name="skill_id"/>-->
                 <field name="personal_email" invisible="1"/>
-                <field name="mail_group_ids" widget="many2many_tags" invisible="1"/>
+<!--                <field name="mail_group_ids" widget="many2many_tags" invisible="1"/>-->
                 <field name="expected_date" invisible="1"/>
                 <field name="account_type" invisible="1"/>
                 <field name="usb" invisible="1"/>
@@ -358,7 +356,7 @@
                        string="Name or account"/>
                 <field name="department_id"/>
                 <field name="job_id"/>
-                <field name="skill_id"/>
+<!--                <field name="skill_id"/>-->
                 <separator/>
                 <filter string="Submitted" name="submit_filter" domain="[('state', '=', 'submit')]"/>
                 <filter string="Onboard" name="onboardt_filter" domain="[('state', '=', 'onboard')]"/>

@@ -22,22 +22,6 @@
             <field name="job_title">Top-level managers</field>
         </record>
 
-        <!--        Công ty thành viên-->
-        <record id="hr_job_director" model="hr.job">
-            <field name="name">Director</field>
-            <field name="job_title">Top-level managers</field>
-        </record>
-
-        <record id="hr_job_vice_director" model="hr.job">
-            <field name="name">Vice Director</field>
-            <field name="job_title">Middle-level managers</field>
-        </record>
-
-        <record id="hr_job_group_leader" model="hr.job">
-            <field name="name">Group Leader</field>
-            <field name="job_title">First-level managers</field>
-        </record>
-
         <!--        Ban lãnh đạo (BOM)-->
         <record id="hr_job_dl" model="hr.job">
             <field name="name">Division Leader</field>
@@ -205,27 +189,6 @@
             <field name="job_title">Employee</field>
         </record>
 
-        <!--        Học viện (Academy)-->
-        <record id="hr_job_tm" model="hr.job">
-            <field name="name">Training Management</field>
-            <field name="job_title">Employee</field>
-        </record>
-        <record id="hr_job_ac" model="hr.job">
-            <field name="name">Admissions Consultant</field>
-            <field name="job_title">Employee</field>
-        </record>
-        <record id="hr_job_lecturers" model="hr.job">
-            <field name="name">Lecturers</field>
-            <field name="job_title">Employee</field>
-        </record>
-        <record id="hr_job_intern" model="hr.job">
-            <field name="name">Intern</field>
-            <field name="job_title">Intern</field>
-        </record>
-        <record id="hr_job_cleaning_staff" model="hr.job">
-            <field name="name">Cleaning Staff</field>
-            <field name="job_title">Employee</field>
-        </record>
         <!--        sale-->
         <record id="hr_job_sale" model="hr.job">
             <field name="name">Sales</field>
