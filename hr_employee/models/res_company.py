@@ -28,16 +28,14 @@ class RecEmployeeInherit(models.Model):
     @api.model
     def search_read(self, domain=None, fields=None, offset=0, limit=None, order=None):
         if self._context.get('hr_rec', False):
-            user_ids = self.env.ref('hr_core.group_hr_rec').users.ids + \
-                       self.env.ref('hr_recruitment.group_hr_recruitment_manager').users.ids
+            user_ids = self.env.ref('hr_core.group_hr_rec').users.ids
             domain.extend([('id', 'in', user_ids)])
         return super(RecEmployeeInherit, self).search_read(domain, fields, offset, limit, order)
 
     @api.model
     def read_group(self, domain, fields, groupby, offset=0, limit=None, orderby=False, lazy=True):
         if self._context.get('hr_rec', False):
-            user_ids = self.env.ref('hr_core.group_hr_rec').users.ids + \
-                       self.env.ref('hr_recruitment.group_hr_recruitment_manager').users.ids
+            user_ids = self.env.ref('hr_core.group_hr_rec').users.ids
             domain.extend([('id', 'in', user_ids)])
         return super(RecEmployeeInherit, self).read_group(domain, fields, groupby, offset=offset, limit=limit,
                                                              orderby=orderby, lazy=lazy)

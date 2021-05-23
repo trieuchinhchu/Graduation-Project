@@ -5,7 +5,6 @@ access_hr_employee_new_lines_hr_dl,hr.employee.new.hr.dl,model_hr_employee_new,h
 access_hr_employee_new_lines_manager,hr.employee.new.hr.manager,model_hr_employee_new,hr.group_hr_manager,1,1,0,0
 access_hr_employee_new_payroll_user,hr.employee.new.payroll.user,model_hr_employee_new,hr_payroll.group_hr_payroll_user,1,1,1,1
 access_hr_employee_new_lines_rec_user,hr.employee.new.rec.user,model_hr_employee_new,hr_core.group_hr_rec,1,1,1,1
-access_hr_employee_new_lines_rec_manager,hr.employee.new.rec.manager,model_hr_employee_new,hr_recruitment.group_hr_recruitment_manager,1,1,1,1
 
 access_hr_contract_type_hr_user,hr.contract.type.hr.user,hr_contract.model_hr_contract_type,base.group_user,1,0,0,0
 

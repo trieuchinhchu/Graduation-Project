@@ -74,17 +74,17 @@ class HrEmployeeNewLines(models.Model):
 
     first_contract_type_id = fields.Many2one('hr.contract.type', string='First Contract Type', required=False,
                                              default=_default_first_contract,
-                                             groups="hr_payroll.group_hr_payroll_user,hr_core.group_hr_rec,hr_recruitment.group_hr_recruitment_manager")
+                                             groups="hr_payroll.group_hr_payroll_user,hr_core")
     first_contract_month = fields.Integer('First Contract Month', default=2,
-                                          groups="hr_payroll.group_hr_payroll_user,hr_core.group_hr_rec,hr_recruitment.group_hr_recruitment_manager")
+                                          groups="hr_payroll.group_hr_payroll_user,hr_core.group_hr_rec")
     first_contract_salary = fields.Float('First Contract Salary', digits=(16, 2),
-                                         groups="hr_payroll.group_hr_payroll_user,hr_core.group_hr_rec,hr_recruitment.group_hr_recruitment_manager")
+                                         groups="hr_payroll.group_hr_payroll_user,hr_core.group_hr_rec")
     second_contract_type_id = fields.Many2one('hr.contract.type', string='Next Contract Type', required=False,
-                                              groups="hr_payroll.group_hr_payroll_user,hr_core.group_hr_rec,hr_recruitment.group_hr_recruitment_manager")
+                                              groups="hr_payroll.group_hr_payroll_user,hr_core.group_hr_rec")
     second_contract_month = fields.Integer('Next Contract Month',
-                                           groups="hr_payroll.group_hr_payroll_user,hr_core.group_hr_rec,hr_recruitment.group_hr_recruitment_manager")
+                                           groups="hr_payroll.group_hr_payroll_user,hr_core.group_hr_rec")
     second_contract_salary = fields.Float('Next Contract Salary', digits=(16, 2),
-                                          groups="hr_payroll.group_hr_payroll_user,hr_core.group_hr_rec,hr_recruitment.group_hr_recruitment_manager")
+                                          groups="hr_payroll.group_hr_payroll_user,hr_core.group_hr_rec")
     source_id = fields.Many2one('utm.source', "Source", ondelete='cascade', track_visibility='onchange')
     follower = fields.Many2one('hr.employee', 'Introduce', help='Tên người phụ trách ứng viên/giới thiệu ứng viên')
     user_id = fields.Many2one("res.users", "Follower", default=lambda self: self.env.uid)
@@ -158,13 +158,10 @@ class HrEmployeeNewLines(models.Model):
 
     def submit(self):
         if not self.env.user.has_group('hr.group_hr_manager') and not \
-                self.env.user.has_group('hr_core.group_hr_rec') and not \
-                self.env.user.has_group('hr_recruitment.group_hr_recruitment_manager'):
+                self.env.user.has_group('hr_core.group_hr_rec'):
             raise ValidationError(_('Permission denied! only HR Manager or REC User can create request.'))
         for r in self:
             r.create_employee()
-        self.write({'state': 'submit'})
-
         # send email to IT HR (1 loai)
         send_request = self.search([('id', 'in', self.ids),
                                     ('state', '=', 'draft')], order='company_id, department_id, account')
@@ -201,7 +198,6 @@ class HrEmployeeNewLines(models.Model):
                     <td>{datetime.strftime(emp.expected_date, '%d/%m/%Y')}</td>
                     <td>{emp.work_location_id.name}</td>
                     <td>{account_type}</td>
-                    <td>{', '.join(emp.mail_group_ids.mapped('name')) or ''}</td>
                     <td>{emp.usb}</td>
                     <td>{emp.internship or ''}</td>
                     <td>{emp.personal_email}</td>
@@ -298,11 +294,6 @@ class HrEmployeeNewLines(models.Model):
         mails |= mail
         mails.send()
 
-    def welcome_email_action(self):
-        self.ensure_one()
-        self.employee_id.send_welcome_email()
-        self.email_count = self.email_count + 1
-
     def update_expected_date_action(self):
         self.ensure_one()
         action = self.env.ref('hr_employee.action_hr_employee_update_expected_date_request').read()[0]
@@ -322,7 +313,7 @@ class HrEmployeeNewLines(models.Model):
         return action
 
     def _check_company_configure(self):
-        if not self.company_id.hr_email:
+        if not self.sudo().company_id.sudo().hr_email:
             raise ValidationError(f'HR email is require for company {self.company_id.name}')
         if not self.company_id.it_email:
             raise ValidationError(f'IT email is require for company {self.company_id.name}')
@@ -433,8 +424,7 @@ class HrEmployeeNewLines(models.Model):
 
     def set_to_onboard(self):
         if not self.env.user.has_group('hr.group_hr_manager') and not \
-                self.env.user.has_group('hr_core.group_hr_rec') and not \
-                self.env.user.has_group('hr_recruitment.group_hr_recruitment_manager'):
+                self.env.user.has_group('hr_core.group_hr_rec'):
             raise ValidationError(_('Permission denied! only HR Manager or REC User can create request.'))
         for r in self:
             r.employee_id.write({'active': True,
@@ -445,13 +435,7 @@ class HrEmployeeNewLines(models.Model):
             user_id.sudo().write({'active': True,
                 'groups_id': [(6, 0, [self.env.ref('base.group_user').id])]})
             user_id.sudo().mapped('partner_id').write({'active': True})
-            # try:
-            #     user_id.sudo().action_reset_password()
-            # except MailDeliveryException:
-            #     raise ValidationError(_('Mail delivery false! Cannot send reset password to employee.'))
 
-            if r.allow_welcome:
-                r.welcome_email_action()
             r.state = 'onboard'
 
             update_info = {'resignation': False, 'resignation_date': False, 'active': True}
@@ -626,8 +610,7 @@ class HrEmployeeNewLines(models.Model):
         return {
             'domain': {
                 'department_id': [('company_id', 'in', [company.id, False])],
-                'job_id': [('company_id', 'in', [company.id, False])],
-                'mail_group_ids': [('company_id', 'in', [company.id, False])]
+                'job_id': [('company_id', 'in', [company.id, False])]
             }
         }
 
