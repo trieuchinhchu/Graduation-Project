@@ -112,7 +112,6 @@ class FaceBase(models.Model):
                     best_index = np.argmin(face_distances)
                     if len(lst_index) == 10:
                         best_index = max(lst_index, key=lst_index.count)
-
                         if matches[best_index]:
                             self.create_attendance_log(data['id'][best_index])
                         lst_index = []
