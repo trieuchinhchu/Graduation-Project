@@ -10,6 +10,7 @@ import face_recognition
 from odoo import models, fields, api
 from datetime import datetime, timezone
 
+
 class FaceBase(models.Model):
     _name = 'da.facebase'
 
