@@ -124,9 +124,9 @@ class FaceBase(models.Model):
 
             for ((x, y, w, h), name) in zip(faces, names):
                 # draw the predicted face name on the image
-                cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
-                cv2.putText(frame, name, (x, y), cv2.FONT_HERSHEY_SIMPLEX,
-                            0.75, (0, 255, 0), 2)
+                cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 68, 255), 3)
+                cv2.putText(frame, name, (x, y-20), cv2.FONT_HERSHEY_SIMPLEX,
+                            0.75, (0, 68, 255), 3)
             cv2.imshow("Frame", frame)
             if cv2.waitKey(1) == ord('q'):
                 break
