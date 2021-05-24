@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<odoo>
-    <data>
-        <record id="da_location_main" model="da.location">
-            <field name="name">Tầng 8 Đại Phát Building</field>
-            <field name="detail">Tầng 8 Đại Phát Building</field>
-        </record>
-    </data>
-</odoo>
