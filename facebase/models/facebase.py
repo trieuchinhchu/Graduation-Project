@@ -87,8 +87,10 @@ class FaceBase(models.Model):
         data = pickle.loads(open(f'{self.get_path("recognizer")}/training_data', "rb").read())
         capture = cv2.VideoCapture(0, cv2.CAP_DSHOW)
         capture.set(cv2.CAP_PROP_BUFFERSIZE, 2)
+        lst_index = []
         # set text style
         while True:
+            a = time.time()
             ret, frame = capture.read()
             small_frame = cv2.resize(frame, (0, 0), fx=0.5, fy=0.5)
             gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
@@ -107,9 +109,16 @@ class FaceBase(models.Model):
                 face_distances = face_recognition.face_distance(data['encoding'], encoding)
                 if min(face_distances) <= 0.5:
                     best_index = np.argmin(face_distances)
+                    if len(lst_index) == 10:
+                        best_index = max(lst_index, key=lst_index.count)
+
+                        if matches[best_index]:
+                            self.create_attendance_log(data['id'][best_index])
+                        lst_index = []
+                    else:
+                        lst_index.append(best_index)
                     if matches[best_index]:
                         name = data['name'][best_index]
-                        self.create_attendance_log(data['id'][best_index])
                 names.append(name)
 
             for ((x, y, w, h), name) in zip(faces, names):
@@ -118,7 +127,6 @@ class FaceBase(models.Model):
                 cv2.putText(frame, name, (x, y), cv2.FONT_HERSHEY_SIMPLEX,
                             0.75, (0, 255, 0), 2)
             cv2.imshow("Frame", frame)
-
             if cv2.waitKey(1) == ord('q'):
                 break
         capture.release()
