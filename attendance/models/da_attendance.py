@@ -46,4 +46,4 @@ class Attendance(models.Model):
                 r.date = r.check_in.date()
 
     def utc_to_local(self, utc_dt):
-        return utc_dt.replace(tzinfo=tz.gettz('UTC')).astimezone(self.env.context.get('tz') or tz.gettz(self.employee_id.tz))
+        return utc_dt.replace(tzinfo=tz.gettz('UTC')).astimezone(tz.gettz(self.env.context.get('tz')) or tz.gettz(self.employee_id.tz))

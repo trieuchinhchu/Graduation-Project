@@ -10,6 +10,7 @@ import face_recognition
 from odoo import models, fields, api
 from datetime import datetime, timezone
 
+
 class FaceBase(models.Model):
     _name = 'da.facebase'
 
@@ -85,54 +86,76 @@ class FaceBase(models.Model):
         self.ensure_one()
         faceCascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_alt2.xml')
         data = pickle.loads(open(f'{self.get_path("recognizer")}/training_data', "rb").read())
-        capture = cv2.VideoCapture(0, cv2.CAP_DSHOW)
-        capture.set(cv2.CAP_PROP_BUFFERSIZE, 2)
-        lst_index = []
+        cam_1 = cv2.VideoCapture(0, cv2.CAP_DSHOW)
+        cam_2 = cv2.VideoCapture(1, cv2.CAP_DSHOW)
+        cam_1.set(cv2.CAP_PROP_BUFFERSIZE, 2)
+        cam_2.set(cv2.CAP_PROP_BUFFERSIZE, 2)
+        lst_index_1 = []
+        lst_index_2 = []
+        count = 0
         # set text style
         while True:
             a = time.time()
-            ret, frame = capture.read()
-            small_frame = cv2.resize(frame, (0, 0), fx=0.5, fy=0.5)
-            gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-            faces = faceCascade.detectMultiScale(gray,
-                                                 scaleFactor=1.1,
-                                                 minNeighbors=5,
-                                                 minSize=(60, 60),
-                                                 flags=cv2.CASCADE_SCALE_IMAGE)
-            names = []
-            rgb_image = small_frame[:, :, ::-1]
-            encodings = face_recognition.face_encodings(rgb_image)
-            for encoding in encodings:
-                matches = face_recognition.compare_faces(data['encoding'], encoding)
-                name = "Unknown"
-                # use the known face with the smallest distance to the new face
-                face_distances = face_recognition.face_distance(data['encoding'], encoding)
-                if min(face_distances) <= 0.5:
-                    best_index = np.argmin(face_distances)
-                    if len(lst_index) == 10:
-                        best_index = max(lst_index, key=lst_index.count)
-
-                        if matches[best_index]:
-                            self.create_attendance_log(data['id'][best_index])
-                        lst_index = []
-                    else:
-                        lst_index.append(best_index)
-                    if matches[best_index]:
-                        name = data['name'][best_index]
-                names.append(name)
-
-            for ((x, y, w, h), name) in zip(faces, names):
-                # draw the predicted face name on the image
-                cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
-                cv2.putText(frame, name, (x, y), cv2.FONT_HERSHEY_SIMPLEX,
-                            0.75, (0, 255, 0), 2)
-            cv2.imshow("Frame", frame)
+            ret_1, frame_1 = cam_1.read()
+            ret_2, frame_2 = cam_2.read()
+            index_1 = self.detect(data, faceCascade, frame_1, 'Check In')
+            index_2 = self.detect(data, faceCascade, frame_2, 'Check Out')
+            lst_index_1.extend(index_1)
+            lst_index_2.extend(index_2)
+            count += 1
+            if count == 10:
+                for i in lst_index_1:
+                    if lst_index_1.count(i) >= 6:
+                        self.create_attendance_log(data['id'][i], 'check_in')
+                for i in lst_index_2:
+                    if lst_index_2.count(i) >= 6:
+                        self.create_attendance_log(data['id'][i], 'check_out')
+                count = 0
+                lst_index_1 = []
+                lst_index_2 = []
             if cv2.waitKey(1) == ord('q'):
                 break
-        capture.release()
+        cam_1.release()
+        cam_2.release()
         cv2.destroyAllWindows()
 
-    def create_attendance_log(self, employee_id):
+    def detect(self, data, faceCascade, frame, frame_name):
+        gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+        faces = faceCascade.detectMultiScale(gray,
+                                             scaleFactor=1.1,
+                                             minNeighbors=5,
+                                             minSize=(60, 60),
+                                             flags=cv2.CASCADE_SCALE_IMAGE)
+        lst_index, names = self.recognizer(data, frame)
+
+        for ((x, y, w, h), name) in zip(faces, names):
+            # draw the predicted face name on the image
+            cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
+            cv2.putText(frame, name, (x, y), cv2.FONT_HERSHEY_SIMPLEX,
+                        0.75, (0, 255, 0), 2)
+        cv2.imshow(frame_name, frame)
+        return lst_index
+
+    def recognizer(self, data, frame):
+        small_frame = cv2.resize(frame, (0, 0), fx=0.5, fy=0.5)
+        rgb_image = small_frame[:, :, ::-1]
+        encodings = face_recognition.face_encodings(rgb_image)
+        names = []
+        lst_index = []
+        for encoding in encodings:
+            matches = face_recognition.compare_faces(data['encoding'], encoding)
+            name = "Unknown"
+            # use the known face with the smallest distance to the new face
+            face_distances = face_recognition.face_distance(data['encoding'], encoding)
+            if min(face_distances) <= 0.5:
+                best_index = np.argmin(face_distances)
+                if matches[best_index]:
+                    name = data['name'][best_index]
+                lst_index.append(best_index)
+                names.append(name)
+        return lst_index, names
+
+    def create_attendance_log(self, employee_id, type):
         '''
         Tạo attendance log mỗi 2 phút
         :param employee_id:
@@ -141,10 +164,12 @@ class FaceBase(models.Model):
         now = datetime.now(tz=timezone.utc)
         att_log_obj = self.env['da.attendance.log']
         exist_log = att_log_obj.sudo().search([('employee_id', '=', employee_id),
+                                               ('check_type', '=', type),
                                                ('punch_time', '<=', now),
                                                ('punch_time', '>=', now + relativedelta(minutes=-2))])
         if not exist_log:
             att_log_obj.sudo().create({'employee_id': employee_id,
+                                       'check_type': type,
                                        'punch_time': now})
         return True
 
