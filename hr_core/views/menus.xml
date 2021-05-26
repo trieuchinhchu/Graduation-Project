@@ -34,9 +34,9 @@
                 parent="hr.menu_human_resources_configuration"
                 groups="hr.group_hr_manager"
                 sequence="20"/>
-
-        <menuitem
-                id="hr_gamification.menu_hr_gamification"
-                groups="base.group_no_one"/>
+        <delete model="ir.ui.menu" id ="hr_gamification.menu_hr_gamification"/>
+<!--        <menuitem-->
+<!--                id="hr_gamification.menu_hr_gamification"-->
+<!--                groups="base.group_no_one"/>-->
     </data>
 </odoo>

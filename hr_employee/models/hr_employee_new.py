@@ -73,18 +73,12 @@ class HrEmployeeNewLines(models.Model):
                                     string='Recruiting type',track_visibility='onchange')
 
     first_contract_type_id = fields.Many2one('hr.contract.type', string='First Contract Type', required=False,
-                                             default=_default_first_contract,
-                                             groups="hr_payroll.group_hr_payroll_user,hr_core")
-    first_contract_month = fields.Integer('First Contract Month', default=2,
-                                          groups="hr_payroll.group_hr_payroll_user,hr_core.group_hr_rec")
-    first_contract_salary = fields.Float('First Contract Salary', digits=(16, 2),
-                                         groups="hr_payroll.group_hr_payroll_user,hr_core.group_hr_rec")
-    second_contract_type_id = fields.Many2one('hr.contract.type', string='Next Contract Type', required=False,
-                                              groups="hr_payroll.group_hr_payroll_user,hr_core.group_hr_rec")
-    second_contract_month = fields.Integer('Next Contract Month',
-                                           groups="hr_payroll.group_hr_payroll_user,hr_core.group_hr_rec")
-    second_contract_salary = fields.Float('Next Contract Salary', digits=(16, 2),
-                                          groups="hr_payroll.group_hr_payroll_user,hr_core.group_hr_rec")
+                                             default=_default_first_contract)
+    first_contract_month = fields.Integer('First Contract Month', default=2)
+    first_contract_salary = fields.Float('First Contract Salary', digits=(16, 2))
+    second_contract_type_id = fields.Many2one('hr.contract.type', string='Next Contract Type', required=False)
+    second_contract_month = fields.Integer('Next Contract Month')
+    second_contract_salary = fields.Float('Next Contract Salary', digits=(16, 2))
     source_id = fields.Many2one('utm.source', "Source", ondelete='cascade', track_visibility='onchange')
     follower = fields.Many2one('hr.employee', 'Introduce', help='Tên người phụ trách ứng viên/giới thiệu ứng viên')
     user_id = fields.Many2one("res.users", "Follower", default=lambda self: self.env.uid)
@@ -157,9 +151,8 @@ class HrEmployeeNewLines(models.Model):
             self.job_id = self.employee_id.job_id
 
     def submit(self):
-        if not self.env.user.has_group('hr.group_hr_manager') and not \
-                self.env.user.has_group('hr_core.group_hr_rec'):
-            raise ValidationError(_('Permission denied! only HR Manager or REC User can create request.'))
+        if not self.env.user.has_group('hr.group_hr_manager'):
+            raise ValidationError(_('Permission denied! only HR Manager'))
         for r in self:
             r.create_employee()
         # send email to IT HR (1 loai)
@@ -423,9 +416,8 @@ class HrEmployeeNewLines(models.Model):
         return action
 
     def set_to_onboard(self):
-        if not self.env.user.has_group('hr.group_hr_manager') and not \
-                self.env.user.has_group('hr_core.group_hr_rec'):
-            raise ValidationError(_('Permission denied! only HR Manager or REC User can create request.'))
+        if not self.env.user.has_group('hr.group_hr_manager'):
+            raise ValidationError(_('Permission denied! only HR Manager.'))
         for r in self:
             r.employee_id.write({'active': True,
                                  'barcode': r.barcode,
@@ -441,7 +433,7 @@ class HrEmployeeNewLines(models.Model):
             update_info = {'resignation': False, 'resignation_date': False, 'active': True}
             if not r.employee_id.start_work_date and r.start_work_date:
                 update_info.update({'start_work_date': r.start_work_date})
-            r.employee_id.sudo(self.env.user).suspend_security().write(update_info)
+            r.employee_id.sudo().write(update_info)
 
         return True
 

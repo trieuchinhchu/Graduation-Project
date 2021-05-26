@@ -160,16 +160,16 @@
                     <button name="submit" type="object" string="Submit" class="btn-primary"
                             attrs="{'invisible': ['|',('state', '!=', 'draft'),('id', '=', False)]}"
                             confirm="Submit request and send email to HR, DL and IT?"
-                            groups="hr_payroll.group_hr_payroll_user, hr_core.group_hr_rec"/>
+                            groups="hr_payroll.group_hr_payroll_user"/>
                     <button name="action_hr_employee_to_onboard_action" type="object" string="Set to onboard"
                             groups="hr.group_hr_manager"
                             states="submit" class="btn-primary"/>
                     <button name="reject" type="object" string="OL Reject" states="submit"
                             confirm="Set employee to OL Reject and send email to HR, DL and IT?"
-                            groups="hr_core.group_hr_rec"/>
+                            groups="hr.group_hr_manager"/>
                     <button name="to_draft" type="object" string="To draft" states="submit,rejected"
                             confirm="Set to draft?" context="{'update_info': True}"
-                            groups="hr_payroll.group_hr_payroll_user, hr_core.group_hr_rec"/>
+                            groups="hr_payroll.group_hr_payroll_user"/>
                     <button name="to_draft" type="object" string="To draft (System)" states="onboard"
                             confirm="Remove all related to this record?" class="btn-warning"
                             context="{'allow_admin': True}"
@@ -229,7 +229,7 @@
                                        options="{'no_open': True, 'no_create': True}"
                                        attrs="{'readonly': [('state', '!=', 'draft')]}"/>
                                 <button name="update_follower_action" type="object" string="Update" class="bg-info ml-1"
-                                        groups="hr.group_hr_manager, hr_core.group_hr_rec"
+                                        groups="hr.group_hr_manager"
                                         attrs="{'invisible': [('state', '!=', 'submit')]}"/>
                             </div>
                         </group>
@@ -248,7 +248,7 @@
                                 <field name="expected_date" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
                                 <button name="update_expected_date_action" type="object" string="Update"
                                         class="bg-info ml-1"
-                                        groups="hr.group_hr_manager, hr_core.group_hr_rec"
+                                        groups="hr.group_hr_manager"
                                         attrs="{'invisible': [('state', '!=', 'submit')]}"/>
                             </div>
                             <field name="account_type"
@@ -260,7 +260,7 @@
                         </group>
                     </group>
                     <separator string="Contract" attrs="{'invisible': [('body_shop', '=', True)]}"
-                               groups="hr_payroll.group_hr_payroll_user,hr_core.group_hr_rec"/>
+                               groups="hr_payroll.group_hr_payroll_user"/>
                     <button name="update_contract_info_action" type="object" string="Update Contract Info"
                             class="bg-info ml-1"
                             groups="hr_payroll.group_hr_payroll_user"
@@ -270,7 +270,7 @@
                         <field name="contract_note" nolabel="1" readonly="1"
                                attrs="{'invisible': [('contract_note', 'in', ['', None, False])]}"/>
                     </group>
-                    <group groups="hr_payroll.group_hr_payroll_user,hr_core.group_hr_rec"
+                    <group groups="hr_payroll.group_hr_payroll_user"
                            attrs="{'invisible': [('body_shop', '=', True)]}">
                         <group>
                             <field name="first_contract_type_id"
@@ -332,9 +332,9 @@
                        attrs="{'invisible': ['|','|',('employee_id', '=', False),
                                    ('start_work_date', '=', False),('state', '!=', 'onboard')]}"/>
                 <field name="first_contract_salary"
-                       groups="hr_payroll.group_hr_payroll_user,hr_core.group_hr_rec"/>
+                       groups="hr_payroll.group_hr_payroll_user"/>
                 <field name="second_contract_salary"
-                       groups="hr_payroll.group_hr_payroll_user,hr_core.group_hr_rec"/>
+                       groups="hr_payroll.group_hr_payroll_user"/>
                 <field name="state"/>
             </tree>
         </field>

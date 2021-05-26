@@ -7,7 +7,7 @@
             name="New Employees"
             id="menu_hr_employee_new_root"
             parent="hr.menu_hr_root"
-            groups="hr.group_hr_user,hr_core.group_hr_rec,hr_core.group_hr_it,hr_core.group_hr_dl"
+            groups="hr.group_hr_user,hr_core.group_hr_it,hr_core.group_hr_dl"
             sequence="2"/>
 
         <menuitem
@@ -15,7 +15,7 @@
                 name="All Requests"
                 action="action_hr_employee_new_request"
                 parent="menu_hr_employee_new_root"
-                groups="hr.group_hr_user,hr_core.group_hr_rec,hr_core.group_hr_it,hr_core.group_hr_dl"
+                groups="hr.group_hr_user,hr_core.group_hr_it,hr_core.group_hr_dl"
                 sequence="1"/>
 
         <menuitem
@@ -23,7 +23,7 @@
                 name="Onboard"
                 action="action_hr_employee_new_onboard_request"
                 parent="menu_hr_employee_new_root"
-                groups="hr.group_hr_user,hr_core.group_hr_rec,hr_core.group_hr_it,hr_core.group_hr_dl"
+                groups="hr.group_hr_user,hr_core.group_hr_it,hr_core.group_hr_dl"
                 sequence="10"/>
 
         <menuitem
@@ -31,7 +31,7 @@
                 name="Submitted"
                 action="action_hr_employee_new_submit_request"
                 parent="menu_hr_employee_new_root"
-                groups="hr.group_hr_user,hr_core.group_hr_rec,hr_core.group_hr_it,hr_core.group_hr_dl"
+                groups="hr.group_hr_user,hr_core.group_hr_it,hr_core.group_hr_dl"
                 sequence="20"/>
 
         <menuitem
@@ -39,7 +39,7 @@
                 name="OL reject"
                 action="action_hr_employee_new_reject_request"
                 parent="menu_hr_employee_new_root"
-                groups="hr.group_hr_user,hr_core.group_hr_rec,hr_core.group_hr_it,hr_core.group_hr_dl"
+                groups="hr.group_hr_user,hr_core.group_hr_it,hr_core.group_hr_dl"
                 sequence="30"/>
 
     </data>

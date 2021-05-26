@@ -21,13 +21,6 @@
         <field name="comment">Client User.</field>
     </record>
 
-    <record id="group_hr_rec" model="res.groups">
-        <field name="name">REC</field>
-        <field name="category_id" ref="base.module_category_human_resources"/>
-        <field name="implied_ids" eval="[(6, 0, [ref('hr.group_hr_user')])]"/>
-        <field name="comment">REC support.</field>
-    </record>
-
     <record model="ir.rule" id="res_partner_da_public_rule">
         <field name="name">res_partner: da employee: write access on own account</field>
         <field name="model_id" ref="base.model_res_partner"/>
@@ -104,7 +97,8 @@
             <field name="model_id" ref="hr.model_hr_employee"/>
             <field name="global" eval="True"/>
             <field name="domain_force">
-                ['|','|','|',('company_id','=',False),('company_id','child_of',[user.company_id.id]),('company_id','in',user.company_ids.ids),('user_id.company_ids','child_of',user.company_ids.ids)]
+                ['|','|','|',('company_id','=',False),('company_id','child_of',[user.company_id.id]),
+                 ('company_id','in',user.company_ids.ids),('user_id.company_ids','child_of',user.company_ids.ids)]
             </field>
         </record>
 
@@ -113,7 +107,8 @@
             <field name="model_id" ref="hr.model_hr_department"/>
             <field name="global" eval="True"/>
             <field name="domain_force">
-                ['|','|',('company_id','=',False),('company_id','child_of',[user.company_id.id]),('company_id','in',user.company_ids.ids)]
+                ['|','|',('company_id','=',False),('company_id','child_of',[user.company_id.id]),
+                 ('company_id','in',user.company_ids.ids)]
             </field>
         </record>
 
@@ -122,7 +117,8 @@
             <field name="model_id" ref="hr.model_hr_job"/>
             <field name="global" eval="True"/>
             <field name="domain_force">
-                ['|','|',('company_id','=',False),('company_id','child_of',[user.company_id.id]),('company_id','in',user.company_ids.ids)]
+                ['|','|',('company_id','=',False),('company_id','child_of',[user.company_id.id]),
+                 ('company_id','in',user.company_ids.ids)]
             </field>
         </record>
 
@@ -131,7 +127,8 @@
             <field name="model_id" ref="model_da_location"/>
             <field name="global" eval="True"/>
             <field name="domain_force">
-                ['|','|',('company_id','=',False),('company_id','child_of',[user.company_id.id]),('company_id','in',user.company_ids.ids)]
+                ['|','|',('company_id','=',False),('company_id','child_of',[user.company_id.id]),
+                 ('company_id','in',user.company_ids.ids)]
             </field>
         </record>
     </data>
