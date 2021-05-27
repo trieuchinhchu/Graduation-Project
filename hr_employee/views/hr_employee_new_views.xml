@@ -108,7 +108,7 @@
         <field name="arch" type="xml">
             <form string="Contract">
                 <sheet>
-                    <group string="Contract" groups="hr_payroll.group_hr_payroll_user">
+                    <group string="Contract" groups="hr.group_hr_manager">
                         <group>
                             <field name="first_contract_type_id"
                                    options="{'no_open': True, 'no_create': True}"/>
@@ -160,7 +160,7 @@
                     <button name="submit" type="object" string="Submit" class="btn-primary"
                             attrs="{'invisible': ['|',('state', '!=', 'draft'),('id', '=', False)]}"
                             confirm="Submit request and send email to HR, DL and IT?"
-                            groups="hr_payroll.group_hr_payroll_user"/>
+                            groups="hr.group_hr_manager"/>
                     <button name="action_hr_employee_to_onboard_action" type="object" string="Set to onboard"
                             groups="hr.group_hr_manager"
                             states="submit" class="btn-primary"/>
@@ -169,7 +169,7 @@
                             groups="hr.group_hr_manager"/>
                     <button name="to_draft" type="object" string="To draft" states="submit,rejected"
                             confirm="Set to draft?" context="{'update_info': True}"
-                            groups="hr_payroll.group_hr_payroll_user"/>
+                            groups="hr.group_hr_manager"/>
                     <button name="to_draft" type="object" string="To draft (System)" states="onboard"
                             confirm="Remove all related to this record?" class="btn-warning"
                             context="{'allow_admin': True}"
@@ -260,17 +260,17 @@
                         </group>
                     </group>
                     <separator string="Contract" attrs="{'invisible': [('body_shop', '=', True)]}"
-                               groups="hr_payroll.group_hr_payroll_user"/>
+                               groups="hr.group_hr_manager"/>
                     <button name="update_contract_info_action" type="object" string="Update Contract Info"
                             class="bg-info ml-1"
-                            groups="hr_payroll.group_hr_payroll_user"
+                            groups="hr.group_hr_manager"
                             attrs="{'invisible': [('state', 'not in', ['submit', 'onboard'])]}"/>
                     <group string="Contract update Note"
                            attrs="{'invisible': [('contract_note', 'in', ['', None, False])]}">
                         <field name="contract_note" nolabel="1" readonly="1"
                                attrs="{'invisible': [('contract_note', 'in', ['', None, False])]}"/>
                     </group>
-                    <group groups="hr_payroll.group_hr_payroll_user"
+                    <group groups="hr.group_hr_manager"
                            attrs="{'invisible': [('body_shop', '=', True)]}">
                         <group>
                             <field name="first_contract_type_id"
@@ -332,9 +332,9 @@
                        attrs="{'invisible': ['|','|',('employee_id', '=', False),
                                    ('start_work_date', '=', False),('state', '!=', 'onboard')]}"/>
                 <field name="first_contract_salary"
-                       groups="hr_payroll.group_hr_payroll_user"/>
+                       groups="hr.group_hr_manager"/>
                 <field name="second_contract_salary"
-                       groups="hr_payroll.group_hr_payroll_user"/>
+                       groups="hr.group_hr_manager"/>
                 <field name="state"/>
             </tree>
         </field>

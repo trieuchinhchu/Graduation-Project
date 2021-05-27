@@ -6,7 +6,7 @@
     'description': 'This module allow you can overrides odoo hr core.',
     'category': 'Human Resources',
     'author': 'DA (chinh.chutrieu)',
-    'depends': ['base', 'website', 'mail', 'contacts', 'hr', 'hr_payroll', 'hr_core',
+    'depends': ['base', 'website', 'mail', 'contacts', 'hr', 'hr_core',
                 'hr_attendance', 'swr_datepicker', 'da_client_user'],
     'data': [
         'data/website_data.xml',

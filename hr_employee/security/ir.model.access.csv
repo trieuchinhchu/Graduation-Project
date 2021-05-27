@@ -2,8 +2,7 @@ id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 
 access_hr_employee_new_lines_hr_it,hr.employee.new.hr.it,model_hr_employee_new,hr_core.group_hr_it,1,1,0,0
 access_hr_employee_new_lines_hr_dl,hr.employee.new.hr.dl,model_hr_employee_new,hr_core.group_hr_dl,1,1,0,0
-access_hr_employee_new_lines_manager,hr.employee.new.hr.manager,model_hr_employee_new,hr.group_hr_manager,1,1,0,0
-access_hr_employee_new_payroll_user,hr.employee.new.payroll.user,model_hr_employee_new,hr_payroll.group_hr_payroll_user,1,1,1,1
+access_hr_employee_new_lines_manager,hr.employee.new.hr.manager,model_hr_employee_new,hr.group_hr_manager,1,1,1,1
 
 access_hr_contract_type_hr_user,hr.contract.type.hr.user,hr_contract.model_hr_contract_type,base.group_user,1,0,0,0
 

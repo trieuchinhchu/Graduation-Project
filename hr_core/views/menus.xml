@@ -35,8 +35,10 @@
                 groups="hr.group_hr_manager"
                 sequence="20"/>
         <delete model="ir.ui.menu" id ="hr_gamification.menu_hr_gamification"/>
-<!--        <menuitem-->
-<!--                id="hr_gamification.menu_hr_gamification"-->
-<!--                groups="base.group_no_one"/>-->
+        <delete model="ir.ui.menu" id ="hr_gamification.gamification_badge_menu_hr"/>
+        <delete model="ir.ui.menu" id ="hr_gamification.gamification_challenge_menu_hr"/>
+        <delete model="ir.ui.menu" id ="hr_gamification.gamification_goal_menu_hr"/>
+        <delete model="ir.ui.menu" id ="utm.utm_campaign_act"/>
+        <delete model="ir.ui.menu" id ="mail.action_discuss"/>
     </data>
 </odoo>

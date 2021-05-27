@@ -7,8 +7,7 @@
     'category': 'Human Resources',
     'author': 'DA (chinh.chutrieu)',
 
-    'depends': ['base', 'contacts', 'hr', 'hr_payroll', 'mail', 'hr_holidays',
-                'swr_datepicker'],
+    'depends': ['base', 'contacts', 'hr', 'mail', 'hr_holidays', 'swr_datepicker'],
     'data': [
         'security/hr_core_security.xml',
         'security/ir.model.access.csv',
