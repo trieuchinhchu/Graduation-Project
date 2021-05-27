@@ -19,90 +19,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="08b0bf37-2691-451d-b75c-deff8852afb5" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/enterprise_backend_theme/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/enterprise_backend_theme/__manifest__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/enterprise_backend_theme/controllers/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/enterprise_backend_theme/controllers/main.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/enterprise_backend_theme/images/screen.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/enterprise_backend_theme/models/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/enterprise_backend_theme/models/res_company.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/enterprise_backend_theme/models/res_users.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/enterprise_backend_theme/static/description/banner-body-index-odoo.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/enterprise_backend_theme/static/description/banner-home-index-odoo.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/enterprise_backend_theme/static/description/banner.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/enterprise_backend_theme/static/description/check.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/enterprise_backend_theme/static/description/icon.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/enterprise_backend_theme/static/description/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/enterprise_backend_theme/static/description/jpv-logo.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/enterprise_backend_theme/static/description/jpv-odoo-footer.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/enterprise_backend_theme/static/description/jpv_theme_screenshot.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/enterprise_backend_theme/static/description/odoo-contract-developer.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/enterprise_backend_theme/static/description/odoo-customization.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/enterprise_backend_theme/static/description/odoo-implementation.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/enterprise_backend_theme/static/description/odoo-integration.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/enterprise_backend_theme/static/description/odoo-training.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/enterprise_backend_theme/static/description/screenshots-five.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/enterprise_backend_theme/static/description/screenshots-four.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/enterprise_backend_theme/static/description/screenshots-one.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/enterprise_backend_theme/static/description/screenshots-three.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/enterprise_backend_theme/static/description/screenshots-two.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/enterprise_backend_theme/static/description/support.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/enterprise_backend_theme/static/src/font/Roboto-Regular.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/enterprise_backend_theme/static/src/img/background.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/enterprise_backend_theme/static/src/img/checked.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/enterprise_backend_theme/static/src/scss/style.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/enterprise_backend_theme/views/assets.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/enterprise_backend_theme/views/res_company_view.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/enterprise_backend_theme/views/users.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/web_responsive/README.rst" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/web_responsive/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/web_responsive/__manifest__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/web_responsive/i18n/ca.po" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/web_responsive/i18n/da.po" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/web_responsive/i18n/de.po" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/web_responsive/i18n/es.po" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/web_responsive/i18n/fr.po" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/web_responsive/i18n/hr.po" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/web_responsive/i18n/it.po" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/web_responsive/i18n/pt.po" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/web_responsive/i18n/pt_BR.po" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/web_responsive/i18n/zh_CN.po" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/web_responsive/models/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/web_responsive/models/res_users.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/web_responsive/readme/CONTRIBUTORS.rst" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/web_responsive/readme/DESCRIPTION.rst" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/web_responsive/readme/ROADMAP.rst" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/web_responsive/readme/USAGE.rst" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/web_responsive/static/description/icon.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/web_responsive/static/description/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/web_responsive/static/img/appmenu.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/web_responsive/static/img/big_checkboxes.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/web_responsive/static/img/chatter.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/web_responsive/static/img/chatter_topbar.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/web_responsive/static/img/document_viewer.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/web_responsive/static/img/formview.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/web_responsive/static/img/listview.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/web_responsive/static/src/css/web_responsive.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/web_responsive/static/src/js/web_responsive.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/web_responsive/static/src/xml/apps.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/web_responsive/static/src/xml/document_viewer.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/web_responsive/static/src/xml/form_view.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/web_responsive/static/src/xml/menu.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/web_responsive/static/src/xml/navbar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/web_responsive/tests/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/web_responsive/tests/test_res_users.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/web_responsive/views/assets.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/web_responsive/views/res_users.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/web_responsive/views/web.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hr_core/__manifest__.py" beforeDir="false" afterPath="$PROJECT_DIR$/hr_core/__manifest__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hr_core/views/menus.xml" beforeDir="false" afterPath="$PROJECT_DIR$/hr_core/views/menus.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hr_employee/__manifest__.py" beforeDir="false" afterPath="$PROJECT_DIR$/hr_employee/__manifest__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hr_employee/security/hr_employee_new_security.xml" beforeDir="false" afterPath="$PROJECT_DIR$/hr_employee/security/hr_employee_new_security.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hr_employee/security/ir.model.access.csv" beforeDir="false" afterPath="$PROJECT_DIR$/hr_employee/security/ir.model.access.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hr_employee/views/hr_employee_new_views.xml" beforeDir="false" afterPath="$PROJECT_DIR$/hr_employee/views/hr_employee_new_views.xml" afterDir="false" />
-    </list>
+    <list default="true" id="08b0bf37-2691-451d-b75c-deff8852afb5" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -207,22 +124,22 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="528" y="179" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1621867524127" />
-    <state width="1515" height="185" key="GridCell.Tab.0.bottom" timestamp="1622133332803">
+    <state width="1515" height="185" key="GridCell.Tab.0.bottom" timestamp="1622136410030">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1515" height="185" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1622133332803" />
-    <state width="1515" height="185" key="GridCell.Tab.0.center" timestamp="1622133332803">
+    <state width="1515" height="185" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1622136410030" />
+    <state width="1515" height="185" key="GridCell.Tab.0.center" timestamp="1622136410030">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1515" height="185" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1622133332803" />
-    <state width="1515" height="185" key="GridCell.Tab.0.left" timestamp="1622133332803">
+    <state width="1515" height="185" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1622136410030" />
+    <state width="1515" height="185" key="GridCell.Tab.0.left" timestamp="1622136410030">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1515" height="185" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1622133332803" />
-    <state width="1515" height="185" key="GridCell.Tab.0.right" timestamp="1622133332803">
+    <state width="1515" height="185" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1622136410030" />
+    <state width="1515" height="185" key="GridCell.Tab.0.right" timestamp="1622136410030">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1515" height="185" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1622133332803" />
+    <state width="1515" height="185" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1622136410030" />
     <state width="1515" height="180" key="GridCell.Tab.1.bottom" timestamp="1621963962913">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
