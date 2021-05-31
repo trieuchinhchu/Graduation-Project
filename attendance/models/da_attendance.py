@@ -13,16 +13,18 @@ class Attendance(models.Model):
     late_cm = fields.Boolean(string='Late Comming', default=False, compute='compute_late_cm', store=False)
     early_leave = fields.Boolean(string='Early Leave', default=False, compute='compute_early_leave', store=False)
 
-    @api.depends('check_in')
+    @api.depends('check_in', 'employee_id')
     def compute_late_cm(self):
         for r in self:
-            if r.utc_to_local(r.check_in).time() >= time(8, 30):
+            print(r.employee_id.resource_calendar_id.work_from_datetime.time())
+            if r.utc_to_local(r.check_in).time() >= r.employee_id.resource_calendar_id.work_from_datetime.time():
                 r.late_cm = True
 
-    @api.depends('check_out')
+    @api.depends('check_out', 'employee_id')
     def compute_early_leave(self):
         for r in self:
-            if r.utc_to_local(r.check_out).time() <= time(17, 30):
+            print(r.employee_id.resource_calendar_id.work_from_datetime.time())
+            if r.utc_to_local(r.check_out).time() <= r.employee_id.resource_calendar_id.work_to_datetime.time():
                 r.early_leave = True
 
     @api.depends('worked_hours')
