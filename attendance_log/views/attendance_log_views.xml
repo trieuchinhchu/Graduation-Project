@@ -30,6 +30,21 @@
       </field>
     </record>
 
+    <record id="da_attendance_log_view_search" model="ir.ui.view">
+      <field name="name">da.attendance.log.search</field>
+      <field name="model">da.attendance.log</field>
+      <field name="priority">32</field>
+      <field name="arch" type="xml">
+        <search string="Attendance Log Search">
+          <field name="employee_id" string="Employee Name"/>
+          <group expand="1" string="Group By">
+            <filter string="Date" name="date" context="{'group_by':'date'}" />
+            <separator orientation="vertical" />
+            <filter string="Employee" name="group_employee_id" context="{'group_by':'employee_id'}"/>
+          </group>
+        </search>
+      </field>
+    </record>
 
     <!-- actions opening views on models -->
     <record model="ir.actions.act_window" id="da_attendance_log_action_window">
@@ -39,6 +54,9 @@
       <field name="view_ids" eval="[(5, 0, 0),
             (0, 0, {'view_mode': 'tree', 'view_id': ref('da_attendance_log_tree')}),
             (0, 0, {'view_mode': 'form', 'view_id': ref('da_attendance_log_form')})]"/>
+      <field name="search_view_id" ref="da_attendance_log_view_search"/>
+      <field name="context">{'search_default_date': 1,
+                             'search_default_group_employee_id':1}</field>
     </record>
 
 

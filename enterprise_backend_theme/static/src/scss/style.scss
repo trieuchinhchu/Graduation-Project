@@ -20,8 +20,9 @@ $gray-lighter: lighten($gray-base, 93.5%);
 
 // Odoo EE colors
 //------------------------
-$brand-primary: #916385;
-$brand-secondary: #916385;
+$brand-primary: #EFBC15;
+$brand-secondary: #EFBC15;
+$brand-black: black;
 //------------------------
 
 
@@ -29,6 +30,7 @@ $brand-primary-dark: darken($brand-primary, 10%);
 $brand-primary-light: lighten($brand-primary, 10%);
 $brand-secondary-dark: darken($brand-secondary, 10%);
 $brand-secondary-light: lighten($brand-secondary, 10%);
+$brand-black-light: lighten($brand-black, 20%);
 
 
 body {
@@ -45,15 +47,19 @@ body {
 
 .o_main_navbar {
     background-color : $brand-primary;
+    color: $brand-black;
 }
 
 .o_main_navbar > a:hover, .o_main_navbar > a:focus, .o_main_navbar > button:hover, .o_main_navbar > button:focus {
     background-color: $brand-primary-dark;
     color: inherit;
 }
-
+.o_main_navbar > ul > li > a, .o_main_navbar > ul > li > label {
+    color: $brand-black;
+}
 .o_main_navbar > ul > li > a:hover, .o_main_navbar > ul > li > label:hover {
     background-color: $brand-primary-dark;
+    color: $brand-black-light;
 }
 
 .o_main_navbar .show .dropdown-toggle {
@@ -81,7 +87,7 @@ body {
 
 .btn-primary {
 
-    color: #fff;
+    color: $brand-black;
     background-color: $brand-secondary;
     border-color: $brand-secondary-light;
 
@@ -89,14 +95,14 @@ body {
 
 .btn-primary:hover {
 
-    color: #fff;
+    color: $brand-black-light;
     background-color: $brand-secondary-dark;
     border-color: $brand-secondary-light;
 }
 
 .btn-secondary {
     border: none;
-    color: $brand-secondary;
+    color: $brand-black;
 }
 
 .btn:active, .btn.active {
@@ -223,7 +229,7 @@ oe_highlight {
 
 a {
 
-    color: $brand-secondary;
+    color: $brand-black;
     text-decoration: none;
     background-color: transparent;
     -webkit-text-decoration-skip: objects;
@@ -311,10 +317,6 @@ textarea, select, .o_form_view.o_form_editable .o_form_field_many2manytags,
     border-top: 1px solid #e2e2e0;
 }
 
-.table-striped > tbody > tr:nth-of-type(2n+1) {
-    background-color: #eef0f0;
-}
-
 .o_list_view tfoot {
     background-color: $brand-primary;
     color: #ffffff;
@@ -356,7 +358,7 @@ textarea, select, .o_form_view.o_form_editable .o_form_field_many2manytags,
         padding: 0px;
         .o_form_sheet {
             border: 1px solid #d9d7d7;
-            box-shadow: 0 5px 20px -15px black;
+            box-shadow: 0 5px 20px -15px $brand-black;
         }
     } 
 
@@ -404,7 +406,7 @@ textarea, select, .o_form_view.o_form_editable .o_form_field_many2manytags,
 }
 
 .o_menu_apps .dropdown-menu.show .o-app-icon:hover {
-	box-shadow: 0 8px 15px -10px black;
+	box-shadow: 0 8px 15px -10px $brand-black;
     transform: translateY(-1px);
 }
 
@@ -440,7 +442,7 @@ textarea, select, .o_form_view.o_form_editable .o_form_field_many2manytags,
 // Misc. widgets
 // ------------------------------------------------------------------
 .o_notification_manager .o_notification.o_error {
-            color: white;
+            color: $brand-black;
             background-color: lighten($brand-primary, 15%);
 }
 
@@ -584,7 +586,7 @@ textarea, select, .o_form_view.o_form_editable .o_form_field_many2manytags,
 }
 
 .btn-info {
-    color: #fff;
+    color: $brand-black;
     background-color: $brand-secondary;
     border-color: $brand-secondary-light !important;
 }

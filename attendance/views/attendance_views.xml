@@ -38,6 +38,23 @@
       </field>
     </record>
 
+    <record id="hr_attendance_view_search" model="ir.ui.view">
+      <field name="name">hr.attendance.search</field>
+      <field name="model">hr.attendance</field>
+      <field name="priority">32</field>
+      <field name="arch" type="xml">
+        <search string="Attendance Search">
+          <field name="employee_id" string="Employee Name"/>
+          <group expand="1" string="Group By">
+            <filter string="Date" name="date" context="{'group_by':'date'}" />
+            <separator orientation="vertical" />
+            <filter string="Employee" name="group_employee_id" context="{'group_by':'employee_id'}"/>
+            <filter string="Department" name="group_department_id" context="{'group_by':'department_id'}"/>
+          </group>
+        </search>
+      </field>
+    </record>
+
 
     <!-- actions opening views on models -->
     <record model="ir.actions.act_window" id="da_all_attendance_action_window">
@@ -47,6 +64,9 @@
       <field name="view_ids" eval="[(5, 0, 0),
             (0, 0, {'view_mode': 'tree', 'view_id': ref('da_attendance_tree')}),
             (0, 0, {'view_mode': 'form', 'view_id': ref('da_attendance_form')})]"/>
+      <field name="search_view_id" ref="hr_attendance_view_search"/>
+      <field name="context">{'search_default_date': 1,
+                             'search_default_group_employee_id':1}</field>
     </record>
 
     <record model="ir.actions.act_window" id="da_my_attendance_action_window">
@@ -57,6 +77,8 @@
             (0, 0, {'view_mode': 'tree', 'view_id': ref('da_attendance_tree')}),
             (0, 0, {'view_mode': 'form', 'view_id': ref('da_attendance_form')})]"/>
       <field name="domain">[('employee_id.user_id', '=', uid)]</field>
+      <field name="search_view_id" ref="hr_attendance_view_search"/>
+      <field name="context">{'search_default_date': 1}</field>
     </record>
 
     <!--    Inherit Base Menu-->

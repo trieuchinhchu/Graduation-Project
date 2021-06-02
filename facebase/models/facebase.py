@@ -95,7 +95,6 @@ class FaceBase(models.Model):
         count = 0
         # set text style
         while True:
-            a = time.time()
             ret_1, frame_1 = cam_1.read()
             ret_2, frame_2 = cam_2.read()
             index_1 = self.detect(data, faceCascade, frame_1, 'Check In')
@@ -126,13 +125,12 @@ class FaceBase(models.Model):
                                              minNeighbors=5,
                                              minSize=(60, 60),
                                              flags=cv2.CASCADE_SCALE_IMAGE)
-        lst_index, names = self.recognizer(data, frame)
+        lst_index, names, lst_accuracy = self.recognizer(data, frame)
 
-        for ((x, y, w, h), name) in zip(faces, names):
+        for ((x, y, w, h), name, accuracy) in zip(faces, names, lst_accuracy):
             # draw the predicted face name on the image
             cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
-            cv2.putText(frame, name, (x, y), cv2.FONT_HERSHEY_SIMPLEX,
-                        0.75, (0, 255, 0), 2)
+            cv2.putText(frame, '%s(%s)'%(name, accuracy), (x, y), cv2.FONT_HERSHEY_SIMPLEX, 0.75, (0, 255, 0), 2)
         cv2.imshow(frame_name, frame)
         return lst_index
 
@@ -142,18 +140,21 @@ class FaceBase(models.Model):
         encodings = face_recognition.face_encodings(rgb_image)
         names = []
         lst_index = []
+        lst_accuracy = []
         for encoding in encodings:
             matches = face_recognition.compare_faces(data['encoding'], encoding)
             name = "Unknown"
             # use the known face with the smallest distance to the new face
             face_distances = face_recognition.face_distance(data['encoding'], encoding)
-            if min(face_distances) <= 0.5:
+            result = min(face_distances)
+            if result <= 0.5:
                 best_index = np.argmin(face_distances)
                 if matches[best_index]:
                     name = data['name'][best_index]
                 lst_index.append(best_index)
                 names.append(name)
-        return lst_index, names
+                lst_accuracy.append(round(100-result*100))
+        return lst_index, names, lst_accuracy
 
     def create_attendance_log(self, employee_id, type):
         '''

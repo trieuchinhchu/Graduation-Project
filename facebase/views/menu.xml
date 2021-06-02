@@ -3,7 +3,7 @@
     <!-- root menu item -->
     <menuitem name="FaceBase"
               id="facebase_menu_root"
-              web_icon="da2021, static/description/icon.png"
+              web_icon="da2021,facebase/static/description/icon.png"
               />
 
     <menuitem name="Insert"

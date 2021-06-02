@@ -641,14 +641,14 @@ html .o_web_client .o_main .o_main_content {
 
         .custom-control-label {
             &::after {
-                width: 16px;
-                height: 16px;
+                width: 15px;
+                height: 15px;
             }
             &::before {
                 outline: none !important;
                 border: 1px solid #242324;
-                width: 16px;
-                height: 16px;
+                width: 15px;
+                height: 15px;
             }
         }
     }
