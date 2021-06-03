@@ -20,14 +20,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="08b0bf37-2691-451d-b75c-deff8852afb5" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/facebase/static/description/icon.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/attendance/security/da_attendance_security.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/attendance_log/security/da_attendance_log_security.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/attendance/views/attendance_views.xml" beforeDir="false" afterPath="$PROJECT_DIR$/attendance/views/attendance_views.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/attendance_log/views/attendance_log_views.xml" beforeDir="false" afterPath="$PROJECT_DIR$/attendance_log/views/attendance_log_views.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/enterprise_backend_theme/static/src/scss/style.scss" beforeDir="false" afterPath="$PROJECT_DIR$/enterprise_backend_theme/static/src/scss/style.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/facebase/models/facebase.py" beforeDir="false" afterPath="$PROJECT_DIR$/facebase/models/facebase.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/facebase/views/menu.xml" beforeDir="false" afterPath="$PROJECT_DIR$/facebase/views/menu.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web_responsive/static/src/css/web_responsive.scss" beforeDir="false" afterPath="$PROJECT_DIR$/web_responsive/static/src/css/web_responsive.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/attendance/__manifest__.py" beforeDir="false" afterPath="$PROJECT_DIR$/attendance/__manifest__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/attendance/security/ir.model.access.csv" beforeDir="false" afterPath="$PROJECT_DIR$/attendance/security/ir.model.access.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/attendance_log/__manifest__.py" beforeDir="false" afterPath="$PROJECT_DIR$/attendance_log/__manifest__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/attendance_log/security/ir.model.access.csv" beforeDir="false" afterPath="$PROJECT_DIR$/attendance_log/security/ir.model.access.csv" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

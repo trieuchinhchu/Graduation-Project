@@ -83,6 +83,9 @@
 
     <!--    Inherit Base Menu-->
 
+    <menuitem id="hr_attendance.menu_hr_attendance_root" name="Attendances" sequence="90" groups="hr_attendance.group_hr_attendance,base.group_user,base.group_system"
+              web_icon="hr_attendance,static/description/icon.png"/>
+
     <menuitem id="hr_attendance.menu_hr_attendance_my_attendances" active="False"/>
 
     <menuitem id="hr_attendance.menu_hr_attendance_manage_attendances" active="False"/>
@@ -109,6 +112,7 @@
     <menuitem name="All Attendance" id="da_all_attendance_menu"
               parent="attendance.da_attendance_menu"
               sequence="5"
-              action="attendance.da_all_attendance_action_window"/>
+              action="attendance.da_all_attendance_action_window"
+              groups="base.group_system,hr_attendance.group_hr_attendance_manager"/>
   </data>
 </odoo>

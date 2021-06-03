@@ -20,11 +20,13 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base', 'attendance_log'],
+    'depends': ['base', 'attendance_log', 'hr_attendance'],
 
     # always loaded
     'data': [
+
         'security/ir.model.access.csv',
+        'security/da_attendance_security.xml',
         'views/attendance_views.xml',
     ],
     'installable': True,

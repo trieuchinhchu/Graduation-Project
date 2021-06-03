@@ -16,14 +16,12 @@ class Attendance(models.Model):
     @api.depends('check_in', 'employee_id')
     def compute_late_cm(self):
         for r in self:
-            print(r.employee_id.resource_calendar_id.work_from_datetime.time())
             if r.utc_to_local(r.check_in).time() >= r.employee_id.resource_calendar_id.work_from_datetime.time():
                 r.late_cm = True
 
     @api.depends('check_out', 'employee_id')
     def compute_early_leave(self):
         for r in self:
-            print(r.employee_id.resource_calendar_id.work_from_datetime.time())
             if r.utc_to_local(r.check_out).time() <= r.employee_id.resource_calendar_id.work_to_datetime.time():
                 r.early_leave = True
 

@@ -1,2 +1,4 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_da_attendance_log,da.attendance_log,model_da_attendance_log,,1,1,1,1
+access_da_attendance_log_user,access_da_attendance_log_user,model_da_attendance_log,base.group_user,1,0,0,0
+access_da_attendance_log_manager,access_da_attendance_log_manager,model_da_attendance_log,hr_attendance.group_hr_attendance_manager,1,1,1,1
+access_da_attendance_log_system,access_da_attendance_log_system,model_da_attendance_log,base.group_system,1,1,1,1
