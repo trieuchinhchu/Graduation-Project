@@ -131,5 +131,16 @@
                  ('company_id','in',user.company_ids.ids)]
             </field>
         </record>
+
+        <record id="res_partner_hr_manager_rule" model="ir.rule">
+            <field name="name">res.partner hr manager rule</field>
+            <field name="model_id" ref="base.model_res_partner"/>
+            <field name="groups" eval="[(4, ref('hr.group_hr_manager'))]"/>
+            <field name="domain_force">[]</field>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_read" eval="True"/>
+        </record>
     </data>
 </odoo>

@@ -47,10 +47,33 @@
         </record>
 
         <record id="da_employee_new_lines_unlink_rule" model="ir.rule">
-            <field name="name">Employee new lines rec unlink rule</field>
+            <field name="name">Employee new lines Manager unlink rule</field>
             <field name="domain_force">[('state','=','draft')]</field>
             <field name="groups"
                    eval="[(4, ref('hr.group_hr_manager'))]"/>
+            <field name="model_id" ref="model_hr_employee_new"/>
+            <field name="perm_read" eval="False"/>
+            <field name="perm_write" eval="False"/>
+            <field name="perm_create" eval="False"/>
+            <field name="perm_unlink" eval="True"/>
+        </record>
+
+        <record id="da_employee_new_lines_hr_user_read_rule" model="ir.rule">
+            <field name="name">Employee new lines HR User read rule</field>
+            <field name="domain_force">[(1,'=',1)]</field>
+            <field name="groups"
+                   eval="[(4, ref('hr.group_hr_user'))]"/>
+            <field name="model_id" ref="model_hr_employee_new"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="False"/>
+        </record>
+
+        <record id="da_employee_new_lines_hr_user_unlink_rule" model="ir.rule">
+            <field name="name">Employee new lines HR user unlink rule</field>
+            <field name="domain_force">[('state','=','draft'), ('create_uid', '=', user.id)]</field>
+            <field name="groups" eval="[(4, ref('hr.group_hr_user'))]"/>
             <field name="model_id" ref="model_hr_employee_new"/>
             <field name="perm_read" eval="False"/>
             <field name="perm_write" eval="False"/>

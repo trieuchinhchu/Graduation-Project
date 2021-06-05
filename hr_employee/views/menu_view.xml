@@ -36,7 +36,7 @@
 
         <menuitem
                 id="menu_hr_employee_new_reject_request"
-                name="OL reject"
+                name="Rejected"
                 action="action_hr_employee_new_reject_request"
                 parent="menu_hr_employee_new_root"
                 groups="hr.group_hr_user,hr_core.group_hr_it,hr_core.group_hr_dl"

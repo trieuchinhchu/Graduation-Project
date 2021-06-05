@@ -9,7 +9,7 @@
             <form string="Employee List">
                 <sheet>
                     <group>
-                        <field name="barcode" string="Mã vân tay" required="1"/>
+<!--                        <field name="barcode" string="Mã vân tay" required="1"/>1-->
                         <field name="start_work_date" required="1" string="Ngày đi làm"/>
                         <field name="allow_welcome" string="Send welcome email"/>
                     </group>
@@ -160,16 +160,16 @@
                     <button name="submit" type="object" string="Submit" class="btn-primary"
                             attrs="{'invisible': ['|',('state', '!=', 'draft'),('id', '=', False)]}"
                             confirm="Submit request and send email to HR, DL and IT?"
-                            groups="hr.group_hr_manager"/>
+                            groups="hr.group_hr_manager,hr.group_hr_user"/>
                     <button name="action_hr_employee_to_onboard_action" type="object" string="Set to onboard"
                             groups="hr.group_hr_manager"
                             states="submit" class="btn-primary"/>
-                    <button name="reject" type="object" string="OL Reject" states="submit"
-                            confirm="Set employee to OL Reject and send email to HR, DL and IT?"
+                    <button name="reject" type="object" string="Reject" states="submit"
+                            confirm="Set employee to Rejected and send email to HR, DL and IT?"
                             groups="hr.group_hr_manager"/>
                     <button name="to_draft" type="object" string="To draft" states="submit,rejected"
                             confirm="Set to draft?" context="{'update_info': True}"
-                            groups="hr.group_hr_manager"/>
+                            groups="hr.group_hr_manager,hr.group_hr_user"/>
                     <button name="to_draft" type="object" string="To draft (System)" states="onboard"
                             confirm="Remove all related to this record?" class="btn-warning"
                             context="{'allow_admin': True}"
@@ -270,7 +270,7 @@
                         <field name="contract_note" nolabel="1" readonly="1"
                                attrs="{'invisible': [('contract_note', 'in', ['', None, False])]}"/>
                     </group>
-                    <group groups="hr.group_hr_manager"
+                    <group groups="hr.group_hr_manager,hr.group_hr_user"
                            attrs="{'invisible': [('body_shop', '=', True)]}">
                         <group>
                             <field name="first_contract_type_id"

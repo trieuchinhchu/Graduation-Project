@@ -56,7 +56,7 @@ class HrEmployeeNewLines(models.Model):
     note = fields.Char(string='Note')
     contract_note = fields.Char(string='Contract Note')
     state = fields.Selection(selection=[('draft', 'Draft'), ('submit', 'Submitted'),
-                                        ('onboard', 'Onboard'), ('rejected', 'OL Reject')],
+                                        ('onboard', 'Onboard'), ('rejected', 'Rejected')],
                              string='State', default='draft', track_visibility='onchange')
     company_id = fields.Many2one('res.company', string='Company', required=True,
                                  default=lambda self: self.env.user.company_id.id)
@@ -151,8 +151,8 @@ class HrEmployeeNewLines(models.Model):
             self.job_id = self.employee_id.job_id
 
     def submit(self):
-        if not self.env.user.has_group('hr.group_hr_manager'):
-            raise ValidationError(_('Permission denied! only HR Manager'))
+        if not self.env.user.has_group('hr.group_hr_manager') and not self.env.user.has_group('hr.group_hr_user'):
+            raise ValidationError(_('Permission denied! only HR Manager or HR Officer'))
         for r in self:
             r.create_employee()
         # send email to IT HR (1 loai)
@@ -417,7 +417,7 @@ class HrEmployeeNewLines(models.Model):
 
     def set_to_onboard(self):
         if not self.env.user.has_group('hr.group_hr_manager'):
-            raise ValidationError(_('Permission denied! only HR Manager.'))
+            raise ValidationError(_('Permission denied! Only HR Manager.'))
         for r in self:
             r.employee_id.write({'active': True,
                                  'barcode': r.barcode,
@@ -461,8 +461,6 @@ class HrEmployeeNewLines(models.Model):
     def to_draft(self):
         if self._context.get('allow_admin', False) and not self.env.user.has_group('base.group_system'):
             raise ValidationError(_('Administrator access is required!'))
-        if self._context.get('update_info', False):
-            self._send_email_draft_employee()
         for r in self:
             related_user_id = r.employee_id.user_id
             related_partner_id = related_user_id.partner_id
