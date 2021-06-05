@@ -21,12 +21,6 @@
   <component name="ChangeListManager">
     <list default="true" id="08b0bf37-2691-451d-b75c-deff8852afb5" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hr_core/security/hr_core_security.xml" beforeDir="false" afterPath="$PROJECT_DIR$/hr_core/security/hr_core_security.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hr_employee/models/hr_employee_new.py" beforeDir="false" afterPath="$PROJECT_DIR$/hr_employee/models/hr_employee_new.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hr_employee/security/hr_employee_new_security.xml" beforeDir="false" afterPath="$PROJECT_DIR$/hr_employee/security/hr_employee_new_security.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hr_employee/security/ir.model.access.csv" beforeDir="false" afterPath="$PROJECT_DIR$/hr_employee/security/ir.model.access.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hr_employee/views/hr_employee_new_views.xml" beforeDir="false" afterPath="$PROJECT_DIR$/hr_employee/views/hr_employee_new_views.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hr_employee/views/menu_view.xml" beforeDir="false" afterPath="$PROJECT_DIR$/hr_employee/views/menu_view.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -109,11 +103,41 @@
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
       <map>
+        <entry key="7e146640-e9c7-4c51-9e50-737418f2d71b">
+          <value>
+            <State>
+              <option name="SHOW_ONLY_AFFECTED_CHANGES" value="true" />
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="HEAD" />
+                      </list>
+                    </value>
+                  </entry>
+                  <entry key="structure">
+                    <value>
+                      <list>
+                        <option value="dir:D:/odoo12/server/da2021/hr_employee" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
         <entry key="MAIN">
           <value>
             <State />
           </value>
         </entry>
+      </map>
+    </option>
+    <option name="OPEN_GENERIC_TABS">
+      <map>
+        <entry key="7e146640-e9c7-4c51-9e50-737418f2d71b" value="TOOL_WINDOW" />
       </map>
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
