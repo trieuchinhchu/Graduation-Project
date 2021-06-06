@@ -20,7 +20,6 @@
                     <header>
                         <button name="capture_from_video" string="Capture from Video" type="object"/>
                         <button name="encoding_data" string="Encoding" type="object"/>
-                        <button name="recognition" string="Recognition" type="object"/>
                     </header>
                     <sheet>
                         <group>
