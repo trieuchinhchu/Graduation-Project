@@ -81,9 +81,8 @@ class FaceBase(models.Model):
         f.write(pickle.dumps(data))
         f.close()
 
-    @api.multi
+    @api.model
     def recognition(self):
-        self.ensure_one()
         faceCascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_alt2.xml')
         data = pickle.loads(open(f'{self.get_path("recognizer")}/training_data', "rb").read())
         cam_1 = cv2.VideoCapture(0, cv2.CAP_DSHOW)

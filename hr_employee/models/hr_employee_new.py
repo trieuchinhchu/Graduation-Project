@@ -9,8 +9,6 @@ from dateutil.relativedelta import relativedelta
 from odoo import models, api, fields, _
 from odoo.exceptions import ValidationError
 from odoo.http import request
-from odoo.addons.base.models.ir_mail_server import MailDeliveryException
-import secrets
 
 _logger = logging.getLogger(__name__)
 
@@ -54,7 +52,7 @@ class HrEmployeeNewLines(models.Model):
                            string='USB', default='disable', required=True)
     work_location_id = fields.Many2one('da.location', string='Work location', default=_default_work_location)
     note = fields.Char(string='Note')
-    contract_note = fields.Char(string='Contract Note')
+    # contract_note = fields.Char(string='Contract Note')
     state = fields.Selection(selection=[('draft', 'Draft'), ('submit', 'Submitted'),
                                         ('onboard', 'Onboard'), ('rejected', 'Rejected')],
                              string='State', default='draft', track_visibility='onchange')
@@ -72,13 +70,13 @@ class HrEmployeeNewLines(models.Model):
                                                ('re_recruiting', 'Re-recruiting')], default='re_recruiting',
                                     string='Recruiting type',track_visibility='onchange')
 
-    first_contract_type_id = fields.Many2one('hr.contract.type', string='First Contract Type', required=False,
-                                             default=_default_first_contract)
-    first_contract_month = fields.Integer('First Contract Month', default=2)
-    first_contract_salary = fields.Float('First Contract Salary', digits=(16, 2))
-    second_contract_type_id = fields.Many2one('hr.contract.type', string='Next Contract Type', required=False)
-    second_contract_month = fields.Integer('Next Contract Month')
-    second_contract_salary = fields.Float('Next Contract Salary', digits=(16, 2))
+    # first_contract_type_id = fields.Many2one('hr.contract.type', string='First Contract Type', required=False,
+    #                                          default=_default_first_contract)
+    # first_contract_month = fields.Integer('First Contract Month', default=2)
+    # first_contract_salary = fields.Float('First Contract Salary', digits=(16, 2))
+    # second_contract_type_id = fields.Many2one('hr.contract.type', string='Next Contract Type', required=False)
+    # second_contract_month = fields.Integer('Next Contract Month')
+    # second_contract_salary = fields.Float('Next Contract Salary', digits=(16, 2))
     source_id = fields.Many2one('utm.source', "Source", ondelete='cascade', track_visibility='onchange')
     follower = fields.Many2one('hr.employee', 'Introduce', help='Tên người phụ trách ứng viên/giới thiệu ứng viên')
     user_id = fields.Many2one("res.users", "Follower", default=lambda self: self.env.uid)
@@ -86,12 +84,12 @@ class HrEmployeeNewLines(models.Model):
                                    help="Send welcome email automatic.")
     is_import = fields.Boolean("Import", default=False)
 
-    _sql_constraints = [
-        ('first_contract_month', 'check(first_contract_month >= 0)',
-         'Error! First contract month must be greater than 0.'),
-        ('second_contract_month', 'check(second_contract_month >= 0)',
-         'Error! Second contract month must be greater than 0.'),
-    ]
+    # _sql_constraints = [
+    #     ('first_contract_month', 'check(first_contract_month >= 0)',
+    #      'Error! First contract month must be greater than 0.'),
+    #     ('second_contract_month', 'check(second_contract_month >= 0)',
+    #      'Error! Second contract month must be greater than 0.'),
+    # ]
 
     @api.onchange('request_type')
     def _onchange_request_type(self):
@@ -299,11 +297,11 @@ class HrEmployeeNewLines(models.Model):
         action['res_id'] = self.id
         return action
 
-    def update_contract_info_action(self):
-        self.ensure_one()
-        action = self.env.ref('hr_employee.action_update_contract_info_action').read()[0]
-        action['res_id'] = self.id
-        return action
+    # def update_contract_info_action(self):
+    #     self.ensure_one()
+    #     action = self.env.ref('hr_employee.action_update_contract_info_action').read()[0]
+    #     action['res_id'] = self.id
+    #     return action
 
     def _check_company_configure(self):
         if not self.sudo().company_id.sudo().hr_email:
@@ -518,17 +516,17 @@ class HrEmployeeNewLines(models.Model):
                                 personal_email):
                     raise ValidationError(f'Email: {personal_email} are invalid E-mail')
 
-    @api.constrains('first_contract_type_id', 'first_contract_salary')
-    def validate_first_contract(self):
-        for r in self:
-            if r.first_contract_type_id and r.first_contract_salary <= 0:
-                raise ValidationError('First contract salary must greater than 0!')
-
-    @api.constrains('second_contract_type_id', 'second_contract_salary')
-    def validate_next_contract(self):
-        for r in self:
-            if r.second_contract_type_id and r.second_contract_salary <= 0:
-                raise ValidationError('Next contract salary must greater than 0!')
+    # @api.constrains('first_contract_type_id', 'first_contract_salary')
+    # def validate_first_contract(self):
+    #     for r in self:
+    #         if r.first_contract_type_id and r.first_contract_salary <= 0:
+    #             raise ValidationError('First contract salary must greater than 0!')
+    #
+    # @api.constrains('second_contract_type_id', 'second_contract_salary')
+    # def validate_next_contract(self):
+    #     for r in self:
+    #         if r.second_contract_type_id and r.second_contract_salary <= 0:
+    #             raise ValidationError('Next contract salary must greater than 0!')
 
     def create_employee(self):
         employee_obj = self.env['hr.employee']

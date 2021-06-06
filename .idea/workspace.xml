@@ -20,7 +20,35 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="08b0bf37-2691-451d-b75c-deff8852afb5" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/display_import_button/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/display_import_button/__manifest__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/display_import_button/static/description/icon.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/display_import_button/static/description/import_false.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/display_import_button/static/description/import_true.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/display_import_button/static/description/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/display_import_button/static/description/main_screenshot.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/display_import_button/static/description/main_screenshot_pro.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/display_import_button/static/src/img/main_1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/display_import_button/static/src/img/main_screenshot.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/display_import_button/static/src/js/kanban_controller.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/display_import_button/static/src/js/tools.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/display_import_button/static/src/xml/template.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/display_import_button/views/import_template.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/facebase/static/src/js/facebase.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/facebase/static/src/xml/operate_button.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/facebase/views/assets.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/facebase/__manifest__.py" beforeDir="false" afterPath="$PROJECT_DIR$/facebase/__manifest__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/facebase/models/facebase.py" beforeDir="false" afterPath="$PROJECT_DIR$/facebase/models/facebase.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/facebase/static/description/icon.png" beforeDir="false" afterPath="$PROJECT_DIR$/facebase/static/description/icon.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/facebase/views/facebase_view.xml" beforeDir="false" afterPath="$PROJECT_DIR$/facebase/views/facebase_view.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/facebase/views/menu.xml" beforeDir="false" afterPath="$PROJECT_DIR$/facebase/views/menu.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hr_core/__manifest__.py" beforeDir="false" afterPath="$PROJECT_DIR$/hr_core/__manifest__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hr_core/views/menus.xml" beforeDir="false" afterPath="$PROJECT_DIR$/hr_core/views/menus.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hr_employee/models/hr_employee_new.py" beforeDir="false" afterPath="$PROJECT_DIR$/hr_employee/models/hr_employee_new.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hr_employee/views/hr_employee_new_views.xml" beforeDir="false" afterPath="$PROJECT_DIR$/hr_employee/views/hr_employee_new_views.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hr_employee/views/hr_employee_views.xml" beforeDir="false" afterPath="$PROJECT_DIR$/hr_employee/views/hr_employee_views.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hr_employee/views/menu_view.xml" beforeDir="false" afterPath="$PROJECT_DIR$/hr_employee/views/menu_view.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -180,12 +208,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/hr_employee/models/hr_employee_new.py</url>
-          <line>153</line>
+          <line>145</line>
           <option name="timeStamp" value="36" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/hr_employee/models/hr_employee_new.py</url>
-          <line>154</line>
+          <line>146</line>
           <option name="timeStamp" value="37" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -200,7 +228,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/hr_employee/models/hr_employee_new.py</url>
-          <line>633</line>
+          <line>621</line>
           <option name="timeStamp" value="40" />
         </line-breakpoint>
       </breakpoints>

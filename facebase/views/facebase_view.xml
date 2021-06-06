@@ -5,7 +5,7 @@
             <field name="name">da.facebase.tree</field>
             <field name="model">da.facebase</field>
             <field name="arch" type="xml">
-                <tree>
+                <tree import="false">
                     <field name="employee_id"/>
                     <field name="file_path"/>
                 </tree>

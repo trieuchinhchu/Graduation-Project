@@ -7,7 +7,7 @@
             name="New Employees"
             id="menu_hr_employee_new_root"
             parent="hr.menu_hr_root"
-            groups="hr.group_hr_user,hr_core.group_hr_it,hr_core.group_hr_dl"
+            groups="hr.group_hr_user,hr_core.group_hr_it,hr_core.group_hr_dl,hr.group_hr_manager"
             sequence="2"/>
 
         <menuitem
@@ -42,5 +42,13 @@
                 groups="hr.group_hr_user,hr_core.group_hr_it,hr_core.group_hr_dl"
                 sequence="30"/>
 
+        <!--     Facebase Resources     -->
+        <menuitem
+            name="Facebase Resources"
+            id="menu_facebase_resources_root"
+            parent="hr.menu_hr_root"
+            groups="hr.group_hr_user,hr.group_hr_manager"
+            action="facebase_resources_action_window"
+            sequence="3"/>
     </data>
 </odoo>

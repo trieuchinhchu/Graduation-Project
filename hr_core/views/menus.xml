@@ -40,5 +40,6 @@
         <delete model="ir.ui.menu" id ="hr_gamification.gamification_goal_menu_hr"/>
         <delete model="ir.ui.menu" id ="utm.utm_campaign_act"/>
         <delete model="ir.ui.menu" id ="mail.action_discuss"/>
+        <delete model="ir.ui.menu" id ="hr_contract.hr_menu_contract"/>
     </data>
 </odoo>

@@ -26,7 +26,11 @@
     'data': [
         'security/ir.model.access.csv',
         'views/facebase_view.xml',
+        'views/assets.xml',
         'views/menu.xml',
+    ],
+    'qweb': [
+        "static/src/xml/operate_button.xml",
     ],
     'installable': True,
     'application': True,

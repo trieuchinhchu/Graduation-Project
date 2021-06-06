@@ -3,10 +3,10 @@
     <!-- root menu item -->
     <menuitem name="FaceBase"
               id="facebase_menu_root"
-              web_icon="da2021,facebase/static/description/icon.png"
+              web_icon="facebase,/facebase/static/description/icon.png"
               />
 
-    <menuitem name="Insert"
+    <menuitem name="Facebase"
               id="facebase_menu_insert"
               parent="facebase_menu_root"
               action="da_facebase_action"/>
