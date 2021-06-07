@@ -3,6 +3,9 @@
     <t t-extend="ListView.buttons">
       <t t-jquery="button.o_list_button_add" t-operation="after">
         <button  t-if="widget.modelName == 'da.facebase'"
+                 class="btn btn-primary oe_training_button"
+                 type="button" accesskey="f">Training</button>
+          <button  t-if="widget.modelName == 'da.facebase'"
                  class="btn btn-primary oe_operate_button"
                  type="button" accesskey="f">Operate</button>
       </t>

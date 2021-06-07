@@ -107,7 +107,6 @@ class EmployeeFormController(http.Controller):
         values.update({'country_id': int(values.pop('country_id', 1))})
         values.update({'emp_info_state': 'wait_to_hr_confirm'})
         record.sudo().write(values)
-        record.sudo().send_review_employee_info_email()
         return json.dumps({'id': record.id})
 
     @http.route(['/my/info',

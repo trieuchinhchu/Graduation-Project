@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!--    FACEBASE RESOURCES-->
+
+    <record id="facebase_resources_tree_view" model="ir.ui.view">
+        <field name="name">facebase.resources.tree.view</field>
+        <field name="model">hr.employee</field>
+        <field name="active">False</field>
+        <field name="arch" type="xml">
+            <tree import="false" string="Facebase Resources">
+                <field name="display_name"/>
+                <field name="account"/>
+                <field name="department_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="facebase_resources_form_view" model="ir.ui.view">
+        <field name="name">facebase.resources.form.view</field>
+        <field name="model">hr.employee</field>
+        <field name="active">False</field>
+        <field name="arch" type="xml">
+            <form string="Facebase Resources">
+                <group>
+                    <field name="display_name"/>
+                    <field name="account"/>
+                    <field name="department_id"/>
+                </group>
+                <group>
+                    <field name="images" widget="many2many_binary"/>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <record id="facebase_resources_search" model="ir.ui.view">
+        <field name="name">facebase.resources.search</field>
+        <field name="model">hr.employee</field>
+        <field name="priority">32</field>
+        <field name="arch" type="xml">
+            <search string="Attendance Log Search">
+                <field name="display_name" string="Name"/>
+                <field name="account" string="Account"/>
+                <group expand="1" string="Group By">
+                    <filter string="Department" name="group_department" context="{'group_by':'department_id'}" />
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="facebase_resources_action_window">
+        <field name="name">Facebase Resources</field>
+        <field name="res_model">hr.employee</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_ids" eval="[(5, 0, 0),
+            (0, 0, {'view_mode': 'tree', 'view_id': ref('facebase_resources_tree_view')}),
+            (0, 0, {'view_mode': 'form', 'view_id': ref('facebase_resources_form_view')})]"/>
+        <field name="search_view_id" ref="facebase_resources_search"/>
+        <field name="context">{'search_default_group_department': 1}</field>
+    </record>
+
+
+    <!--    Facebase form input-->
+
+    <record id="da_employee_facebase_form_employee_update" model="ir.ui.view">
+        <field name="name">Employee Facebase Form Update</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr_employee.da_skill_employee_new"/>
+        <field name="priority">21</field>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='private_employee_infor']" position="after">
+                <page name="private_employee_facebase" string="Personal Face Photos">
+                    <field name="images" widget="many2many_binary"/>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="da_employee_facebase_form_employee" model="ir.ui.view">
+        <field name="name">Employee Facebase Form</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr_core.employee_inherit_form_view_private"/>
+        <field name="priority">21</field>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='private_employee_infor']" position="after">
+                <page name="private_employee_facebase" string="Personal Face Photos">
+                    <field name="images" widget="many2many_binary"/>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <!--     Facebase Resources     -->
+    <menuitem
+            name="Facebase Resources"
+            id="menu_facebase_resources_root"
+            parent="hr.menu_hr_root"
+            groups="hr.group_hr_user,hr.group_hr_manager"
+            action="facebase_resources_action_window"
+            sequence="3"/>
+
+</odoo>

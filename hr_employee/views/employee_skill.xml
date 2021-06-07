@@ -9,9 +9,9 @@
         <field name="arch" type="xml">
             <form string="DA Employee" create="0" delete="0">
                 <header>
-                    <button name="employee_update_infor" type="object" class="btn btn-primary" string="Send" confirm="Are You Sure?"
-                        attrs="{'invisible': [('emp_info_state','=','hr_confirm')]}"/>
-                    <field name="emp_info_state" widget="statusbar" />
+<!--                    <button name="employee_update_infor" type="object" class="btn btn-primary" string="Send" confirm="Are You Sure?"-->
+<!--                        attrs="{'invisible': [('emp_info_state','=','hr_confirm')]}"/>-->
+<!--                    <field name="emp_info_state" widget="statusbar" />-->
                     <field name="permission_view" invisible="1"/>
                 </header>
                 <sheet>

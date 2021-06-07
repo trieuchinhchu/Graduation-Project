@@ -44,8 +44,6 @@ class HrEmployeeWebsiteInherit(models.Model):
     
 
     def employee_update_infor(self):
-        if not self.employee_skill_ids:
-            raise ValidationError(_("Bạn chưa cập nhập thông tin Skill!"))
         self.emp_info_state = 'wait_to_hr_confirm'
         self.send_review_employee_info_email()
         action = self.env.ref('hr_employee.da_infor_employee_popup_action').read()[0]

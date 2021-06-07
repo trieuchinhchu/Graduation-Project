@@ -20,7 +20,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="08b0bf37-2691-451d-b75c-deff8852afb5" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/facebase/models/hr_employee.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/facebase/views/employee_facebase.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/facebase/__manifest__.py" beforeDir="false" afterPath="$PROJECT_DIR$/facebase/__manifest__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/facebase/models/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/facebase/models/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/facebase/models/facebase.py" beforeDir="false" afterPath="$PROJECT_DIR$/facebase/models/facebase.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/facebase/static/src/js/facebase.js" beforeDir="false" afterPath="$PROJECT_DIR$/facebase/static/src/js/facebase.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/facebase/static/src/xml/operate_button.xml" beforeDir="false" afterPath="$PROJECT_DIR$/facebase/static/src/xml/operate_button.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/facebase/views/facebase_view.xml" beforeDir="false" afterPath="$PROJECT_DIR$/facebase/views/facebase_view.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hr_employee/controllers/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/hr_employee/controllers/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hr_employee/models/hr_employee.py" beforeDir="false" afterPath="$PROJECT_DIR$/hr_employee/models/hr_employee.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hr_employee/views/employee_skill.xml" beforeDir="false" afterPath="$PROJECT_DIR$/hr_employee/views/employee_skill.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hr_employee/views/hr_employee_views.xml" beforeDir="false" afterPath="$PROJECT_DIR$/hr_employee/views/hr_employee_views.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hr_employee/views/menu_view.xml" beforeDir="false" afterPath="$PROJECT_DIR$/hr_employee/views/menu_view.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,6 +71,9 @@
       <recent name="D:\odoo12\server\da2021\facebase\static\description" />
       <recent name="D:\odoo12\server\da2021\facebase\models" />
       <recent name="D:\odoo12\server\da2021" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\odoo12\server\da2021\facebase\views" />
     </key>
   </component>
   <component name="RunManager">
@@ -202,6 +218,36 @@
           <url>file://$PROJECT_DIR$/hr_employee/models/hr_employee_new.py</url>
           <line>621</line>
           <option name="timeStamp" value="40" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/facebase/models/facebase.py</url>
+          <line>25</line>
+          <option name="timeStamp" value="59" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/facebase/models/facebase.py</url>
+          <line>26</line>
+          <option name="timeStamp" value="60" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/facebase/models/facebase.py</url>
+          <line>30</line>
+          <option name="timeStamp" value="62" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/facebase/models/facebase.py</url>
+          <line>32</line>
+          <option name="timeStamp" value="63" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/facebase/models/facebase.py</url>
+          <line>29</line>
+          <option name="timeStamp" value="65" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/facebase/models/facebase.py</url>
+          <line>27</line>
+          <option name="timeStamp" value="66" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

@@ -20,12 +20,13 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base', 'hr', 'attendance_log'],
+    'depends': ['base', 'hr', 'attendance_log', 'hr_employee'],
 
     # always loaded
     'data': [
         'security/ir.model.access.csv',
         'views/facebase_view.xml',
+        'views/employee_facebase.xml',
         'views/assets.xml',
         'views/menu.xml',
     ],

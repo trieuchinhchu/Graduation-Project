@@ -64,90 +64,36 @@
         </field>
     </record>
 
-    <record id="da_infor_employee_re_send_popup" model="ir.ui.view">
-        <field name="name">hr.employee</field>
-        <field name="model">hr.employee</field>
-        <field name="active">False</field>
-        <field name="sequence">200</field>
-        <field name="arch" type="xml">
-            <form string="DA Employee" create="0" delete="0">
-                <sheet>
-                    <h5>Re-Send Update Info Employee</h5>
-                    <group string="Reason Re-Send"/>
-                    <field name="reason_re_send" required="True"/>
-                </sheet>
-                <footer>
-                    <button name="send_request_re_update_employee_info_email" string="Confirm"
-                            type="object" class="bg-warning"/>
-                    <button string="Close" class="btn btn-default" special="cancel"/>
-                </footer>
-            </form>
-        </field>
-    </record>
+<!--    <record id="da_infor_employee_re_send_popup" model="ir.ui.view">-->
+<!--        <field name="name">hr.employee</field>-->
+<!--        <field name="model">hr.employee</field>-->
+<!--        <field name="active">False</field>-->
+<!--        <field name="sequence">200</field>-->
+<!--        <field name="arch" type="xml">-->
+<!--            <form string="DA Employee" create="0" delete="0">-->
+<!--                <sheet>-->
+<!--                    <h5>Re-Send Update Info Employee</h5>-->
+<!--                    <group string="Reason Re-Send"/>-->
+<!--                    <field name="reason_re_send" required="True"/>-->
+<!--                </sheet>-->
+<!--                <footer>-->
+<!--                    <button name="send_request_re_update_employee_info_email" string="Confirm"-->
+<!--                            type="object" class="bg-warning"/>-->
+<!--                    <button string="Close" class="btn btn-default" special="cancel"/>-->
+<!--                </footer>-->
+<!--            </form>-->
+<!--        </field>-->
+<!--    </record>-->
 
-    <record id="send_request_re_update_employee_info_email_action" model="ir.actions.act_window">
-        <field name="name">
-            Re-Send Update Info Employee
-        </field>
-        <field name="res_model">hr.employee</field>
-        <field name="view_type">form</field>
-        <field name="view_mode">form</field>
-        <field name="target">new</field>
-        <field name="view_id" ref="da_infor_employee_re_send_popup"/>
-    </record>
-
-    <!--    FACEBASE RESOURCES-->
-
-    <record id="facebase_resources_tree_view" model="ir.ui.view">
-        <field name="name">facebase.resources.tree.view</field>
-        <field name="model">hr.employee</field>
-        <field name="arch" type="xml">
-            <tree import="false" string="Facebase Resources">
-                <field name="display_name"/>
-                <field name="account"/>
-                <field name="department_id"/>
-            </tree>
-        </field>
-    </record>
-
-    <record id="facebase_resources_form_view" model="ir.ui.view">
-        <field name="name">facebase.resources.form.view</field>
-        <field name="model">hr.employee</field>
-        <field name="arch" type="xml">
-            <form string="Facebase Resources">
-                <group>
-                    <field name="display_name"/>
-                    <field name="account"/>
-                    <field name="department_id"/>
-                </group>
-            </form>
-        </field>
-    </record>
-
-    <record id="facebase_resources_search" model="ir.ui.view">
-        <field name="name">facebase.resources.search</field>
-        <field name="model">hr.employee</field>
-        <field name="priority">32</field>
-        <field name="arch" type="xml">
-            <search string="Attendance Log Search">
-                <field name="display_name" string="Name"/>
-                <field name="account" string="Account"/>
-                <group expand="1" string="Group By">
-                    <filter string="Department" name="group_department" context="{'group_by':'department_id'}" />
-                </group>
-            </search>
-        </field>
-    </record>
-
-    <record model="ir.actions.act_window" id="facebase_resources_action_window">
-        <field name="name">Facebase Resources</field>
-        <field name="res_model">hr.employee</field>
-        <field name="view_mode">tree,form</field>
-        <field name="view_ids" eval="[(5, 0, 0),
-            (0, 0, {'view_mode': 'tree', 'view_id': ref('facebase_resources_tree_view')}),
-            (0, 0, {'view_mode': 'form', 'view_id': ref('facebase_resources_form_view')})]"/>
-        <field name="search_view_id" ref="facebase_resources_search"/>
-        <field name="context">{'search_default_group_department': 1}</field>
-    </record>
+<!--    <record id="send_request_re_update_employee_info_email_action" model="ir.actions.act_window">-->
+<!--        <field name="name">-->
+<!--            Re-Send Update Info Employee-->
+<!--        </field>-->
+<!--        <field name="res_model">hr.employee</field>-->
+<!--        <field name="view_type">form</field>-->
+<!--        <field name="view_mode">form</field>-->
+<!--        <field name="target">new</field>-->
+<!--        <field name="view_id" ref="da_infor_employee_re_send_popup"/>-->
+<!--    </record>-->
 
 </odoo>

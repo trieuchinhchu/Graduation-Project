@@ -9,16 +9,28 @@ from imutils import paths
 import face_recognition
 from odoo import models, fields, api
 from datetime import datetime, timezone
-
+import io
+import numpy as np
+from PIL import Image
 
 class FaceBase(models.Model):
     _name = 'da.facebase'
 
     employee_id = fields.Many2one(comodel_name='hr.employee', required=True, string='Name')
     file_path = fields.Char(string='File path')
-
+    # images = fields.Many2many(string='Images', comodel_name='ir.attachment')
     path = os.getcwd()
     data = []
+
+    def get_attachments(self):
+        query = 'SELECT * FROM hr_employee_facebase_images_rel'
+        self._cr.execute(query)
+        result =  self._cr.fetchall()
+        attach_ids = list(map(lambda x: x[1], result))
+        emp_ids = list(map(lambda x: x[0], result))
+        attachment_ids = self.env['ir.attachment'].sudo().browse(attach_ids)
+        employee_ids = self.env['hr.employee'].sudo().browse(emp_ids)
+        return employee_ids, attachment_ids
 
     def get_path(self, path_str):
         path = os.path.join(self.path, path_str)
@@ -47,20 +59,19 @@ class FaceBase(models.Model):
             if (cv2.waitKey(100) & 0xFF == ord('q')) or num_img >= 30:
                 break
 
-    @api.multi
-    def encoding_data(self):
-        self.ensure_one()
+    @api.model
+    def training(self):
         print('Started encoding')
-        image_paths = list(paths.list_images('D:\odoo12\server\dataset3'))
         count = 0
         data_encoding =[]
         data_names =[]
         data_ids = []
-        for (i, image_path) in enumerate(image_paths):
+        employee_ids, attachment_ids = self.get_attachments()
+        for employee_id, attachment_id in zip(employee_ids, attachment_ids):
             count += 1
-            name = image_path.split('\\')[-1].split('.')[0:-3]
-            id = image_path.split('\\')[-1].split('.')[-3]
-            image = cv2.imread(image_path)
+            decode_img = base64.b64decode(attachment_id.datas)
+            img = Image.open(io.BytesIO(decode_img))
+            image = np.asarray(img)
             resize_img = cv2.resize(image, (720, 960), interpolation=cv2.INTER_NEAREST)
             rgb_image = cv2.cvtColor(resize_img, cv2.COLOR_BGR2RGB)
             face_frame = face_recognition.face_locations(rgb_image, model='hog')
@@ -69,12 +80,12 @@ class FaceBase(models.Model):
                 face_encodings = face_recognition.face_encodings(rgb_image, face_frame)[0]
                 # Add face encoding for current image with corresponding label (name) to the training data
                 data_encoding.append(face_encodings)
-                data_names.append('.'.join(name))
-                data_ids.append(int(id))
+                data_names.append(employee_id.account)
+                data_ids.append(int(employee_id.id))
             else:
-                print(image_path + " was skipped and can't be used for training")
+                print(attachment_id.datas_fname + " was skipped and can't be used for training")
 
-            print('%s %s' %(name, count))
+            print('%s %s' %(employee_id.account, count))
 
         data = {'encoding': data_encoding, 'name': data_names, 'id': data_ids}
         f = open(f'{self.get_path("recognizer")}/training_data', 'wb')
