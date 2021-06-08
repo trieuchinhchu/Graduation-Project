@@ -9,6 +9,7 @@ from imutils import paths
 import face_recognition
 from odoo import models, fields, api
 from datetime import datetime, timezone
+from odoo.exceptions import ValidationError
 import io
 import numpy as np
 from PIL import Image
@@ -16,16 +17,13 @@ from PIL import Image
 class FaceBase(models.Model):
     _name = 'da.facebase'
 
-    employee_id = fields.Many2one(comodel_name='hr.employee', required=True, string='Name')
-    file_path = fields.Char(string='File path')
-    # images = fields.Many2many(string='Images', comodel_name='ir.attachment')
+    data = fields.Binary(string='Trained Data')
     path = os.getcwd()
-    data = []
 
     def get_attachments(self):
         query = 'SELECT * FROM hr_employee_facebase_images_rel'
         self._cr.execute(query)
-        result =  self._cr.fetchall()
+        result = self._cr.fetchall()
         attach_ids = list(map(lambda x: x[1], result))
         emp_ids = list(map(lambda x: x[0], result))
         attachment_ids = self.env['ir.attachment'].sudo().browse(attach_ids)
@@ -88,14 +86,18 @@ class FaceBase(models.Model):
             print('%s %s' %(employee_id.account, count))
 
         data = {'encoding': data_encoding, 'name': data_names, 'id': data_ids}
-        f = open(f'{self.get_path("recognizer")}/training_data', 'wb')
-        f.write(pickle.dumps(data))
-        f.close()
+        facebase_id = self.sudo().search([], limit=1)
+        if facebase_id:
+            facebase_id.write({'data': base64.b64encode(pickle.dumps(data))})
 
     @api.model
     def recognition(self):
         faceCascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_alt2.xml')
-        data = pickle.loads(open(f'{self.get_path("recognizer")}/training_data', "rb").read())
+        facebase_id = self.sudo().search([], limit=1)
+        if not facebase_id or not facebase_id.data:
+            raise ValidationError('Không tìm thấy data được training!')
+        data_decode = base64.b64decode(facebase_id.data)
+        data = pickle.loads(data_decode)
         cam_1 = cv2.VideoCapture(0, cv2.CAP_DSHOW)
         cam_2 = cv2.VideoCapture(1, cv2.CAP_DSHOW)
         cam_1.set(cv2.CAP_PROP_BUFFERSIZE, 2)
