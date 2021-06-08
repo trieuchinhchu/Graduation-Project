@@ -10,4 +10,5 @@ class HrEmployeeFacebaseInherit(models.Model):
     _description = 'HR Employee Facebase Inherit'
 
     images = fields.Many2many(string='Images', comodel_name='ir.attachment',
+                              required=True,
                               relation='hr_employee_facebase_images_rel')

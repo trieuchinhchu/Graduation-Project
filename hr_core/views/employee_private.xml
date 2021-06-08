@@ -88,16 +88,7 @@
                             </div>
                         </div>
                     </div>
-                    
-                    <div class="row form-group form-field o_website_form_custom">
-                        <div class="col-lg-3 col-md-4">
-                            <label class="col-form-label o_fake_editable" for="is_bank" string="Have TP Bank Account">
-                            </label>
-                        </div>
-                        <div class="col-lg-7 col-md-8">
-                            <field name="is_bank" />
-                        </div>
-                    </div>
+
                     <div class="row form-group form-field o_website_form_custom" attrs="{'invisible': [('is_bank', '!=', 'yes')]}">
                         <div class="col-lg-3 col-md-4">
                             <label class="col-form-label o_fake_editable" for="account_number" string="TP Bank account number">
@@ -301,54 +292,7 @@
                             </div>
                         </div>
                     </div>
-                    <h5 style="font-style: bo;font-family: bold;color: black;">Family information</h5>
-                    <div class="row form-group form-field o_website_form_required o_website_form_custom">
-                        <div class="col-lg-3 col-md-4">
-                            
-                            <label class="col-form-label o_fake_editable" for="spouse_name">
-                                Spouse Name
-                            </label>
-                            <div class="control-group">
-                                <div class="controls">
-                                    <field name="spouse_name"/>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-md-4">
-                            <label class="col-form-label o_fake_editable" for="spouse_job">
-                                Spouse Job
-                            </label>
-                            <div class="control-group">
-                                <div class="controls">
-                                    <field name="spouse_job"/>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-4">
-                            <label class="col-form-label o_fake_editable" for="spouse_year">
-                                Spouse Year
-                            </label>
-                            <div class="control-group">
-                                <div class="controls">
-                                    <field name="spouse_year"/>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row form-group form-field o_website_form_custom" name="children">
-                        <div class="col-lg-3 col-md-4">
-                            <label class="col-form-label o_fake_editable" for="children">
-                                Number Children
-                            </label>
-                        </div>
-                        <div class="col-lg-7 col-md-8">
-                            <div class="control-group">
-                                <div class="controls">
-                                    <field name="children"/>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+
                     <h5 style="font-style: bo;font-family: bold;color: black;">Contact </h5>
                     <div class="row form-group form-field o_website_form_required o_website_form_custom">
                         <div class="col-lg-3 col-md-4">

@@ -6,7 +6,8 @@
             <field name="model">da.facebase</field>
             <field name="arch" type="xml">
                 <tree import="false" create="true">
-                    <field name="data"/>
+                    <field name="training_date"/>
+                    <field name="data" string="Size"/>
                 </tree>
             </field>
         </record>

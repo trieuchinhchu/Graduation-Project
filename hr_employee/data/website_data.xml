@@ -359,51 +359,7 @@
                                         </t>
                                     </div>
                                 </div>
-                                <h5 style="font-style: bo;font-family: bold;color: black;">Family information</h5>
-                                <div class="row form-group form-field o_website_form_required o_website_form_custom">
-                                    <div class="col-lg-3 col-md-4">
-                                        Spouse Name
-                                        <div class="control-group">
-                                            <div class="controls">
-                                                <input type="text" class="form-control o_website_form_input" t-att-value="spouse_name" name="spouse_name"/>
-                                                <p class="help-block"/>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-md-4">
-                                        Spouse Job
-                                        <div class="control-group">
-                                            <div class="controls">
-                                                <input type="text" class="form-control o_website_form_input" t-att-value="spouse_job" name="spouse_job"/>
-                                                <p class="help-block"/>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-4 col-md-4">
-                                        Spouse Year
-                                        <div class="control-group">
-                                            <div class="controls">
-                                                <input type="text" class="form-control o_website_form_input" t-att-value="spouse_year" name="spouse_year"/>
-                                                <p class="help-block"/>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row form-group form-field o_website_form_custom">
-                                    <div class="col-lg-3 col-md-4">
-                                        <label class="col-form-label o_fake_editable" for="children">
-                                            Number Children
-                                        </label>
-                                    </div>
-                                    <div class="col-lg-7 col-md-8">
-                                        <div class="control-group">
-                                            <div class="controls">
-                                                <input type="number" class="form-control o_website_form_input" min="0" t-att-value="children" name="children" placeholder="Number of Children" id="noOfChildren"/>
-                                                <p class="help-block"/>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+
                                 <h5 style="font-style: bo;font-family: bold;color: black;">Contact </h5>
                                 <div class="row form-group form-field o_website_form_required o_website_form_custom">
                                     <div class="col-lg-3 col-md-4">

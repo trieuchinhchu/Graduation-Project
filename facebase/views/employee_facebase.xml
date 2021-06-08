@@ -41,6 +41,7 @@
             <search string="Attendance Log Search">
                 <field name="display_name" string="Name"/>
                 <field name="account" string="Account"/>
+                <filter string="Has Face Data?" name="has_images" domain="[('images', '!=', False)]"/>
                 <group expand="1" string="Group By">
                     <filter string="Department" name="group_department" context="{'group_by':'department_id'}" />
                 </group>

@@ -1,24 +1,18 @@
 # -*- coding: utf-8 -*-
-import base64
-import os, time
-import pickle
+import base64, pickle, cv2, face_recognition, io, os, time
 from dateutil.relativedelta import relativedelta
-import cv2
-import numpy as np
-from imutils import paths
-import face_recognition
 from odoo import models, fields, api
 from datetime import datetime, timezone
 from odoo.exceptions import ValidationError
-import io
 import numpy as np
 from PIL import Image
+
 
 class FaceBase(models.Model):
     _name = 'da.facebase'
 
     data = fields.Binary(string='Trained Data')
-    path = os.getcwd()
+    training_date = fields.Date(default=fields.Date.today(), string='Date')
 
     def get_attachments(self):
         query = 'SELECT * FROM hr_employee_facebase_images_rel'
@@ -29,12 +23,6 @@ class FaceBase(models.Model):
         attachment_ids = self.env['ir.attachment'].sudo().browse(attach_ids)
         employee_ids = self.env['hr.employee'].sudo().browse(emp_ids)
         return employee_ids, attachment_ids
-
-    def get_path(self, path_str):
-        path = os.path.join(self.path, path_str)
-        if not os.path.isdir(path):
-            os.mkdir(path)
-        return path
 
     def capture_from_video(self):
         self.ensure_one()
@@ -86,14 +74,15 @@ class FaceBase(models.Model):
             print('%s %s' %(employee_id.account, count))
 
         data = {'encoding': data_encoding, 'name': data_names, 'id': data_ids}
-        facebase_id = self.sudo().search([], limit=1)
+        facebase_id = self.env.ref('facebase.facebase_trained_data')
         if facebase_id:
-            facebase_id.write({'data': base64.b64encode(pickle.dumps(data))})
+            facebase_id.write({'data': base64.b64encode(pickle.dumps(data)),
+                               'training_date': fields.Date.today()})
 
     @api.model
     def recognition(self):
         faceCascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_alt2.xml')
-        facebase_id = self.sudo().search([], limit=1)
+        facebase_id = self.env.ref('facebase.facebase_trained_data')
         if not facebase_id or not facebase_id.data:
             raise ValidationError('Không tìm thấy data được training!')
         data_decode = base64.b64decode(facebase_id.data)
@@ -122,8 +111,7 @@ class FaceBase(models.Model):
                     if lst_index_2.count(i) >= 6:
                         self.create_attendance_log(data['id'][i], 'check_out')
                 count = 0
-                lst_index_1 = []
-                lst_index_2 = []
+                lst_index_1 = lst_index_2 = []
             if cv2.waitKey(1) == ord('q'):
                 break
         cam_1.release()
