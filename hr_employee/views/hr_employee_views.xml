@@ -24,24 +24,6 @@
             <xpath expr="//field[@name='job_title']" position="after">
                 <field name="internship" />
             </xpath>
-            <xpath expr="//page[@name='private_employee_infor']/div[@name='children']" position="after">
-                <group string="Update status"
-                       attrs="{'invisible':[('id','=',False)]}">
-                    <group>
-                        <field name="emp_info_state"/>
-                        <field name="email_update_date"/>
-                    </group>
-                    <group>
-                        <button name="approve_employee_info_update" string="Approve employee info"
-                                type="object" class="bg-info"
-                                attrs="{'invisible': [('emp_info_state', '!=', 'wait_to_hr_confirm')]}"
-                                confirm="Approve employee info. Continue?"/>
-                        <button name="employee_re_send_update_infor" string="Re-Send update info"
-                                type="object" class="bg-warning"
-                                attrs="{'invisible': [('emp_info_state', '=', 'hr_confirm')]}"/>
-                    </group>
-                </group>
-            </xpath>
         </field>
     </record>
 
@@ -63,37 +45,4 @@
             </xpath>
         </field>
     </record>
-
-<!--    <record id="da_infor_employee_re_send_popup" model="ir.ui.view">-->
-<!--        <field name="name">hr.employee</field>-->
-<!--        <field name="model">hr.employee</field>-->
-<!--        <field name="active">False</field>-->
-<!--        <field name="sequence">200</field>-->
-<!--        <field name="arch" type="xml">-->
-<!--            <form string="DA Employee" create="0" delete="0">-->
-<!--                <sheet>-->
-<!--                    <h5>Re-Send Update Info Employee</h5>-->
-<!--                    <group string="Reason Re-Send"/>-->
-<!--                    <field name="reason_re_send" required="True"/>-->
-<!--                </sheet>-->
-<!--                <footer>-->
-<!--                    <button name="send_request_re_update_employee_info_email" string="Confirm"-->
-<!--                            type="object" class="bg-warning"/>-->
-<!--                    <button string="Close" class="btn btn-default" special="cancel"/>-->
-<!--                </footer>-->
-<!--            </form>-->
-<!--        </field>-->
-<!--    </record>-->
-
-<!--    <record id="send_request_re_update_employee_info_email_action" model="ir.actions.act_window">-->
-<!--        <field name="name">-->
-<!--            Re-Send Update Info Employee-->
-<!--        </field>-->
-<!--        <field name="res_model">hr.employee</field>-->
-<!--        <field name="view_type">form</field>-->
-<!--        <field name="view_mode">form</field>-->
-<!--        <field name="target">new</field>-->
-<!--        <field name="view_id" ref="da_infor_employee_re_send_popup"/>-->
-<!--    </record>-->
-
 </odoo>

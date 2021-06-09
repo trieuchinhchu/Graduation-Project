@@ -27,7 +27,7 @@
         'security/ir.model.access.csv',
         'data/facebase_data.xml',
         'views/facebase_view.xml',
-        'views/employee_facebase.xml',
+        'views/facebase_resources_view.xml',
         'views/assets.xml',
         'views/menu.xml',
     ],

@@ -19,61 +19,16 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="08b0bf37-2691-451d-b75c-deff8852afb5" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/attachment_preview/README.rst" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/attachment_preview/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/attachment_preview/__manifest__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/attachment_preview/i18n/de.po" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/attachment_preview/i18n/es.po" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/attachment_preview/i18n/it.po" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/attachment_preview/i18n/nl.po" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/attachment_preview/i18n/pt_BR.po" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/attachment_preview/i18n/pt_PT.po" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/attachment_preview/i18n/sl.po" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/attachment_preview/i18n/zh_CN.po" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/attachment_preview/models/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/attachment_preview/models/ir_attachment.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/attachment_preview/readme/CONTRIBUTORS.rst" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/attachment_preview/readme/CREDITS.rst" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/attachment_preview/readme/DESCRIPTION.rst" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/attachment_preview/readme/INSTALL.rst" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/attachment_preview/readme/USAGE.rst" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/attachment_preview/static/description/icon.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/attachment_preview/static/description/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/attachment_preview/static/description/screenshot-paginator.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/attachment_preview/static/description/screenshot-split.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/attachment_preview/static/src/js/attachment_preview.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/attachment_preview/static/src/js/viewerjs_tweaks.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/attachment_preview/static/src/scss/attachment_preview.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/attachment_preview/static/src/xml/attachment_preview.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/attachment_preview/templates/assets.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/attachment_preview/tests/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/attachment_preview/tests/test_attachment_preview.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/field_image_preview/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/field_image_preview/__manifest__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/field_image_preview/doc/changelog.rst" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/field_image_preview/static/description/backend.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/field_image_preview/static/description/customize.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/field_image_preview/static/description/icon.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/field_image_preview/static/description/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/field_image_preview/static/description/logo.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/field_image_preview/static/description/stock_cursor.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/field_image_preview/static/description/stock_open.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/field_image_preview/static/description/stock_open2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/field_image_preview/static/description/work.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/field_image_preview/static/src/css/lightbox.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/field_image_preview/static/src/js/form_image_preview.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/field_image_preview/static/src/xml/image.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/field_image_preview/views/form_image_preview_templates.xml" afterDir="false" />
+    <list default="true" id="52f3630b-327d-4a55-b9b5-c31dcb49cdc3" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/facebase/models/facebase.py" beforeDir="false" afterPath="$PROJECT_DIR$/facebase/models/facebase.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/facebase/models/hr_employee.py" beforeDir="false" afterPath="$PROJECT_DIR$/facebase/models/hr_employee.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/facebase/security/ir.model.access.csv" beforeDir="false" afterPath="$PROJECT_DIR$/facebase/security/ir.model.access.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/facebase/views/employee_facebase.xml" beforeDir="false" afterPath="$PROJECT_DIR$/facebase/views/employee_facebase.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/facebase/views/facebase_view.xml" beforeDir="false" afterPath="$PROJECT_DIR$/facebase/views/facebase_view.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/facebase/__manifest__.py" beforeDir="false" afterPath="$PROJECT_DIR$/facebase/__manifest__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/facebase/views/employee_facebase.xml" beforeDir="false" afterPath="$PROJECT_DIR$/facebase/views/facebase_resources_view.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/facebase/views/menu.xml" beforeDir="false" afterPath="$PROJECT_DIR$/facebase/views/menu.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hr_core/views/employee_private.xml" beforeDir="false" afterPath="$PROJECT_DIR$/hr_core/views/employee_private.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hr_employee/data/website_data.xml" beforeDir="false" afterPath="$PROJECT_DIR$/hr_employee/data/website_data.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hr_core/views/hr_employee_view.xml" beforeDir="false" afterPath="$PROJECT_DIR$/hr_core/views/hr_employee_view.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hr_employee/views/employee_skill.xml" beforeDir="false" afterPath="$PROJECT_DIR$/hr_employee/views/employee_skill.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hr_employee/views/hr_employee_views.xml" beforeDir="false" afterPath="$PROJECT_DIR$/hr_employee/views/hr_employee_views.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hr_employee/views/menu_view.xml" beforeDir="false" afterPath="$PROJECT_DIR$/hr_employee/views/menu_view.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

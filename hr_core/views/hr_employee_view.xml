@@ -235,7 +235,7 @@
     </record>
 
     <record id="hr.open_view_employee_list_my" model="ir.actions.act_window">
-            <field name="name">DA Group</field>
+            <field name="name">All Employees</field>
             <field name="res_model">hr.employee</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form,activity</field>

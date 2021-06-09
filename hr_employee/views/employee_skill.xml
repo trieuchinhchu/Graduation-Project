@@ -5,7 +5,6 @@
         <field name="name">hr.employee</field>
         <field name="model">hr.employee</field>
         <field name="active">False</field>
-        <field name="sequence">200</field>
         <field name="arch" type="xml">
             <form string="DA Employee" create="0" delete="0">
                 <header>
@@ -99,16 +98,6 @@
                                         <label class="col-form-label " for="id_tax"/>
                                         <br></br>
                                         <field name="id_tax"/>
-                                </div>
-                            </div>
-                            <div class="row form-group form-field o_website_form_custom">
-                            <div class="row form-group form-field o_website_form_custom" attrs="{'invisible': [('is_bank', '!=', 'yes')]}">
-                                <div class="col-lg-3 col-md-4">
-                                    <label class="col-form-label o_fake_editable" for="account_number" string="TP Bank account number">
-                                    </label>
-                                </div>
-                                <div class="col-lg-7 col-md-8">
-                                    <field name="account_number" attrs="{'required': [('is_bank', '=', 'yes')]}"/>
                                 </div>
                             </div>
                             <div class="row form-group form-field o_website_form_custom">

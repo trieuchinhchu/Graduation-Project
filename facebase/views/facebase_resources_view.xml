@@ -22,7 +22,7 @@
         <field name="arch" type="xml">
             <form string="Facebase Resources">
                 <group>
-                    <field name="display_name"/>
+                    <field name="name"/>
                     <field name="account"/>
                     <field name="department_id"/>
                 </group>
@@ -318,14 +318,4 @@
             </xpath>
         </field>
     </record>
-
-    <!--     Facebase Resources     -->
-    <menuitem
-            name="Facebase Resources"
-            id="menu_facebase_resources_root"
-            parent="hr.menu_hr_root"
-            groups="hr.group_hr_user,hr.group_hr_manager"
-            action="facebase_resources_action_window"
-            sequence="3"/>
-
 </odoo>

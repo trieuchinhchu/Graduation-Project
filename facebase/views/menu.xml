@@ -4,11 +4,21 @@
     <menuitem name="FaceBase"
               id="facebase_menu_root"
               web_icon="facebase,/facebase/static/description/icon.png"
-              />
+              groups="hr.group_hr_user,hr.group_hr_manager"/>
 
-    <menuitem name="Facebase"
+    <menuitem name="Training Data"
               id="facebase_menu_insert"
               parent="facebase_menu_root"
+              groups="hr.group_hr_user,hr.group_hr_manager"
               action="da_facebase_action"/>
+
+        <!--     Facebase Resources     -->
+    <menuitem
+            name="Facebase Resources"
+            id="menu_facebase_resources_root"
+            parent="facebase_menu_root"
+            groups="hr.group_hr_user,hr.group_hr_manager"
+            action="facebase_resources_action_window"
+            sequence="3"/>
 
 </odoo>
