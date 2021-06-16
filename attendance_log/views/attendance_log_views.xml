@@ -64,11 +64,8 @@
     <menuitem name="Manage Attendance Log"
               id="da_attendance_log_menu"
               parent="hr_attendance.menu_hr_attendance_root"
+              action="attendance_log.da_attendance_log_action_window"
+              groups="hr_attendance.group_hr_attendance_manager"
               sequence="5"/>
-    <!-- actions -->
-    <menuitem name="Attendance Log" id="da_attendance_menu"
-              parent="attendance_log.da_attendance_log_menu"
-              sequence="0"
-              action="attendance_log.da_attendance_log_action_window"/>
   </data>
 </odoo>

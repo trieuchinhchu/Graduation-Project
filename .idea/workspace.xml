@@ -20,14 +20,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="52f3630b-327d-4a55-b9b5-c31dcb49cdc3" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/Report/~$_ChuTrieuChinh.docx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/facebase/__manifest__.py" beforeDir="false" afterPath="$PROJECT_DIR$/facebase/__manifest__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/facebase/views/employee_facebase.xml" beforeDir="false" afterPath="$PROJECT_DIR$/facebase/views/facebase_resources_view.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/facebase/views/menu.xml" beforeDir="false" afterPath="$PROJECT_DIR$/facebase/views/menu.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hr_core/views/employee_private.xml" beforeDir="false" afterPath="$PROJECT_DIR$/hr_core/views/employee_private.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hr_core/views/hr_employee_view.xml" beforeDir="false" afterPath="$PROJECT_DIR$/hr_core/views/hr_employee_view.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hr_employee/views/employee_skill.xml" beforeDir="false" afterPath="$PROJECT_DIR$/hr_employee/views/employee_skill.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hr_employee/views/hr_employee_views.xml" beforeDir="false" afterPath="$PROJECT_DIR$/hr_employee/views/hr_employee_views.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Report/ĐA_ChuTrieuChinh.docx" beforeDir="false" afterPath="$PROJECT_DIR$/Report/ĐA_ChuTrieuChinh.docx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/attendance/models/da_attendance.py" beforeDir="false" afterPath="$PROJECT_DIR$/attendance/models/da_attendance.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/attendance_log/views/attendance_log_views.xml" beforeDir="false" afterPath="$PROJECT_DIR$/attendance_log/views/attendance_log_views.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/facebase/models/facebase.py" beforeDir="false" afterPath="$PROJECT_DIR$/facebase/models/facebase.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hr_core/views/menus.xml" beforeDir="false" afterPath="$PROJECT_DIR$/hr_core/views/menus.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hr_employee/models/hr_employee_new.py" beforeDir="false" afterPath="$PROJECT_DIR$/hr_employee/models/hr_employee_new.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hr_employee/views/menu_view.xml" beforeDir="false" afterPath="$PROJECT_DIR$/hr_employee/views/menu_view.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -100,7 +100,7 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="08b0bf37-2691-451d-b75c-deff8852afb5" name="Default Changelist" comment="" />
+      <changelist id="52f3630b-327d-4a55-b9b5-c31dcb49cdc3" name="Default Changelist" comment="" />
       <created>1617726694053</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
@@ -159,21 +159,6 @@
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/attendance_log/models/da_attendance_log.py</url>
-          <line>60</line>
-          <option name="timeStamp" value="16" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/attendance_log/models/da_attendance_log.py</url>
-          <line>67</line>
-          <option name="timeStamp" value="22" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/attendance_log/models/da_attendance_log.py</url>
-          <line>69</line>
-          <option name="timeStamp" value="23" />
-        </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/resource_calendar/models/resource_calendar.py</url>
           <line>36</line>
@@ -240,24 +225,19 @@
           <option name="timeStamp" value="66" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/facebase/models/facebase.py</url>
-          <line>154</line>
-          <option name="timeStamp" value="70" />
+          <url>file://$PROJECT_DIR$/attendance/models/da_attendance.py</url>
+          <line>51</line>
+          <option name="timeStamp" value="77" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/facebase/models/facebase.py</url>
-          <line>152</line>
-          <option name="timeStamp" value="72" />
+          <url>file://$PROJECT_DIR$/attendance/models/da_attendance.py</url>
+          <line>48</line>
+          <option name="timeStamp" value="79" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/facebase/models/facebase.py</url>
-          <line>153</line>
-          <option name="timeStamp" value="73" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/facebase/models/facebase.py</url>
-          <line>150</line>
-          <option name="timeStamp" value="74" />
+          <url>file://$PROJECT_DIR$/attendance/models/da_attendance.py</url>
+          <line>47</line>
+          <option name="timeStamp" value="80" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

@@ -46,4 +46,35 @@ class Attendance(models.Model):
                 r.date = r.check_in.date()
 
     def utc_to_local(self, utc_dt):
-        return utc_dt.replace(tzinfo=tz.gettz('UTC')).astimezone(tz.gettz(self.env.context.get('tz')) or tz.gettz(self.employee_id.tz))
+        return utc_dt.replace(tzinfo=tz.gettz('UTC')).astimezone(tz.gettz('Asia/Ho_Chi_Minh') or tz.gettz(self.env.context.get('tz')) or tz.gettz(self.employee_id.tz))
+
+    def check_in_mail_notice(self, attendance_id):
+        mails = self.env['mail.mail'].sudo()
+        mail_values = {
+            'email_from': "DA <no-reply@DA.com.vn>",
+            'email_to': f"{attendance_id.employee_id.work_email or ''}",
+            'reply_to': f"{attendance_id.employee_id.company_id.hr_email or ''}",
+            'subject': f"[Check in] Thông báo nhân viên {attendance_id.employee_id.name} check in lúc {self.utc_to_local(attendance_id.check_in).strftime('%H:%M:%S %d-%m-%Y')}",
+            'body_html': f"""
+                <div style="margin: 0px; padding: 0px;" >
+                    <p style="margin: 0px; padding: 0px; font-size: 13px;">
+                        Nhân viên {attendance_id.employee_id.name} ({attendance_id.employee_id.department_id.name}) đã check in lúc {self.utc_to_local(attendance_id.check_in).strftime('%H:%M:%S %d-%m-%Y')}
+                        <br/>
+                        Yêu cầu nhân viên kiểm tra, liên hệ bộ phận HR nếu có vấn đề.
+                        <br/>
+                        Regard,
+                    </p>
+                    </div>
+            """,
+            'notification': True,
+            'auto_delete': False,
+        }
+        mail = self.env['mail.mail'].create(mail_values)
+        mails |= mail
+        mails.send()
+
+    @api.model
+    def create(self, vals):
+        res = super(Attendance, self).create(vals)
+        self.check_in_mail_notice(res)
+        return res

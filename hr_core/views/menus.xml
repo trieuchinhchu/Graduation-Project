@@ -34,6 +34,12 @@
                 parent="hr.menu_human_resources_configuration"
                 groups="hr.group_hr_manager"
                 sequence="20"/>
+        <menuitem
+                id="menu_hr_holidays_configuration"
+                name="Configuration"
+                parent="hr_holidays.menu_hr_holidays_root"
+                groups="hr_holidays.group_hr_holidays_manager"
+                sequence="100"/>
         <delete model="ir.ui.menu" id ="hr_gamification.menu_hr_gamification"/>
         <delete model="ir.ui.menu" id ="hr_gamification.gamification_badge_menu_hr"/>
         <delete model="ir.ui.menu" id ="hr_gamification.gamification_challenge_menu_hr"/>

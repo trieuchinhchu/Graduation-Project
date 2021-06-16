@@ -210,10 +210,10 @@ class HrEmployeeNewLines(models.Model):
                 """
 
             mail_values = {
-                'email_from': "DA VMS <no-reply@DA.com.vn>",
+                'email_from': "DA  <no-reply@DA.com.vn>",
                 'email_to': f"{emp.company_id.it_email}",
                 'email_cc': f"{emp._get_email_cc()},{dl_emails}",
-                'reply_to': f"{emp.company_id.rec_email or ''}",
+                'reply_to': f"{emp.company_id.hr_email or ''}",
                 'subject': f"[DA New Member] Request tạo account và setup máy tính cho nhân viên mới",
                 'body_html': f"""
                     <div style="margin: 0px; padding: 0px; overflow-x: scroll;" >
@@ -259,10 +259,10 @@ class HrEmployeeNewLines(models.Model):
         self.ensure_one()
         mails = self.env['mail.mail'].sudo()
         mail_values = {
-            'email_from': "DA VMS <no-reply@DA.com.vn>",
+            'email_from': "DA  <no-reply@DA.com.vn>",
             'email_to': f"{self.company_id.it_email or ''}",
             'email_cc': f"{self._get_email_cc()}, {self.department_id.manager_id.work_email or ''}",
-            'reply_to': f"{self.company_id.rec_email or ''}",
+            'reply_to': f"{self.company_id.hr_email or ''}",
             'subject': f"[DA New Member] Nhân viên mới: {self.full_name} đã từ chối đi làm.",
             'body_html': f"""
                 <div style="margin: 0px; padding: 0px;" >
@@ -314,12 +314,12 @@ class HrEmployeeNewLines(models.Model):
         mails = self.env['mail.mail'].sudo()
         self._check_company_configure()
         mail_values = {
-            'email_from': "DA VMS <no-reply@DA.com.vn>",
+            'email_from': "DA  <no-reply@DA.com.vn>",
             'email_to': f"{self.company_id.hr_email or ''}",
             'email_cc': f"{self._get_email_cc()}, "
                         f"{self.department_id.manager_id.work_email or ''},"
                         f"{self.company_id.it_email or ''}",
-            'reply_to': f"{self.company_id.rec_email or ''}",
+            'reply_to': f"{self.company_id.hr_email or ''}",
             'subject': f"[DA New Member] Nhân viên mới: {self.full_name} thay đổi ngày dự kiến đi làm.",
             'body_html': f"""
                 <div style="margin: 0px; padding: 0px;" >
@@ -349,7 +349,7 @@ class HrEmployeeNewLines(models.Model):
         mails = self.env['mail.mail'].sudo()
         self._check_company_configure()
         mail_values = {
-            'email_from': "DA VMS <no-reply@DA.com.vn>",
+            'email_from': "DA  <no-reply@DA.com.vn>",
             'email_to': f"{self.company_id.hr_email or ''}",
             'email_cc': f"{self._get_email_cc()}, ",
             'subject': f"[DA New Member] Nhân viên mới: {self.full_name} thay đổi rec follower.",
@@ -382,7 +382,7 @@ class HrEmployeeNewLines(models.Model):
         mails = self.env['mail.mail'].sudo()
         self._check_company_configure()
         mail_values = {
-            'email_from': "DA VMS <no-reply@DA.com.vn>",
+            'email_from': "DA  <no-reply@DA.com.vn>",
             'email_to': f"{self.user_id.partner_id.email or self.create_uid.partner_id.email or ''}",
             'subject': f"[DA New Member] Nhân viên mới: {self.full_name} thay đổi thông tin hợp đồng đầu vào.",
             'body_html': f"""
