@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*
 
-from datetime import datetime, timedelta
+
 from odoo import models, api, fields, _
 from odoo.exceptions import ValidationError
+import base64, io, cv2, face_recognition, numpy as np
+from PIL import Image
 
 
 class HrEmployeeFacebaseInherit(models.Model):
@@ -23,3 +25,20 @@ class HrEmployeeFacebaseInherit(models.Model):
         for r in self:
             if r.images:
                 r.view_images = [(6, 0, r.images.ids)]
+
+    @api.constrains('images')
+    def validate_images(self):
+        for r in self:
+            lst = []
+            for image in r.images:
+                decode_img = base64.b64decode(image.datas)
+                img = Image.open(io.BytesIO(decode_img))
+                resize_img = cv2.resize(np.asarray(img), (720, 960), interpolation=cv2.INTER_NEAREST)
+                rgb_image = cv2.cvtColor(resize_img, cv2.COLOR_BGR2RGB)
+                face_frame = face_recognition.face_locations(rgb_image, model='hog')
+                # If training image contains exactly one face
+                if len(face_frame) != 1:
+                    lst.append(image.datas_fname)
+            if lst:
+                raise ValidationError('Ảnh không đạt yêu cầu: \n%s' % '\n'.join(lst))
+

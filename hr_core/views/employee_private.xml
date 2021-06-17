@@ -322,9 +322,6 @@
                             </div>
                         </div>
                     </div>
-                    <group string="Các loại giấy tờ đang giữ">
-                    <field name="document_ids" string="" widget="many2many_checkboxes"/>
-                    </group>
                 </page>
             </xpath>
         </field>

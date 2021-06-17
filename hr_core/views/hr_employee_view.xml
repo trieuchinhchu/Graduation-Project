@@ -87,11 +87,6 @@
             <xpath expr="//button[@name='toggle_active']" position="attributes">
                 <attribute name="confirm">Are you sure you want to archived this employee</attribute>
             </xpath>
-            <xpath expr="//page[@name='personal_information']/group[1]" position="after">
-                <group string="Các loại giấy tờ đang giữ">
-                    <field name="document_ids" string="" widget="many2many_checkboxes"/>
-                </group>
-            </xpath>
         </field>
     </record>
 

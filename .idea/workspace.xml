@@ -20,15 +20,56 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="52f3630b-327d-4a55-b9b5-c31dcb49cdc3" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Report/~$_ChuTrieuChinh.docx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Report/Activity - HIển thị thông tin chấm công.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Report/Activity - HIển thị yêu cầu cấp ngày nghỉ.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Report/Activity - HIển thị yêu cầu xin nghỉ.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Report/Activity - Tạo  yêu cầu xin nghỉ.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Report/Activity - Xem báo cáo chấm công.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Report/Activity - Xem báo cáo nghỉ phép.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Report/Activity - sửa thông tin chấm công.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Report/Activity - xóa chấm công.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Report/Activity- Tạo yêu cầu cấp số ngày nghỉ.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Report/Cấu hình module nghỉ phép.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Report/Cấu hình module nhân viên.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Report/Dang nhap.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Report/Dang xuat.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Report/Duyệt yêu cầu cấp số ngày nghỉ phép.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Report/Duyệt yêu cầu nghỉ phép.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Report/Hien thi thong tin ca nhan.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Report/Hiển thị danh sách nhân viên.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Report/Hiển thị danh sách phòng ban.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Report/Hiển thị thông tin chấm công.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Report/Hiển thị thông tin nhân viên.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Report/Hiển thị yêu cầu cấp ngày nghỉ.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Report/Hiển thị yêu cầu xin nghỉ.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Report/Sửa thông tin chấm công.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Report/Tao nghi phep.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Report/Tong quat.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Report/Tong quat.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Report/Tạo nhân viên.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Report/Tạo phòng ban.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Report/Tạo yêu cầu cấp số ngày nghỉ.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Report/Xem báo cáo chấm công.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Report/Xem báo cáo nghỉ phép.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Report/Xóa thông tin chấm công.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Report/activity - Duyệt yêu cầu cấp ngày nghỉ phép.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Report/activity - Duyệt yêu cầu nghỉ phép.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Report/activity - Duyệt yêu cầu tạo nhân viên.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Report/activity - cau hinh module nghi phep.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Report/activity - cau hinh module nhan vien.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Report/activity - hien thi danh sach nhan vien.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Report/activity - hien thi danh sach phòng ban.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Report/activity - hien thi thong tin ca nhan.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Report/activity - tạo nhân viên.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Report/activity - tạo phòng ban.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Report/activity-dangnhap.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Report/activity-dangxuat.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Report/ĐA_ChuTrieuChinh.docx" beforeDir="false" afterPath="$PROJECT_DIR$/Report/ĐA_ChuTrieuChinh.docx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/attendance/models/da_attendance.py" beforeDir="false" afterPath="$PROJECT_DIR$/attendance/models/da_attendance.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/attendance_log/views/attendance_log_views.xml" beforeDir="false" afterPath="$PROJECT_DIR$/attendance_log/views/attendance_log_views.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/facebase/models/facebase.py" beforeDir="false" afterPath="$PROJECT_DIR$/facebase/models/facebase.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hr_core/views/menus.xml" beforeDir="false" afterPath="$PROJECT_DIR$/hr_core/views/menus.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hr_employee/models/hr_employee_new.py" beforeDir="false" afterPath="$PROJECT_DIR$/hr_employee/models/hr_employee_new.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hr_employee/views/menu_view.xml" beforeDir="false" afterPath="$PROJECT_DIR$/hr_employee/views/menu_view.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/facebase/models/hr_employee.py" beforeDir="false" afterPath="$PROJECT_DIR$/facebase/models/hr_employee.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hr_core/views/employee_private.xml" beforeDir="false" afterPath="$PROJECT_DIR$/hr_core/views/employee_private.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hr_core/views/hr_employee_view.xml" beforeDir="false" afterPath="$PROJECT_DIR$/hr_core/views/hr_employee_view.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -238,6 +279,26 @@
           <url>file://$PROJECT_DIR$/attendance/models/da_attendance.py</url>
           <line>47</line>
           <option name="timeStamp" value="80" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/facebase/models/hr_employee.py</url>
+          <line>32</line>
+          <option name="timeStamp" value="81" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/facebase/models/hr_employee.py</url>
+          <line>33</line>
+          <option name="timeStamp" value="82" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/facebase/models/hr_employee.py</url>
+          <line>30</line>
+          <option name="timeStamp" value="83" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/facebase/models/hr_employee.py</url>
+          <line>41</line>
+          <option name="timeStamp" value="84" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

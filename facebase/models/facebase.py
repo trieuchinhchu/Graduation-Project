@@ -126,8 +126,6 @@ class FaceBase(models.Model):
                                              minSize=(60, 60),
                                              flags=cv2.CASCADE_SCALE_IMAGE)
         lst_index, names = self.recognizer(data, frame)
-        print(lst_index)
-        print(names)
 
         for ((x, y, w, h), name) in zip(faces, names):
             # draw the predicted face name on the image
