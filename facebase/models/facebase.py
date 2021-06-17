@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-import base64, pickle, cv2, face_recognition, io, os, time
+import base64, pickle, cv2, face_recognition, io, os, time, math
 from dateutil.relativedelta import relativedelta
 from odoo import models, fields, api
 from datetime import datetime, timezone
@@ -94,11 +94,12 @@ class FaceBase(models.Model):
         lst_index_1 = []
         lst_index_2 = []
         count = 0
-        # set text style
         while True:
             ret_1, frame_1 = cam_1.read()
             ret_2, frame_2 = cam_2.read()
+
             index_1 = self.detect(data, faceCascade, frame_1, 'Check In')
+
             index_2 = self.detect(data, faceCascade, frame_2, 'Check Out')
             lst_index_1.extend(index_1)
             lst_index_2.extend(index_2)
@@ -125,12 +126,15 @@ class FaceBase(models.Model):
                                              minNeighbors=5,
                                              minSize=(60, 60),
                                              flags=cv2.CASCADE_SCALE_IMAGE)
-        lst_index, names = self.recognizer(data, frame)
+        # lst_index, names = self.recognizer(data, frame)
+        lst_index, names, lst_accuracy = self.recognizer(data, frame)
 
-        for ((x, y, w, h), name) in zip(faces, names):
+        # for ((x, y, w, h), name) in zip(faces, names):
+        for ((x, y, w, h), name, accuracy) in zip(faces, names, lst_accuracy):
             # draw the predicted face name on the image
-            cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
-            cv2.putText(frame, '%s'%name, (x, y), cv2.FONT_HERSHEY_SIMPLEX, 0.75, (0, 255, 0), 2)
+            cv2.rectangle(frame, (x, y), (x + w, y + h), (51, 142, 232), 2)
+            # cv2.putText(frame, '%s'% name, (x, y), cv2.FONT_HERSHEY_SIMPLEX, 0.75, (0, 255, 0), 2)
+            cv2.putText(frame, '%s(%s)' % (name, accuracy), (x, y), cv2.FONT_HERSHEY_SIMPLEX, 0.75, (51, 142, 232), 2)
         cv2.imshow(frame_name, frame)
         return lst_index
 
@@ -140,21 +144,29 @@ class FaceBase(models.Model):
         encodings = face_recognition.face_encodings(rgb_image)
         names = []
         lst_index = []
-        # lst_accuracy = []
+        lst_accuracy = []
         for encoding in encodings:
-            matches = face_recognition.compare_faces(data['encoding'], encoding)
             name = "Unknown"
             # use the known face with the smallest distance to the new face
             face_distances = face_recognition.face_distance(data['encoding'], encoding)
             result = min(face_distances)
-            if result <= 0.5:
+            if result <= 0.55:
                 best_index = np.argmin(face_distances)
-                if matches[best_index]:
-                    name = data['name'][best_index]
+                name = data['name'][best_index]
                 lst_index.append(best_index)
+                lst_accuracy.append(str(round(self.face_distance_to_conf(result) * 100))+'%')
             names.append(name)
-                # lst_accuracy.append(round(100-result*100))
-        return lst_index, names
+        return lst_index, names, lst_accuracy
+
+    def face_distance_to_conf(self, face_distance, face_match_threshold=0.55):
+        if face_distance > face_match_threshold:
+            range = (1.0 - face_match_threshold)
+            linear_val = (1.0 - face_distance) / (range * 2.0)
+            return linear_val
+        else:
+            range = face_match_threshold
+            linear_val = 1.0 - (face_distance / (range * 2.0))
+            return linear_val + ((1.0 - linear_val) * math.pow((linear_val - 0.5) * 2, 0.2))
 
     def create_attendance_log(self, employee_id, type):
         '''
