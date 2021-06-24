@@ -8,6 +8,9 @@
           <button  t-if="widget.modelName == 'da.facebase'"
                  class="btn btn-primary oe_operate_button"
                  type="button" accesskey="f">Operate</button>
+          <button  t-if="widget.modelName == 'da.facebase'"
+                 class="btn btn-primary oe_get_data_button"
+                 type="button" accesskey="f">Get Data</button>
       </t>
     </t>
 </template>

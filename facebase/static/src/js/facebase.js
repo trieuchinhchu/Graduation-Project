@@ -8,6 +8,7 @@ odoo.define('facebase.facebase_js', function (require) {
            if (this.$buttons) {
              this.$buttons.find('.oe_operate_button').click(this.proxy('operate_action'))
              this.$buttons.find('.oe_training_button').click(this.proxy('training_action'))
+             this.$buttons.find('.oe_get_data_button').click(this.proxy('get_data_action'))
            }
        },
 
@@ -21,6 +22,12 @@ odoo.define('facebase.facebase_js', function (require) {
             rpc.query({
                 model: 'da.facebase',
                 method: 'training'
+            })
+       },
+       get_data_action: function () {
+            rpc.query({
+                model: 'da.facebase',
+                method: 'filter_training_data'
             })
        }
     })
