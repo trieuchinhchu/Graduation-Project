@@ -14,7 +14,6 @@
         'wizard/employee_create_user_wizard_view.xml',
         'data/employee_sequence.xml',
         'data/hr_employee_job_default.xml',
-        'data/hr_contract_data.xml',
         'data/da_location_data.xml',
         'views/hr_employee_view.xml',
         'views/hr_contract_view.xml',

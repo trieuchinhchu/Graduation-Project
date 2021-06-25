@@ -84,10 +84,6 @@ class HrEmployeeInherit(models.Model):
                                  placeholder="TPBank Account Number",
                                  help="Technical field used to store the bank account number before its creation, "
                                       "upon the line's processing")
-    spouse_job = fields.Char(string="Spouse Job")
-    spouse_name = fields.Char(string="Spouse Name")
-    spouse_year = fields.Char(string="Spouse Year")
-    is_bank = fields.Selection(string='Have TP Bank Account', selection=[('no', 'No'), ('yes', 'Yes')])
     document_ids = fields.Many2many('da.employee.docs', 'employee_document_rel', 'doc_id', 'employee_id',
                                     string='Employee Documents')
     work_location_id = fields.Many2one('da.location', default=_default_work_location)
@@ -117,8 +113,6 @@ class HrEmployeeInherit(models.Model):
         ('other', 'Other')], default="male", groups="hr.group_hr_user,base.group_user,hr_core.group_hr_client_user")
     birthday = fields.Date('Date of Birth', groups="hr.group_hr_user,base.group_user,hr_core.group_hr_client_user")
     permission_view = fields.Boolean(string="Permission", compute='_compute_view_record')
-    ssnid = fields.Char('SSN No', help='Social Security Number',
-                        groups="hr.group_hr_user,base.group_user,hr_core.group_hr_client_user")
     study_field = fields.Char("Field of Study", placeholder='Computer Science',
                               groups="hr.group_hr_user,base.group_user,hr_core.group_hr_client_user")
     study_school = fields.Char("School",

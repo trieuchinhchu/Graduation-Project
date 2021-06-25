@@ -35,11 +35,6 @@
             <xpath expr="//field[@name='bank_account_id']" position="replace">
                 <field name="account_number"/>
             </xpath>
-            <xpath expr="//field[@name='spouse_birthdate']" position="after">
-                <field name="spouse_job"/>
-                <field name="spouse_name"/>
-                <field name="spouse_year"/>
-            </xpath>
             <xpath expr="//field[@name='study_school']" position="replace">
                 <field name="school_id" options='{"no_open": True, "no_create": True}'/>
                 <field name="graduation_year"/>

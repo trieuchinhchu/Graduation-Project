@@ -21,8 +21,11 @@
   <component name="ChangeListManager">
     <list default="true" id="52f3630b-327d-4a55-b9b5-c31dcb49cdc3" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Report/ĐA_ChuTrieuChinh.docx" beforeDir="false" afterPath="$PROJECT_DIR$/Report/ĐA_ChuTrieuChinh.docx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/facebase/models/facebase.py" beforeDir="false" afterPath="$PROJECT_DIR$/facebase/models/facebase.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/facebase/static/description/icon.png" beforeDir="false" afterPath="$PROJECT_DIR$/facebase/static/description/icon.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hr_core/__manifest__.py" beforeDir="false" afterPath="$PROJECT_DIR$/hr_core/__manifest__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hr_core/data/hr_contract_data.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hr_core/models/hr_employee.py" beforeDir="false" afterPath="$PROJECT_DIR$/hr_core/models/hr_employee.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hr_core/views/hr_employee_view.xml" beforeDir="false" afterPath="$PROJECT_DIR$/hr_core/views/hr_employee_view.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
