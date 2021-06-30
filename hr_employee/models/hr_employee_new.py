@@ -285,24 +285,6 @@ class HrEmployeeNewLines(models.Model):
         mails |= mail
         mails.send()
 
-    def update_expected_date_action(self):
-        self.ensure_one()
-        action = self.env.ref('hr_employee.action_hr_employee_update_expected_date_request').read()[0]
-        action['res_id'] = self.id
-        return action
-
-    def update_follower_action(self):
-        self.ensure_one()
-        action = self.env.ref('hr_employee.action_update_follower_action').read()[0]
-        action['res_id'] = self.id
-        return action
-
-    # def update_contract_info_action(self):
-    #     self.ensure_one()
-    #     action = self.env.ref('hr_employee.action_update_contract_info_action').read()[0]
-    #     action['res_id'] = self.id
-    #     return action
-
     def _check_company_configure(self):
         if not self.sudo().company_id.sudo().hr_email:
             raise ValidationError(f'HR email is require for company {self.company_id.name}')

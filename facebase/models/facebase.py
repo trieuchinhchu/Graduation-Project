@@ -6,6 +6,8 @@ from datetime import datetime, timezone
 from odoo.exceptions import ValidationError
 import numpy as np
 from PIL import Image
+from imutils import paths
+import random
 
 
 class FaceBase(models.Model):
@@ -24,33 +26,130 @@ class FaceBase(models.Model):
         employee_ids = self.env['hr.employee'].sudo().browse(emp_ids)
         return employee_ids, attachment_ids
 
+    @api.model
     def capture_from_video(self):
-        self.ensure_one()
         num_img = 0
         c = 1
-        cam = cv2.VideoCapture(self.file_path)
-        dataset_path = self.get_path('dataset3')
+        cam = cv2.VideoCapture('D:\\odoo12\\server\\face_data\\ngat.MOV')
+        dataset_path = 'D:\\odoo12\\server\\dataset3'
+        employee_id = self.env['hr.employee'].search([('name', '=', 'Bùi Thị Ngát')])
         while True:
             ret, img = cam.read()
-            if c % 5 == 0:
-                # increment
-                num_img += 1
-                # save captured
-                saved_img = cv2.imwrite(
-                    '%s/%s.%s.%s.jpg' % (dataset_path, self.employee_id.user_id.login, self.employee_id.id, num_img), img)
-                if not saved_img:
-                    raise ValueError("Could not write image")
-                cv2.imshow('frame', img)
+            if c % 2 == 0:
+                rgb_image = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+                face_frame = face_recognition.face_locations(rgb_image, model='hog')
+
+                # If training image contains exactly one face
+                if len(face_frame) == 1 and face_recognition.face_encodings(rgb_image, face_frame):
+                    # increment
+                    num_img += 1
+                    # save captured
+
+                    saved_img = cv2.imwrite(
+                        '%s/%s.%s.%s.jpg' % (dataset_path, employee_id.user_id.login, employee_id.id, num_img), img)
+                    if not saved_img:
+                        raise ValueError("Could not write image")
+                    cv2.imshow('frame', img)
+                    print(employee_id.user_id.login)
             c += 1
             if (cv2.waitKey(100) & 0xFF == ord('q')) or num_img >= 30:
                 break
 
     @api.model
+    def random_training_data(self):
+        dataset_path = 'D:\\odoo12\\server\\dataset3'
+        employee_ids = []
+        list_img = list(paths.list_images(dataset_path))
+        number_of_image = 3
+        new_path = 'D:\\odoo12\\evaluate\\data_set_3'
+        for i in list_img:
+            employee_id = i.split('.')[-3]
+            if employee_id not in employee_ids:
+                employee_ids.append(employee_id)
+
+        for i in employee_ids:
+            random_list = self.get_random_list(number_of_image)
+            new_list_img = list(filter(lambda r: r.split('.')[-3] == i and int(r.split('.')[-2]) in random_list, list_img))
+            for j in new_list_img:
+                img = cv2.imread(j)
+                cv2.imwrite('%s\\%s' % (new_path, j.split('\\')[-1]), img)
+            print()
+            print(new_list_img)
+            print('--------------------')
+            # self.save_img(new_list_img)
+
+    @api.model
+    def five_fold(self):
+        data_path = 'D:\\odoo12\\evaluate\\data_set_10'
+        list_img = list(paths.list_images(data_path))
+        for i in range(0, 5):
+            X_test = self.choose_test(list_img)
+            Y_test = self.get_y(X_test)
+            X_train = list(set(list_img) - set(X_test))
+            Y_train = self.get_y(X_train)
+
+            data_training = self.training_2(X_train, Y_train)
+            Y_predicted = self.recognition_2(data_training, X_test)
+            print(Y_test)
+            print(Y_predicted)
+
+    def get_random_list(self, n):
+        return random.sample(range(1, 31), n)
+
+    def choose_test(self, list_img):
+        imgs = []
+        for i in range(15):
+            imgs.append(random.choice(list_img))
+        return imgs
+
+    def get_y(self, x_test):
+        result = []
+        for i in x_test:
+            result.append(i.split('\\')[-1].split('.')[-5])
+        return result
+
+    def training_2(self, X_train, Y_train):
+        data_encoding = []
+        data_names = []
+        for img, name in zip(X_train, Y_train):
+            img = cv2.imread(img)
+            resize_img = cv2.resize(img, (720, 960), interpolation=cv2.INTER_NEAREST)
+            rgb_image = cv2.cvtColor(resize_img, cv2.COLOR_BGR2RGB)
+            face_frame = face_recognition.face_locations(rgb_image, model='hog')
+            if len(face_frame) == 1:
+                face_encodings = face_recognition.face_encodings(rgb_image, face_frame)[0]
+                data_encoding.append(face_encodings)
+                data_names.append(name)
+        return {'encoding': data_encoding, 'name': data_names}
+
+    def recognition_2(self, data, X_test):
+        Y_predicted = []
+        for img in X_test:
+            img_r = cv2.imread(img)
+            resize_img = cv2.resize(img_r, (720, 960), interpolation=cv2.INTER_NEAREST)
+            rgb_image = cv2.cvtColor(resize_img, cv2.COLOR_BGR2RGB)
+            # rgb_image = resize_img[:, :, ::-1]
+            encodings = face_recognition.face_encodings(rgb_image)
+            if not encodings:
+                Y_predicted.append('%s --- %s' % (img.split('\\')[-1], 'not encoding'))
+            for encoding in encodings:
+                name = "Unknown"
+                # use the known face with the smallest distance to the new face
+                face_distances = face_recognition.face_distance(data['encoding'], encoding)
+                result = min(face_distances)
+                if result <= 0.55:
+                    best_index = np.argmin(face_distances)
+                    name = data['name'][best_index]
+                Y_predicted.append(name)
+        return Y_predicted
+
+
+    @api.model
     def training(self):
         print('Started encoding')
         count = 0
-        data_encoding =[]
-        data_names =[]
+        data_encoding = []
+        data_names = []
         data_ids = []
         employee_ids, attachment_ids = self.get_attachments()
         for employee_id, attachment_id in zip(employee_ids, attachment_ids):
@@ -71,7 +170,7 @@ class FaceBase(models.Model):
             else:
                 print(attachment_id.datas_fname + " was skipped and can't be used for training")
 
-            print('%s %s' %(employee_id.account, count))
+            print('%s %s' % (employee_id.account, count))
 
         data = {'encoding': data_encoding, 'name': data_names, 'id': data_ids}
         facebase_id = self.env.ref('facebase.facebase_trained_data')
@@ -154,7 +253,7 @@ class FaceBase(models.Model):
                 best_index = np.argmin(face_distances)
                 name = data['name'][best_index]
                 lst_index.append(best_index)
-                lst_accuracy.append(str(round(self.face_distance_to_conf(result) * 100))+'%')
+                lst_accuracy.append(str(round(self.face_distance_to_conf(result) * 100)) + '%')
             names.append(name)
         return lst_index, names, lst_accuracy
 
@@ -185,4 +284,3 @@ class FaceBase(models.Model):
                                        'check_type': type,
                                        'punch_time': now})
         return True
-

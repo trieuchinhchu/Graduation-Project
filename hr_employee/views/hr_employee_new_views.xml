@@ -69,36 +69,36 @@
 
     <!--                  change followers                      -->
 
-    <record id="hr_employee_update_follower_action_view_form" model="ir.ui.view">
-        <field name="name">hr.employee.update.follower.view.form</field>
-        <field name="model">hr.employee.new</field>
-        <field name="active">false</field>
-        <field name="arch" type="xml">
-            <form string="Follower">
-                <sheet>
-                    <group>
-                        <field name="user_id" required="1" string="New follower" context="{'hr_rec': True}"/>
-                    </group>
-                    <footer>
-                        <button string="Confirm" class="oe_highlight" type="object"
-                                name="update_follower_email_action"/>
-                        <button string="Cancel" class="btn-default" special="cancel"/>
-                    </footer>
-                </sheet>
-            </form>
-        </field>
-    </record>
+<!--    <record id="hr_employee_update_follower_action_view_form" model="ir.ui.view">-->
+<!--        <field name="name">hr.employee.update.follower.view.form</field>-->
+<!--        <field name="model">hr.employee.new</field>-->
+<!--        <field name="active">false</field>-->
+<!--        <field name="arch" type="xml">-->
+<!--            <form string="Follower">-->
+<!--                <sheet>-->
+<!--                    <group>-->
+<!--                        <field name="user_id" required="1" string="New follower" context="{'hr_rec': True}"/>-->
+<!--                    </group>-->
+<!--                    <footer>-->
+<!--                        <button string="Confirm" class="oe_highlight" type="object"-->
+<!--                                name="update_follower_email_action"/>-->
+<!--                        <button string="Cancel" class="btn-default" special="cancel"/>-->
+<!--                    </footer>-->
+<!--                </sheet>-->
+<!--            </form>-->
+<!--        </field>-->
+<!--    </record>-->
 
     <!--                  Action                       -->
-    <record id="action_update_follower_action" model="ir.actions.act_window">
-        <field name="name">Employees: Update Follower</field>
-        <field name="res_model">hr.employee.new</field>
-        <field name="view_type">form</field>
-        <field name="view_mode">form</field>
-        <field name="target">new</field>
-        <field name="context">{'update_old_emp': True}</field>
-        <field name="view_id" ref="hr_employee_update_follower_action_view_form"/>
-    </record>
+<!--    <record id="action_update_follower_action" model="ir.actions.act_window">-->
+<!--        <field name="name">Employees: Update Follower</field>-->
+<!--        <field name="res_model">hr.employee.new</field>-->
+<!--        <field name="view_type">form</field>-->
+<!--        <field name="view_mode">form</field>-->
+<!--        <field name="target">new</field>-->
+<!--        <field name="context">{'update_old_emp': True}</field>-->
+<!--        <field name="view_id" ref="hr_employee_update_follower_action_view_form"/>-->
+<!--    </record>-->
 
     <!--                  Change contract info                      -->
 <!--    <record id="hr_employee_update_contract_info_action_view_form" model="ir.ui.view">-->
@@ -228,9 +228,9 @@
                                 <field name="user_id" context="{'hr_rec': True}"
                                        options="{'no_open': True, 'no_create': True}"
                                        attrs="{'readonly': [('state', '!=', 'draft')]}"/>
-                                <button name="update_follower_action" type="object" string="Update" class="bg-info ml-1"
-                                        groups="hr.group_hr_manager"
-                                        attrs="{'invisible': [('state', '!=', 'submit')]}"/>
+<!--                                <button name="update_follower_action" type="object" string="Update" class="bg-info ml-1"-->
+<!--                                        groups="hr.group_hr_manager"-->
+<!--                                        attrs="{'invisible': [('state', '!=', 'submit')]}"/>-->
                             </div>
                         </group>
                         <group>
@@ -246,10 +246,10 @@
                             <label for="expected_date" class="oe_inline"/>
                             <div class="oe_inline">
                                 <field name="expected_date" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
-                                <button name="update_expected_date_action" type="object" string="Update"
-                                        class="bg-info ml-1"
-                                        groups="hr.group_hr_manager"
-                                        attrs="{'invisible': [('state', '!=', 'submit')]}"/>
+<!--                                <button name="update_expected_date_action" type="object" string="Update"-->
+<!--                                        class="bg-info ml-1"-->
+<!--                                        groups="hr.group_hr_manager"-->
+<!--                                        attrs="{'invisible': [('state', '!=', 'submit')]}"/>-->
                             </div>
                             <field name="account_type"
                                    attrs="{'readonly': [('state', '!=', 'draft')]}"/>
