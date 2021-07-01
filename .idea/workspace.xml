@@ -22,8 +22,6 @@
     <list default="true" id="52f3630b-327d-4a55-b9b5-c31dcb49cdc3" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/facebase/models/facebase.py" beforeDir="false" afterPath="$PROJECT_DIR$/facebase/models/facebase.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/facebase/static/src/js/facebase.js" beforeDir="false" afterPath="$PROJECT_DIR$/facebase/static/src/js/facebase.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/facebase/static/src/xml/operate_button.xml" beforeDir="false" afterPath="$PROJECT_DIR$/facebase/static/src/xml/operate_button.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -241,48 +239,28 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/facebase/models/facebase.py</url>
-          <line>68</line>
+          <line>52</line>
           <option name="timeStamp" value="89" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/facebase/models/facebase.py</url>
-          <line>358</line>
+          <line>228</line>
           <option name="timeStamp" value="115" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/facebase/models/facebase.py</url>
-          <line>103</line>
-          <option name="timeStamp" value="136" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/facebase/models/facebase.py</url>
-          <line>119</line>
-          <option name="timeStamp" value="138" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/facebase/models/facebase.py</url>
-          <line>115</line>
-          <option name="timeStamp" value="139" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/facebase/models/facebase.py</url>
-          <line>79</line>
-          <option name="timeStamp" value="155" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/facebase/models/facebase.py</url>
-          <line>91</line>
-          <option name="timeStamp" value="156" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/facebase/models/facebase.py</url>
-          <line>92</line>
-          <option name="timeStamp" value="157" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/facebase/models/facebase.py</url>
-          <line>316</line>
+          <line>186</line>
           <option name="timeStamp" value="170" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/facebase/models/facebase.py</url>
+          <line>61</line>
+          <option name="timeStamp" value="196" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/facebase/models/facebase.py</url>
+          <line>62</line>
+          <option name="timeStamp" value="197" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
