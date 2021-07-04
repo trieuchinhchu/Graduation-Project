@@ -3,8 +3,7 @@
 import re
 import logging
 from werkzeug import urls
-from datetime import datetime, date
-from dateutil.relativedelta import relativedelta
+from datetime import datetime
 
 from odoo import models, api, fields, _
 from odoo.exceptions import ValidationError
@@ -22,8 +21,7 @@ class HrEmployeeNewLines(models.Model):
 
     def _default_work_location(self):
         return self.env['da.location'].search([], limit=1).id or False
-    def _default_first_contract(self):
-        return self.env['hr.contract.type'].search([], limit=1).id or False
+
 
     employee_id = fields.Many2one('hr.employee', ondelete='set null', string='Employee',
                                   help='Employee-related data of the employee')
@@ -44,15 +42,9 @@ class HrEmployeeNewLines(models.Model):
     expected_date = fields.Date(string='Expected date', track_visibility='onchange', required=True, copy=False,
                                 default=fields.Date.today())
     old_expected_date = fields.Date(string='Old Expected date', track_visibility='onchange', required=False)
-    account_type = fields.Selection([('email_account', 'Email, Ldap'),
-                                     ('email', 'Email'),
-                                     ('account', 'Ldap')
-                                     ], string='Account type', default='email_account')
-    usb = fields.Selection(selection=[('enable', 'Enable'), ('disable', 'Disable')],
-                           string='USB', default='disable', required=True)
+    account_type = fields.Selection([('account', 'Account')], string='Account type', default='account', required=True)
     work_location_id = fields.Many2one('da.location', string='Work location', default=_default_work_location)
     note = fields.Char(string='Note')
-    # contract_note = fields.Char(string='Contract Note')
     state = fields.Selection(selection=[('draft', 'Draft'), ('submit', 'Submitted'),
                                         ('onboard', 'Onboard'), ('rejected', 'Rejected')],
                              string='State', default='draft', track_visibility='onchange')
@@ -70,26 +62,10 @@ class HrEmployeeNewLines(models.Model):
                                                ('re_recruiting', 'Re-recruiting')], default='re_recruiting',
                                     string='Recruiting type',track_visibility='onchange')
 
-    # first_contract_type_id = fields.Many2one('hr.contract.type', string='First Contract Type', required=False,
-    #                                          default=_default_first_contract)
-    # first_contract_month = fields.Integer('First Contract Month', default=2)
-    # first_contract_salary = fields.Float('First Contract Salary', digits=(16, 2))
-    # second_contract_type_id = fields.Many2one('hr.contract.type', string='Next Contract Type', required=False)
-    # second_contract_month = fields.Integer('Next Contract Month')
-    # second_contract_salary = fields.Float('Next Contract Salary', digits=(16, 2))
     source_id = fields.Many2one('utm.source', "Source", ondelete='cascade', track_visibility='onchange')
     follower = fields.Many2one('hr.employee', 'Introduce', help='Tên người phụ trách ứng viên/giới thiệu ứng viên')
     user_id = fields.Many2one("res.users", "Follower", default=lambda self: self.env.uid)
-    allow_welcome = fields.Boolean("Send email welcome", default=True,
-                                   help="Send welcome email automatic.")
     is_import = fields.Boolean("Import", default=False)
-
-    # _sql_constraints = [
-    #     ('first_contract_month', 'check(first_contract_month >= 0)',
-    #      'Error! First contract month must be greater than 0.'),
-    #     ('second_contract_month', 'check(second_contract_month >= 0)',
-    #      'Error! Second contract month must be greater than 0.'),
-    # ]
 
     @api.onchange('request_type')
     def _onchange_request_type(self):
@@ -99,13 +75,11 @@ class HrEmployeeNewLines(models.Model):
         elif self.request_type == 'old':
             self.old_emp = True
             self.internship_emp = False
-            # employee_ids = self.get_employee_by_domain(self.request_type)
             return {'domain': {'employee_id': [('active', '=', False)]}}
         elif self.request_type == 'internship':
             self.old_emp = False
             self.internship = False
             self.internship_emp = True
-            # employee_ids = self.get_employee_by_domain(self.request_type)
             return {'domain': {'employee_id': [('internship', '=', True)]}}
 
     def get_employee_by_domain(self, request_type):
@@ -115,13 +89,6 @@ class HrEmployeeNewLines(models.Model):
         elif request_type == 'internship':
             domain = [('internship', '=', True)]
         return self.env['hr.employee'].sudo().search(domain)
-
-    @api.onchange('body_shop')
-    def _onchange_body_shop(self):
-        if self.body_shop:
-            self.first_contract_type_id = False
-            self.first_contract_month = 0
-            self.first_contract_salary = 0
 
     @api.onchange('expected_date')
     def _onchange_expected_date(self):
@@ -189,7 +156,6 @@ class HrEmployeeNewLines(models.Model):
                     <td>{datetime.strftime(emp.expected_date, '%d/%m/%Y')}</td>
                     <td>{emp.work_location_id.name}</td>
                     <td>{account_type}</td>
-                    <td>{emp.usb}</td>
                     <td>{emp.internship or ''}</td>
                     <td>{emp.personal_email}</td>
                     <td>{emp.note or ''}</td>
@@ -199,14 +165,14 @@ class HrEmployeeNewLines(models.Model):
 
             mess_to_it = f"""
                 Bên dưới là danh sách các nhân viên mới chuẩn bị đi làm. <br />
-                Nhờ các anh IT {f"tạo {account_type} và " if account_type else ''} chuẩn bị thiết bị cũng như chỗ ngồi cho các bạn.<br />
+                Nhờ bộ phận IT {f"tạo {account_type} và " if account_type else ''} chuẩn bị thiết bị cũng như chỗ ngồi cho các bạn.<br />
                 Danh sách nhân viên mới:
             """
 
             if emp.request_type == 'internship':
                 mess_to_it = f"""
-                    Nhân viên {emp.full_name} được chuyển hợp đồng từ internship thành {emp.first_contract_type_id.name}. 
-                    Nhờ các anh IT {f"tạo {account_type} và " if account_type else ''} chuẩn bị thiết bị cũng như chỗ ngồi cho các bạn.<br /> 
+                    Nhân viên {emp.full_name} được chuyển hợp đồng từ internship. 
+                    Nhờ bộ phận IT {f"tạo {account_type} và " if account_type else ''} chuẩn bị thiết bị cũng như chỗ ngồi cho các bạn.<br /> 
                 """
 
             mail_values = {
@@ -233,7 +199,6 @@ class HrEmployeeNewLines(models.Model):
                                     <th style="min-width: 100px;max-width: 120px;">Địa điểm làm việc</th>
                                     <th style="min-width: 70px;max-width: 100px;">Loại account</th>
                                     <th style="min-width: 70px;max-width: 100px;">Group mail</th>
-                                    <th style="min-width: 50px;max-width: 70px;">USB</th>
                                     <th style="min-width: 70px;max-width: 100px;">Internship</th>
                                     <th style="max-width: 200px;">Email cá nhân</th>
                                     <th style="max-width: 200px;">Ghi chú</th>
@@ -244,16 +209,16 @@ class HrEmployeeNewLines(models.Model):
                                 </tbody>
                             </table>
                             <br/>
-                            Thank you,
+                            Regards,
                         </p>
                         </div>
                 """,
                 'notification': True,
                 'auto_delete': False,
             }
-            mail = self.env['mail.mail'].create(mail_values)
+            mail = self.env['mail.mail'].sudo().create(mail_values)
             mails |= mail
-            mails.send()
+            mails.sudo().send()
 
     def reject_work_email_action(self):
         self.ensure_one()
@@ -274,34 +239,22 @@ class HrEmployeeNewLines(models.Model):
                         Nhờ bộ phận IT xóa các tài khoản và thu hồi các thiết bị liên quan tới nhân viên này.
                         <br/>
                         <br/>
-                        Thank you,
+                        Regards,
                     </p>
                     </div>
             """,
             'notification': True,
             'auto_delete': False,
         }
-        mail = self.env['mail.mail'].create(mail_values)
+        mail = self.env['mail.mail'].sudo().create(mail_values)
         mails |= mail
-        mails.send()
+        mails.sudo().send()
 
     def update_expected_date_action(self):
         self.ensure_one()
         action = self.env.ref('hr_employee.action_hr_employee_update_expected_date_request').read()[0]
         action['res_id'] = self.id
         return action
-
-    def update_follower_action(self):
-        self.ensure_one()
-        action = self.env.ref('hr_employee.action_update_follower_action').read()[0]
-        action['res_id'] = self.id
-        return action
-
-    # def update_contract_info_action(self):
-    #     self.ensure_one()
-    #     action = self.env.ref('hr_employee.action_update_contract_info_action').read()[0]
-    #     action['res_id'] = self.id
-    #     return action
 
     def _check_company_configure(self):
         if not self.sudo().company_id.sudo().hr_email:
@@ -333,79 +286,16 @@ class HrEmployeeNewLines(models.Model):
                         Ghi chú: {self.note or ''}
                         <br/>
                         <br/>
-                        Thank you,
+                        Regards,
                     </p>
                     </div>
             """,
             'notification': True,
             'auto_delete': False,
         }
-        mail = self.env['mail.mail'].create(mail_values)
+        mail = self.env['mail.mail'].sudo().create(mail_values)
         mails |= mail
-        mails.send()
-
-    def update_follower_email_action(self):
-        self.ensure_one()
-        mails = self.env['mail.mail'].sudo()
-        self._check_company_configure()
-        mail_values = {
-            'email_from': "DA  <no-reply@DA.com.vn>",
-            'email_to': f"{self.company_id.hr_email or ''}",
-            'email_cc': f"{self._get_email_cc()}, ",
-            'subject': f"[DA New Member] Nhân viên mới: {self.full_name} thay đổi rec follower.",
-            'body_html': f"""
-                <div style="margin: 0px; padding: 0px;" >
-                    <p style="margin: 0px; padding: 0px; font-size: 13px;">
-                        Dear DA HR,<br/>
-                        Cc All<br/><br/>
-                        Nhân viên {self.full_name} đã được thay đổi rec follower thành {self.user_id.name}.
-                        <br/>
-                        Người thay đổi: {self.env.user.name}
-                        <br/>
-                        <br/>
-                        Thank you,
-                    </p>
-                    </div>
-            """,
-            'notification': True,
-            'auto_delete': False,
-        }
-        mail = self.env['mail.mail'].create(mail_values)
-        mails |= mail
-        mails.send()
-
-    def update_contract_email_action(self):
-        self.ensure_one()
-        if not self.send_email_update_contract:
-            return {'type': 'ir.actions.act_window_close'}
-        base_url = request.env['ir.config_parameter'].sudo().get_param('web.base.url')
-        mails = self.env['mail.mail'].sudo()
-        self._check_company_configure()
-        mail_values = {
-            'email_from': "DA  <no-reply@DA.com.vn>",
-            'email_to': f"{self.user_id.partner_id.email or self.create_uid.partner_id.email or ''}",
-            'subject': f"[DA New Member] Nhân viên mới: {self.full_name} thay đổi thông tin hợp đồng đầu vào.",
-            'body_html': f"""
-                <div style="margin: 0px; padding: 0px;" >
-                    <p style="margin: 0px; padding: 0px; font-size: 13px;">
-                        Dear DA HR,<br/>
-                        Cc All<br/><br/>
-                        Nhân viên {self.full_name} đã được thay đổi thông tin hợp đồng.
-                        <br/>
-                        Người thay đổi: {self.env.user.name}
-                        <br/>
-                        Chi tiết xem tại: <a href='{base_url}/employee_new/{self.id}' target='_blank'>link</a>
-                        <br/>
-                        Thank you,
-                    </p>
-                    </div>
-            """,
-            'notification': True,
-            'auto_delete': False,
-        }
-        mail = self.env['mail.mail'].create(mail_values)
-        mails |= mail
-        mails.send()
+        mails.sudo().send()
 
     def action_hr_employee_to_onboard_action(self):
         self.ensure_one()
@@ -423,11 +313,9 @@ class HrEmployeeNewLines(models.Model):
                                  })
             user_id = r.employee_id.user_id
             user_id.sudo().write({'active': True,
-                'groups_id': [(6, 0, [self.env.ref('base.group_user').id])]})
+                                  'groups_id': [(6, 0, [self.env.ref('base.group_user').id])]})
             user_id.sudo().mapped('partner_id').write({'active': True})
-
             r.state = 'onboard'
-
             update_info = {'resignation': False, 'resignation_date': False, 'active': True}
             if not r.employee_id.start_work_date and r.start_work_date:
                 update_info.update({'start_work_date': r.start_work_date})
@@ -451,9 +339,7 @@ class HrEmployeeNewLines(models.Model):
                 r.barcode = False
             # send email to IT, cc HR de xoa account va loai bo cac giay to
             r.reject_work_email_action()
-            # send email cho bo phan
             r.state = 'rejected'
-            r.allow_welcome = True
         return True
 
     def to_draft(self):
@@ -475,7 +361,6 @@ class HrEmployeeNewLines(models.Model):
             r.start_work_date = False
             r.work_email = False
             r.email_count = 0
-            r.allow_welcome = True
             r.state = 'draft'
 
     @api.constrains('account', 'old_emp', 'is_import')
@@ -502,7 +387,6 @@ class HrEmployeeNewLines(models.Model):
     @api.constrains('account')
     def validate_account_length(self):
         for r in self:
-            # r.account.lower().strip()
             if r.account and len(r.account) > 20:
                 raise ValidationError("The maximum number of characters supported in Active Directory (AD) "
                                       "for user account is 20.")
@@ -516,24 +400,12 @@ class HrEmployeeNewLines(models.Model):
                                 personal_email):
                     raise ValidationError(f'Email: {personal_email} are invalid E-mail')
 
-    # @api.constrains('first_contract_type_id', 'first_contract_salary')
-    # def validate_first_contract(self):
-    #     for r in self:
-    #         if r.first_contract_type_id and r.first_contract_salary <= 0:
-    #             raise ValidationError('First contract salary must greater than 0!')
-    #
-    # @api.constrains('second_contract_type_id', 'second_contract_salary')
-    # def validate_next_contract(self):
-    #     for r in self:
-    #         if r.second_contract_type_id and r.second_contract_salary <= 0:
-    #             raise ValidationError('Next contract salary must greater than 0!')
 
     def create_employee(self):
         employee_obj = self.env['hr.employee']
         company_email = self.company_id.email
         work_email = False
         if company_email and company_email.find('@') >= 0:
-            # work_email = r.account.lower() + company_email[company_email.find('@'):]
             work_email = self._get_email_by_company()
 
         if self.account_type not in ['email_account', 'email']:
@@ -632,17 +504,6 @@ class HrEmployeeNewLines(models.Model):
             res.barcode = res.employee_id.barcode
             res.code = res.employee_id.code
         return res
-
-    def daily_check(self):
-        self.ensure_one()
-        # check have new employee in next day
-        new_employee_obj = self.env['hr.employee.new']
-        new_employee_ids = new_employee_obj.search(
-            [('expected_date', '=', self.expected_date + relativedelta(days=+1))])
-        new_employee_ids.send_email_remind_have_new_employee()
-
-        # check employee do not finish the information form
-        pass
 
     @api.multi
     def unlink(self):

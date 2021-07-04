@@ -31,26 +31,4 @@
             groups="hr.group_hr_manager"
             sequence="20"/>
 
-    <record id="res_manufacturer_view_tree" model="ir.ui.view">
-        <field name="name">res.manufacturer.tree</field>
-        <field name="model">res.manufacturer</field>
-        <field name="arch" type="xml">
-            <tree string="da manufacturer" editable="top">
-                <field name="name"/>
-            </tree>
-        </field>
-    </record>
-
-    <record id="da_res_manufacturer_action" model="ir.actions.act_window">
-        <field name="name">da manufacturer</field>
-        <field name="res_model">res.manufacturer</field>
-        <field name="view_type">form</field>
-        <field name="view_mode">tree,form</field>
-        <field name="help" type="html">
-            <p class="oe_view_nocontent_create">
-                You have no manufacturer found.
-            </p>
-        </field>
-    </record>
-
 </odoo>

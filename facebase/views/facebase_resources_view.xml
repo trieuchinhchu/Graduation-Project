@@ -127,6 +127,7 @@
             (0, 0, {'view_mode': 'form', 'view_id': ref('facebase_resources_form_view')})]"/>
         <field name="search_view_id" ref="facebase_resources_search"/>
         <field name="context">{'search_default_group_department': 1}</field>
+        <field name="domain">[('images', '!=', False)]</field>
     </record>
 
 

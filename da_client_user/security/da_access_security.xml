@@ -1,7 +1,7 @@
 <odoo>
     <data>
         <record model="res.groups" id="group_client">
-            <field name="name">Client User 2</field>
+            <field name="name">Client User</field>
             <field name="implied_ids" eval="[(4, ref('base.group_no_one'))]"/>
             <field name="category_id" ref="base.module_category_user_type"/>
         </record>

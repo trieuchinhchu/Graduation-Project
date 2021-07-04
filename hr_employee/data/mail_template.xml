@@ -11,22 +11,22 @@
             <field name="reply_to">${object.company_id.hr_email or ''}</field>
             <field name="auto_delete" eval="False"/>
             <field name="body_html"><![CDATA[<div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 13px; color: #222222; background-color: #fff; word-break: break-word;">
-% set url = object.get_emp_update_url()
-<p style="margin: 0px; padding: 0px; font-size: 13px;">
-    Dear ${ object.name },<br/><br/>
-    Chào mừng bạn đã đến với hệ thống quản lý nhân sự của Công ty ${ object.company_id.name }. <br />
-    Để hoàn thành thủ tục cho nhân viên mới, kính đề nghị anh/chị điền thông tin cá nhân vào hệ thống theo đường link bên dưới.<br />
-    <a href="${url}">Thông tin cá nhân</a> <br />
-    <p>Thông tin đăng nhập:</p>
-    <p>User: ${object.account}</p>
-    <p>Password: ${object.password_new_employee}</p>
-    <br/><br />
-    <b>Ghi chú:</b>
-        <b>Deadline để hoàn thành quá trình điền thông tin:<b> 01 ngày trước ngày đi làm. <br />
-    <br/><br/>
-    Trân trọng,
-</p>
-</div>]]>
+                % set url = object.get_emp_update_url()
+                <p style="margin: 0px; padding: 0px; font-size: 13px;">
+                    Dear ${ object.name },<br/><br/>
+                    Chào mừng bạn đã đến với hệ thống quản lý nhân sự của Công ty ${ object.company_id.name }. <br />
+                    Để hoàn thành thủ tục cho nhân viên mới, kính đề nghị anh/chị điền thông tin cá nhân vào hệ thống theo đường link bên dưới.<br />
+                    <a href="${url}">Thông tin cá nhân</a> <br />
+                <p>Thông tin đăng nhập:</p>
+                <p>User: ${object.account}</p>
+                <p>Password: ${object.password_new_employee}</p>
+                <br/><br />
+                <b>Ghi chú:</b>
+                <b>Deadline để hoàn thành quá trình điền thông tin:<b> 01 ngày trước ngày đi làm. <br />
+                    <br/><br/>
+                    Trân trọng,
+                    </p>
+            </div>]]>
             </field>
         </record>
     </data>

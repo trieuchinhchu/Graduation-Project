@@ -3,7 +3,6 @@
 
 import logging
 from odoo import api, fields, models
-_logger = logging.getLogger(__name__)
 
 
 class SchoolName(models.Model):
@@ -12,4 +11,4 @@ class SchoolName(models.Model):
     _order = 'name'
 
     name = fields.Char(string='Schoool Name', required=True)
-    code = fields.Char(string='Schoool Code', help='The schoool code.')
+    code = fields.Char(string='Schoool Code', help="Schoool's code.")

@@ -7,7 +7,7 @@ odoo.define('facebase.facebase_js', function (require) {
        this._super.apply(this, arguments);
            if (this.$buttons) {
              this.$buttons.find('.oe_operate_button').click(this.proxy('operate_action'))
-             this.$buttons.find('.oe_training_button').click(this.proxy('training_action'))
+             this.$buttons.find('.oe_synchronize_button').click(this.proxy('synchronize_action'))
            }
        },
 
@@ -17,10 +17,10 @@ odoo.define('facebase.facebase_js', function (require) {
                 method: 'recognition'
             })
        },
-       training_action: function () {
+       synchronize_action: function () {
             rpc.query({
                 model: 'da.facebase',
-                method: 'training'
+                method: 'synchronize'
             })
        }
     })

@@ -6,10 +6,11 @@
               web_icon="facebase,/facebase/static/description/icon.png"
               groups="hr.group_hr_user,hr.group_hr_manager"/>
 
-    <menuitem name="Training Data"
+    <menuitem name="Synchronize Data"
               id="facebase_menu_insert"
               parent="facebase_menu_root"
               groups="hr.group_hr_user,hr.group_hr_manager"
+              sequence="1"
               action="da_facebase_action"/>
 
         <!--     Facebase Resources     -->

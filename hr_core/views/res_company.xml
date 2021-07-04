@@ -12,11 +12,6 @@
                         <page name="hr_config" string="HR Config">
                             <group>
                                 <group>
-                                    <field name="deadline_request_day"/>
-                                    <field name="deadline_approve_day"/>
-                                    <field name="approve_day"/>
-                                </group>
-                                <group>
                                     <field name="hr_email"/>
                                     <field name="rec_email"/>
                                     <field name="it_email"/>

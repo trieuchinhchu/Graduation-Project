@@ -9,9 +9,7 @@
             <form string="Employee List">
                 <sheet>
                     <group>
-<!--                        <field name="barcode" string="Mã vân tay" required="1"/>1-->
                         <field name="start_work_date" required="1" string="Ngày đi làm"/>
-                        <field name="allow_welcome" string="Send welcome email"/>
                     </group>
                     <footer>
                         <button string="Confirm" class="oe_highlight" type="object" name="set_to_onboard"/>
@@ -66,90 +64,6 @@
         <field name="context">{'update_old_emp': True}</field>
         <field name="view_id" ref="hr_employee_update_onboard_date_view_form"/>
     </record>
-
-    <!--                  change followers                      -->
-
-    <record id="hr_employee_update_follower_action_view_form" model="ir.ui.view">
-        <field name="name">hr.employee.update.follower.view.form</field>
-        <field name="model">hr.employee.new</field>
-        <field name="active">false</field>
-        <field name="arch" type="xml">
-            <form string="Follower">
-                <sheet>
-                    <group>
-                        <field name="user_id" required="1" string="New follower" context="{'hr_rec': True}"/>
-                    </group>
-                    <footer>
-                        <button string="Confirm" class="oe_highlight" type="object"
-                                name="update_follower_email_action"/>
-                        <button string="Cancel" class="btn-default" special="cancel"/>
-                    </footer>
-                </sheet>
-            </form>
-        </field>
-    </record>
-
-    <!--                  Action                       -->
-    <record id="action_update_follower_action" model="ir.actions.act_window">
-        <field name="name">Employees: Update Follower</field>
-        <field name="res_model">hr.employee.new</field>
-        <field name="view_type">form</field>
-        <field name="view_mode">form</field>
-        <field name="target">new</field>
-        <field name="context">{'update_old_emp': True}</field>
-        <field name="view_id" ref="hr_employee_update_follower_action_view_form"/>
-    </record>
-
-    <!--                  Change contract info                      -->
-<!--    <record id="hr_employee_update_contract_info_action_view_form" model="ir.ui.view">-->
-<!--        <field name="name">hr.employee.update.follower.view.form</field>-->
-<!--        <field name="model">hr.employee.new</field>-->
-<!--        <field name="active">false</field>-->
-<!--        <field name="arch" type="xml">-->
-<!--            <form string="Contract">-->
-<!--                <sheet>-->
-<!--                    <group string="Contract" groups="hr.group_hr_manager">-->
-<!--                        <group>-->
-<!--                            <field name="first_contract_type_id"-->
-<!--                                   options="{'no_open': True, 'no_create': True}"/>-->
-<!--                            <field name="first_contract_month"/>-->
-<!--                            <field name="first_contract_salary"-->
-<!--                                   attrs="{'required': [('first_contract_type_id', '!=', False)]}"/>-->
-<!--                        </group>-->
-<!--                        <group>-->
-<!--                            <field name="second_contract_type_id"-->
-<!--                                   options="{'no_open': True, 'no_create': True}"/>-->
-<!--                            <field name="second_contract_month"/>-->
-<!--                            <field name="second_contract_salary"-->
-<!--                                   attrs="{'required': [('second_contract_type_id', '!=', False)]}"/>-->
-<!--                        </group>-->
-<!--                    </group>-->
-<!--                    <group string="Contract update Note">-->
-<!--                        <field name="contract_note" nolabel="1"/>-->
-<!--                    </group>-->
-<!--                    <group>-->
-<!--                        <field name="send_email_update_contract"/>-->
-<!--                    </group>-->
-<!--                    <footer>-->
-<!--                        <button string="Confirm" class="oe_highlight" type="object"-->
-<!--                                name="update_contract_email_action"/>-->
-<!--                        <button string="Cancel" class="btn-default" special="cancel"/>-->
-<!--                    </footer>-->
-<!--                </sheet>-->
-<!--            </form>-->
-<!--        </field>-->
-<!--    </record>-->
-
-    <!--                  Action                       -->
-<!--    <record id="action_update_contract_info_action" model="ir.actions.act_window">-->
-<!--        <field name="name">Employees: Update contract</field>-->
-<!--        <field name="res_model">hr.employee.new</field>-->
-<!--        <field name="view_type">form</field>-->
-<!--        <field name="view_mode">form</field>-->
-<!--        <field name="target">new</field>-->
-<!--        <field name="context">{'update_old_emp': True}</field>-->
-<!--        <field name="view_id" ref="hr_employee_update_contract_info_action_view_form"/>-->
-<!--    </record>-->
 
     <record id="hr_employee_new_request_lines_view_form" model="ir.ui.view">
         <field name="name">hr.employee.new.view.form</field>
@@ -214,23 +128,13 @@
                                    attrs="{'readonly': [('state', '!=', 'draft')]}"/>
                             <field name="personal_email"
                                    attrs="{'readonly': [('state', '!=', 'draft')]}"/>
-                            
-<!--                            <field name="mail_group_ids"-->
-<!--                                   attrs="{'readonly': [('state', '!=', 'draft')]}"-->
-<!--                                   options="{'no_open': True, 'no_create': True}" widget="many2many_tags"/>-->
-                            <field name="source_id" context="{'rec_utm_source': True}"
-                                   domain="[('rec_utm_source', '=', True)]"
-                                   attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+
                             <field name="follower" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
-<!--                            <field name="create_uid" string="Created By" attrs="{'invisible': [('id', '=', False)]}"/>-->
                             <label for="user_id" class="oe_inline"/>
                             <div class="oe_inline">
                                 <field name="user_id" context="{'hr_rec': True}"
                                        options="{'no_open': True, 'no_create': True}"
                                        attrs="{'readonly': [('state', '!=', 'draft')]}"/>
-                                <button name="update_follower_action" type="object" string="Update" class="bg-info ml-1"
-                                        groups="hr.group_hr_manager"
-                                        attrs="{'invisible': [('state', '!=', 'submit')]}"/>
                             </div>
                         </group>
                         <group>
@@ -238,11 +142,8 @@
                                    options="{'no_open': True, 'no_create': True}"/>
                             <field name="department_id" options="{'no_open': True, 'no_create': True}"
                                    attrs="{'readonly': [('state', '!=', 'draft')]}"/>
-<!--                            <field name="department_part_id" options="{'no_open': True, 'no_create': True}"/>-->
                             <field name="job_id" options="{'no_open': True, 'no_create': True}"
                                    attrs="{'readonly': [('state', '!=', 'draft')]}"/>
-<!--                            <field name="skill_id" options="{'no_open': True, 'no_create': True}"-->
-<!--                                   attrs="{'readonly': [('state', '!=', 'draft')]}"/>-->
                             <label for="expected_date" class="oe_inline"/>
                             <div class="oe_inline">
                                 <field name="expected_date" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
@@ -256,41 +157,10 @@
                             <field name="work_location_id"
                                    options="{'no_open': True, 'no_create': True}"
                                    attrs="{'readonly': [('state', '!=', 'draft')]}"/>
-                            <field name="usb" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
                         </group>
                     </group>
                     <separator string="Contract" attrs="{'invisible': [('body_shop', '=', True)]}"
                                groups="hr.group_hr_manager"/>
-<!--                    <button name="update_contract_info_action" type="object" string="Update Contract Info"-->
-<!--                            class="bg-info ml-1"-->
-<!--                            groups="hr.group_hr_manager"-->
-<!--                            attrs="{'invisible': [('state', 'not in', ['submit', 'onboard'])]}"/>-->
-<!--                    <group string="Contract update Note"-->
-<!--                           attrs="{'invisible': [('contract_note', 'in', ['', None, False])]}">-->
-<!--                        <field name="contract_note" nolabel="1" readonly="1"-->
-<!--                               attrs="{'invisible': [('contract_note', 'in', ['', None, False])]}"/>-->
-<!--                    </group>-->
-<!--                    <group groups="hr.group_hr_manager,hr.group_hr_user"-->
-<!--                           attrs="{'invisible': [('body_shop', '=', True)]}">-->
-<!--                        <group>-->
-<!--                            <field name="first_contract_type_id"-->
-<!--                                   options="{'no_open': True, 'no_create': True}"-->
-<!--                                   attrs="{'readonly': [('state', '!=', 'draft')], 'required': [('body_shop', '=', False)]}"/>-->
-<!--                            <field name="first_contract_month"-->
-<!--                                   attrs="{'readonly': [('state', '!=', 'draft')]}"/>-->
-<!--                            <field name="first_contract_salary" attrs="{'readonly': [('state', '!=', 'draft')],-->
-<!--                            'required': [('first_contract_type_id', '!=', False),('body_shop', '=', False)]}"/>-->
-<!--                        </group>-->
-<!--                        <group>-->
-<!--                            <field name="second_contract_type_id"-->
-<!--                                   options="{'no_open': True, 'no_create': True}"-->
-<!--                                   attrs="{'readonly': [('state', '!=', 'draft')]}"/>-->
-<!--                            <field name="second_contract_month"-->
-<!--                                   attrs="{'readonly': [('state', '!=', 'draft')]}"/>-->
-<!--                            <field name="second_contract_salary" attrs="{'readonly': [('state', '!=', 'draft')],-->
-<!--                            'required': [('second_contract_type_id', '!=', False)]}"/>-->
-<!--                        </group>-->
-<!--                    </group>-->
                     <group string="More info" col="2">
                         <field name="internship" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
                         <field name="body_shop" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
@@ -321,20 +191,14 @@
                 <field name="company_id"/>
                 <field name="department_id"/>
                 <field name="job_id"/>
-<!--                <field name="skill_id"/>-->
                 <field name="personal_email" invisible="1"/>
-<!--                <field name="mail_group_ids" widget="many2many_tags" invisible="1"/>-->
                 <field name="expected_date" invisible="1"/>
                 <field name="account_type" invisible="1"/>
-                <field name="usb" invisible="1"/>
                 <field name="internship"/>
                 <field name="start_work_date"
                        attrs="{'invisible': ['|','|',('employee_id', '=', False),
                                    ('start_work_date', '=', False),('state', '!=', 'onboard')]}"/>
-<!--                <field name="first_contract_salary"-->
-<!--                       groups="hr.group_hr_manager"/>-->
-<!--                <field name="second_contract_salary"-->
-<!--                       groups="hr.group_hr_manager"/>-->
+
                 <field name="state"/>
             </tree>
         </field>
@@ -350,7 +214,6 @@
                        string="Name or account"/>
                 <field name="department_id"/>
                 <field name="job_id"/>
-<!--                <field name="skill_id"/>-->
                 <separator/>
                 <filter string="Submitted" name="submit_filter" domain="[('state', '=', 'submit')]"/>
                 <filter string="Onboard" name="onboardt_filter" domain="[('state', '=', 'onboard')]"/>

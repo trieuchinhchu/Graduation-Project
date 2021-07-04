@@ -29,18 +29,33 @@ class HrEmployeeFacebaseInherit(models.Model):
     @api.constrains('images')
     def validate_images(self):
         for r in self:
-            if not 5 <= len(r.images) <= 10:
-                raise ValidationError('Yêu cầu cung cấp từ 5 đến 10 ảnh chụp chân dung!')
+            if len(r.images) != 10:
+                raise ValidationError('Yêu cầu cung cấp đủ 10 ảnh chụp rõ khuôn mặt!')
             lst = []
             for image in r.images:
+
                 decode_img = base64.b64decode(image.datas)
                 img = Image.open(io.BytesIO(decode_img))
-                resize_img = cv2.resize(np.asarray(img), (720, 960), interpolation=cv2.INTER_NEAREST)
+                img_r = np.asarray(img)
+                size = self.calculate_resize_image(img_r)
+                resize_img = cv2.resize(img_r, size, interpolation=cv2.INTER_NEAREST)
                 rgb_image = cv2.cvtColor(resize_img, cv2.COLOR_BGR2RGB)
                 face_frame = face_recognition.face_locations(rgb_image, model='hog')
+                face_encodings = face_recognition.face_encodings(rgb_image, face_frame)
                 # If training image contains exactly one face
-                if len(face_frame) != 1:
-                    lst.append(image.datas_fname)
+                if not face_encodings:
+                    lst.append(str(image.datas_fname))
+                else:
+                    img = Image.fromarray(resize_img, 'RGB')
+                    buffer = io.BytesIO()
+                    img.save(buffer, format="JPEG")
+                    rz_img = buffer.getvalue()
+                    image.datas = base64.b64encode(rz_img)
             if lst:
                 raise ValidationError('Ảnh không đạt yêu cầu: \n%s' % '\n'.join(lst))
 
+    def calculate_resize_image(self, img):
+        d = 250
+        h, w, c = img.shape
+        p = h/w
+        return (d, round(d*p))

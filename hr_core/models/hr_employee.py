@@ -6,12 +6,18 @@ from odoo import models, api, fields, _
 from odoo.exceptions import ValidationError
 from odoo.addons.base.models.ir_mail_server import MailDeliveryException
 
+_CERTIFICATE = [('master', 'Trên đại học'),
+                ('university', 'Đại học'),
+                ('colleges', 'Cao đẳng'),
+                ('vocational', 'Trung cấp'),
+                ('high_school', 'THPT'),
+                ('other', 'Khác')]
 
-class DAEmployeeDoc(models.Model):
-    _name = 'da.employee.docs'
-    _description = 'HR employee documents'
-
-    name = fields.Char('Name')
+# class DAEmployeeDoc(models.Model):
+#     _name = 'da.employee.docs'
+#     _description = 'HR employee documents'
+#
+#     name = fields.Char('Name')
 
 
 class HrEmployeeInherit(models.Model):
@@ -30,7 +36,7 @@ class HrEmployeeInherit(models.Model):
     job_id = fields.Many2one('hr.job', 'Job Position', track_visibility='onchange')
     home_address = fields.Char('Home Address')
     work_email = fields.Char('Work Email', copy=False)
-    account = fields.Char('Account', copy=False, readonly=False)  # , compute='_compute_emp_account', store=True)
+    account = fields.Char('Account', copy=False, readonly=False)
     manager = fields.Boolean(string='Is a Manager')
     department_id = fields.Many2one('hr.department', string='Department', track_visibility='onchange')
     start_work_date = fields.Date(string='Hire Date', required=False, track_visibility='onchange',
@@ -70,22 +76,17 @@ class HrEmployeeInherit(models.Model):
                                domain="[('country_id', '=?', country_id)]")
 
     personal_email = fields.Char('Personal Email', copy=False)
-    certificate = fields.Selection([('master', 'Trên đại học'),
-                                    ('university', 'Đại học'),
-                                    ('colleges', 'Cao đẳng'),
-                                    ('vocational', 'Trung cấp'),
-                                    ('high_school', 'THPT'),
-                                    ('other', 'Khác')], 'Certificate Level',
+    certificate = fields.Selection(_CERTIFICATE, 'Certificate Level',
                                    default='university',
                                    groups="hr.group_hr_user,base.group_user,hr_core.group_hr_client_user")
     graduation_year = fields.Char('Graduation Year')
     emergency_relation = fields.Char('Emergency Relation')
     account_number = fields.Char(string='Bank Account Number',
-                                 placeholder="TPBank Account Number",
+                                 placeholder="Bank Account Number",
                                  help="Technical field used to store the bank account number before its creation, "
                                       "upon the line's processing")
-    document_ids = fields.Many2many('da.employee.docs', 'employee_document_rel', 'doc_id', 'employee_id',
-                                    string='Employee Documents')
+    # document_ids = fields.Many2many('da.employee.docs', 'employee_document_rel', 'doc_id', 'employee_id',
+    #                                 string='Employee Documents')
     work_location_id = fields.Many2one('da.location', default=_default_work_location)
     work_location = fields.Selection([('dp', 'Tầng 6 tòa nhà Đại Phát'),
                                       ('other', 'Địa điểm khác')], required=False, default='dp')
@@ -122,12 +123,6 @@ class HrEmployeeInherit(models.Model):
     emergency_phone = fields.Char("Emergency Phone",
                                   groups="hr.group_hr_user,base.group_user,hr_core.group_hr_client_user",
                                   default="")
-    children = fields.Integer(string='Number of Children',
-                              groups="hr.group_hr_user,base.group_user,hr_core.group_hr_client_user")
-    spouse_complete_name = fields.Char(string="Spouse Complete Name",
-                                       groups="hr.group_hr_user,base.group_user,hr_core.group_hr_client_user")
-    spouse_birthdate = fields.Date(string="Spouse Birthdate",
-                                   groups="hr.group_hr_user,base.group_user,hr_core.group_hr_client_user")
     marital = fields.Selection([
         ('single', 'Single'),
         ('married', 'Married'),
@@ -138,7 +133,7 @@ class HrEmployeeInherit(models.Model):
         groups="hr.group_hr_user,base.group_user,hr_core.group_hr_client_user",
         default='single')
     _sql_constraints = [
-        ('work_email_uniq', 'unique( work_email )', 'Work email must be unique.')
+        ('work_email_uniq', 'unique(work_email)', 'Work email must be unique.')
     ]
 
     @api.multi
@@ -153,36 +148,35 @@ class HrEmployeeInherit(models.Model):
                 r.permission_view = True
 
     @api.constrains('graduation_year')
-    def _check_graduation_year(self):
+    def _validate_graduation_year(self):
         for record in self:
             try:
-                # Convert it into integer
                 val = int(record.graduation_year)
             except ValueError:
-                raise ValidationError(_("No.. Graduation Year is not a number. It's a string"))
+                raise ValidationError(_("Graduated year must be a number"))
 
     @api.constrains('identification_id')
-    def _check_identification_id(self):
+    def _validate_identification_id(self):
         for record in self:
             if record.identification_id and not (9 <= len(record.identification_id) <= 12):
-                raise ValidationError(_("Identification No must be greater than 9 and less than 12"))
+                raise ValidationError(_("Identification must be greater than 9 and less than 12"))
 
     @api.constrains('id_date')
-    def _check_id_date(self):
+    def _validate_id_date(self):
         for record in self:
             now = datetime.today().date()
             if record.id_date and record.id_date > now:
                 raise ValidationError(_("ID date cannot be greater than the current date"))
 
     @api.constrains('passport_date')
-    def _check_passport_date(self):
+    def _validate_passport_date(self):
         for record in self:
             now = datetime.today().date()
             if record.passport_date and record.passport_date > now:
                 raise ValidationError(_("Passport date cannot be greater than the current date"))
 
     @api.constrains('birthday')
-    def _check_birthday(self):
+    def _validate_birthday(self):
         for record in self:
             now = datetime.today().date()
             if record.birthday and record.birthday > now:
@@ -191,14 +185,14 @@ class HrEmployeeInherit(models.Model):
     @api.multi
     def name_get(self):
         res = []
-        for record in self:
-            name = record.name
-            department_id = record.sudo().department_id
+        for r in self:
+            name = r.name
+            department_id = r.sudo().department_id
             if department_id and department_id.name:
                 name += f" ({department_id.name})"
-            if record.work_email:
-                name += f" <{record.work_email}>"
-            res.append((record.id, name))
+            if r.work_email:
+                name += f" <{r.work_email}>"
+            res.append((r.id, name))
         return res
 
     @api.model
@@ -227,7 +221,7 @@ class HrEmployeeInherit(models.Model):
     def _compute_display_name(self):
         for r in self:
             if r.name and r.department_id and r.department_id.sudo().name and r.name.find('(') == -1:
-                r.display_name = f"{r.name} ({r.department_id.name})"
+                r.display_name = '%s (%s)' % (r.name, r.department_id.name)
             else:
                 r.display_name = r.name
 
@@ -292,7 +286,6 @@ class HrEmployeeInherit(models.Model):
                     'lang': 'en_US',
                     'tz': 'Asia/Ho_Chi_Minh',
                     'email': record.work_email,
-                    # 'department_name': record.department_id.name
                 })
                 record.user_id = user_id
         return True

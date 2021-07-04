@@ -69,7 +69,7 @@ class Attendance(models.Model):
             'notification': True,
             'auto_delete': False,
         }
-        mail = self.env['mail.mail'].create(mail_values)
+        mail = self.env['mail.mail'].sudo().create(mail_values)
         mails |= mail
         mails.send()
 

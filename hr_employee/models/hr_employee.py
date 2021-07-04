@@ -15,12 +15,6 @@ _tzs = [(tz, tz) for tz in sorted(pytz.all_timezones, key=lambda tz: tz if not t
 def _tz_get(self):
     return _tzs
 
-class UtmSourceInherit(models.Model):
-    _inherit = "utm.source"
-
-    rec_utm_source = fields.Boolean("Recruitment Source",
-                                    default=lambda self: self._context.get('rec_utm_source', False))
-
 
 class HrEmployeeWebsiteInherit(models.Model):
     _inherit = 'hr.employee'
@@ -30,7 +24,6 @@ class HrEmployeeWebsiteInherit(models.Model):
     personal_email = fields.Char('Personal Email', copy=False)
     internship = fields.Boolean("Internship", help="Thực tập sinh gửi đến từ công ty khác.")
     code = fields.Char(string='Employee Code', default=_('New'))
-    # thoi gian gui mail lan cuoi cung
     email_update_date = fields.Datetime(string='Latest email sent', readonly=True)
     emp_info_state = fields.Selection(string='Updating Status',
                                       selection=[('employee_update', 'Employee updating'),
@@ -40,20 +33,6 @@ class HrEmployeeWebsiteInherit(models.Model):
     password_new_employee = fields.Char(string="Password New Employee")
     old_emp_type = fields.Selection(selection=[('within_3_months', 'Within 3 Months'),
                                                ('re_recruiting', 'Re-recruiting')], string='Recruiting type')
-    reason_re_send = fields.Text(string="Reason Re-Send")
-    
-
-    def employee_update_infor(self):
-        self.emp_info_state = 'wait_to_hr_confirm'
-        self.send_review_employee_info_email()
-        action = self.env.ref('hr_employee.da_infor_employee_popup_action').read()[0]
-        action['res_id'] = self.id
-        return action
-
-    def employee_re_send_update_infor(self):
-        action = self.env.ref('hr_employee.send_request_re_update_employee_info_email_action').read()[0]
-        action['res_id'] = self.id
-        return action
 
     def set_password(self):
         for r in self:
@@ -88,23 +67,12 @@ class HrEmployeeWebsiteInherit(models.Model):
         for r in self:
             r.email_update_date = fields.Datetime.now()
             r.emp_info_state = 'employee_update'
-            self.env['mail.template'].browse(template.id).send_mail(r.id)
+            self.env['mail.template'].browse(template.id).sudo().send_mail(r.id)
 
     def get_new_employee_code(self):
         code = self.env['ir.sequence'].with_context(force_company=self.company_id.id). \
             next_by_code('employee.code') or self.code or 'New'
         return code
-
-
-    @api.multi
-    def _resend_update_info(self):
-        now = datetime.now()
-        data = self.env['hr.employee.new'].sudo().search([('state','=','submit'),('expected_date', '!=', False), ('employee_id', '!=', False), ('employee_id.emp_info_state','=','employee_update')])
-        data = data.filtered(lambda x: (not x.employee_id.email_update_date or \
-            (x.employee_id.email_update_date + timedelta(hours=24)).date() != x.expected_date)\
-            and (now + timedelta(hours=24)).date() == x.expected_date).mapped('employee_id')
-        for item in data:
-            item.send_request_re_update_employee_info_email()
 
     @api.model
     def name_search(self, name, args=None, operator='ilike', limit=200):
@@ -139,7 +107,6 @@ class HrEmployeeWebsiteInherit(models.Model):
 
     @api.model
     def create(self, vals):
-
         if vals.get('code', _('New')) == _('New'):
             if vals.get('internship', False):
                 vals['code'] = self.env.ref('hr_core.sequence_employee_internship_code').next_by_id() or _('New')

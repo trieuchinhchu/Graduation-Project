@@ -19,13 +19,12 @@ class EmployeeFormController(http.Controller):
                         "identification_id", "place_for_id",
                         "emergency_contact", "emergency_relation", "emergency_phone",
                         ]
-    OPTIONAL_FIELDS = ["gender", "passport_id", "street2", "city","account","id","place_for_passport",
-                       "account_number", "sinid", "vat", "zipcode","social_facebook","skill_id","home_disctrict",
-                       "current_district","home_state","home_country",
-                       "certificate", "study_field","vehicle_color",
-                       "marital", "spouse_complete_name", "spouse_job","spouse_name","spouse_year",
-                       "children","manufacturer", "vehicle_name", "vehicle_license", "vehicle_color", "graduation_year",
-                       "password_new_employee","skill_list", "birthday", "id_date", "passport_date", "spouse_birthdate"]
+    OPTIONAL_FIELDS = ["gender", "passport_id", "street2", "city", "account", "id", "place_for_passport",
+                       "account_number", "sinid", "vat", "zipcode", "social_facebook", "skill_id", "home_disctrict",
+                       "current_district", "home_state", "home_country",
+                       "certificate", "study_field", "vehicle_color",
+                       "manufacturer", "vehicle_name", "vehicle_license", "vehicle_color", "graduation_year",
+                       "password_new_employee","skill_list", "birthday", "id_date", "passport_date",]
     DATE_FIELDS = []
 
     # DEPENDENT_PEOPLE_FIELDS = ["name", "date_of_birth", "study_school"]

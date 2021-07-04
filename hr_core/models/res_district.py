@@ -25,12 +25,5 @@ class CountryState(models.Model):
     def name_get(self):
         result = []
         for record in self:
-            result.append((record.id, "{} ({})".format(record.name, record.state_id.code)))
+            result.append((record.id, "%s (%s)" % (record.name, record.state_id.code)))
         return result
-
-
-class Manufacturer(models.Model):
-    _description = "Manufacturer"
-    _name = 'res.manufacturer'
-
-    name = fields.Char(string='Manufacturer Name', required=True)
