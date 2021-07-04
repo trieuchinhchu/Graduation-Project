@@ -20,71 +20,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="52f3630b-327d-4a55-b9b5-c31dcb49cdc3" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/attendance/static/description/icon.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/attendance_log/static/description/icon.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/hr_core/static/description/icon.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/hr_employee/static/description/icon.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/attendance/models/da_attendance.py" beforeDir="false" afterPath="$PROJECT_DIR$/attendance/models/da_attendance.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/da_client_user/security/da_access_security.xml" beforeDir="false" afterPath="$PROJECT_DIR$/da_client_user/security/da_access_security.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/enterprise_backend_theme/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/enterprise_backend_theme/__manifest__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/enterprise_backend_theme/controllers/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/enterprise_backend_theme/controllers/main.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/enterprise_backend_theme/images/screen.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/enterprise_backend_theme/models/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/enterprise_backend_theme/models/res_company.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/enterprise_backend_theme/models/res_users.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/enterprise_backend_theme/static/description/banner-body-index-odoo.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/enterprise_backend_theme/static/description/banner-home-index-odoo.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/enterprise_backend_theme/static/description/banner.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/enterprise_backend_theme/static/description/check.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/enterprise_backend_theme/static/description/icon.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/enterprise_backend_theme/static/description/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/enterprise_backend_theme/static/description/jpv-logo.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/enterprise_backend_theme/static/description/jpv-odoo-footer.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/enterprise_backend_theme/static/description/jpv_theme_screenshot.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/enterprise_backend_theme/static/description/odoo-contract-developer.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/enterprise_backend_theme/static/description/odoo-customization.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/enterprise_backend_theme/static/description/odoo-implementation.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/enterprise_backend_theme/static/description/odoo-integration.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/enterprise_backend_theme/static/description/odoo-training.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/enterprise_backend_theme/static/description/screenshots-five.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/enterprise_backend_theme/static/description/screenshots-four.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/enterprise_backend_theme/static/description/screenshots-one.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/enterprise_backend_theme/static/description/screenshots-three.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/enterprise_backend_theme/static/description/screenshots-two.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/enterprise_backend_theme/static/description/support.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/enterprise_backend_theme/static/src/font/Roboto-Regular.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/enterprise_backend_theme/static/src/img/background.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/enterprise_backend_theme/static/src/img/checked.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/enterprise_backend_theme/static/src/scss/style.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/enterprise_backend_theme/views/assets.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/enterprise_backend_theme/views/res_company_view.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/enterprise_backend_theme/views/users.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/facebase/__manifest__.py" beforeDir="false" afterPath="$PROJECT_DIR$/facebase/__manifest__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/facebase/data/facebase_data.xml" beforeDir="false" afterPath="$PROJECT_DIR$/facebase/data/facebase_data.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/facebase/models/facebase.py" beforeDir="false" afterPath="$PROJECT_DIR$/facebase/models/facebase.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/facebase/models/hr_employee.py" beforeDir="false" afterPath="$PROJECT_DIR$/facebase/models/hr_employee.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/facebase/static/description/icon.png" beforeDir="false" afterPath="$PROJECT_DIR$/facebase/static/description/icon.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/facebase/static/src/js/facebase.js" beforeDir="false" afterPath="$PROJECT_DIR$/facebase/static/src/js/facebase.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/facebase/static/src/xml/operate_button.xml" beforeDir="false" afterPath="$PROJECT_DIR$/facebase/static/src/xml/operate_button.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/facebase/views/facebase_resources_view.xml" beforeDir="false" afterPath="$PROJECT_DIR$/facebase/views/facebase_resources_view.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/facebase/views/facebase_view.xml" beforeDir="false" afterPath="$PROJECT_DIR$/facebase/views/facebase_view.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/facebase/views/menu.xml" beforeDir="false" afterPath="$PROJECT_DIR$/facebase/views/menu.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hr_core/models/hr_employee.py" beforeDir="false" afterPath="$PROJECT_DIR$/hr_core/models/hr_employee.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hr_core/models/res_company.py" beforeDir="false" afterPath="$PROJECT_DIR$/hr_core/models/res_company.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hr_core/models/res_district.py" beforeDir="false" afterPath="$PROJECT_DIR$/hr_core/models/res_district.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hr_core/models/res_schoool.py" beforeDir="false" afterPath="$PROJECT_DIR$/hr_core/models/res_schoool.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hr_core/models/res_users.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/hr_core/views/da_location_view.xml" beforeDir="false" afterPath="$PROJECT_DIR$/hr_core/views/da_location_view.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hr_core/views/res_company.xml" beforeDir="false" afterPath="$PROJECT_DIR$/hr_core/views/res_company.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hr_core/views/res_district.xml" beforeDir="false" afterPath="$PROJECT_DIR$/hr_core/views/res_district.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hr_employee/controllers/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/hr_employee/controllers/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hr_employee/data/mail_template.xml" beforeDir="false" afterPath="$PROJECT_DIR$/hr_employee/data/mail_template.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hr_employee/models/hr_employee.py" beforeDir="false" afterPath="$PROJECT_DIR$/hr_employee/models/hr_employee.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hr_employee/models/hr_employee_new.py" beforeDir="false" afterPath="$PROJECT_DIR$/hr_employee/models/hr_employee_new.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hr_employee/views/hr_employee_new_views.xml" beforeDir="false" afterPath="$PROJECT_DIR$/hr_employee/views/hr_employee_new_views.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -229,12 +166,12 @@
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/hr_employee/models/hr_employee_new.py</url>
-          <line>114</line>
+          <line>112</line>
           <option name="timeStamp" value="36" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/hr_employee/models/hr_employee_new.py</url>
-          <line>115</line>
+          <line>113</line>
           <option name="timeStamp" value="37" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">

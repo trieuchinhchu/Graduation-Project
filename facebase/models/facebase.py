@@ -62,10 +62,9 @@ class FaceBase(models.Model):
             small_frame = cv2.resize(img, rz_img)
             rgb_image = cv2.cvtColor(np.asarray(small_frame), cv2.COLOR_BGR2RGB)
             face_frame = face_recognition.face_locations(rgb_image, model='hog')
-            # If training image contains exactly one face
+
             if len(face_frame) == 1:
                 face_encodings = face_recognition.face_encodings(rgb_image, face_frame)[0]
-                # Add face encoding for current image with corresponding label (name) to the training data
                 data_encoding.append(face_encodings)
                 data_names.append(employee_id.account)
                 data_ids.append(int(employee_id.id))
@@ -95,24 +94,28 @@ class FaceBase(models.Model):
         lst_index_1 = []
         lst_index_2 = []
         count = 0
+        success = False
         while True:
-
             ret_1, frame_1 = cam_1.read()
             ret_2, frame_2 = cam_2.read()
 
-            index_1 = self.detect(data, faceCascade, frame_1, 'Check In')
-            index_2 = self.detect(data, faceCascade, frame_2, 'Check Out')
+            index_1 = self.detect(data, faceCascade, frame_1, 'Check In', success)
+            index_2 = self.detect(data, faceCascade, frame_2, 'Check Out', success)
 
             lst_index_1.extend(index_1)
             lst_index_2.extend(index_2)
             count += 1
+            if count == 5:
+                success = False
             if count == 10:
                 for i in lst_index_1:
-                    if lst_index_1.count(i) >= 6:
+                    if lst_index_1.count(i) >= 7:
                         self.create_attendance_log(data['id'][i], 'check_in')
+                        success = True
                 for i in lst_index_2:
                     if lst_index_2.count(i) >= 6:
                         self.create_attendance_log(data['id'][i], 'check_out')
+                        success = True
                 count = 0
                 lst_index_1 = lst_index_2 = []
             if cv2.waitKey(1) == ord('q'):
@@ -121,7 +124,7 @@ class FaceBase(models.Model):
         cam_2.release()
         cv2.destroyAllWindows()
 
-    def detect(self, data, face_cascade, frame, frame_name):
+    def detect(self, data, face_cascade, frame, frame_name, success=False):
         gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
         faces = face_cascade.detectMultiScale(gray,
                                               scaleFactor=1.1,
@@ -133,8 +136,14 @@ class FaceBase(models.Model):
 
         for ((x, y, w, h), name) in zip(faces, names):
             # draw the predicted face name on the image
-            cv2.rectangle(frame, (x, y), (x + w, y + h), (51, 142, 232), 2)
-            cv2.putText(frame, '%s' % name, (x, y), cv2.FONT_HERSHEY_SIMPLEX, 0.75, (51, 142, 232), 2)
+            if success:
+                cv2.rectangle(frame, (x, y), (x + w, y + h), (40, 148,38), 2)
+                cv2.putText(frame, '%s - %s' % (name, 'Successful'), (x, y-5),
+                            cv2.FONT_HERSHEY_SIMPLEX, 0.75, (40, 148,38), 2)
+            else:
+                cv2.rectangle(frame, (x, y), (x + w, y + h), (51, 142, 232), 2)
+                cv2.putText(frame, '%s - %s' % (name, 'In Progress'), (x, y-5),
+                            cv2.FONT_HERSHEY_SIMPLEX, 0.75, (51, 142, 232), 2)
         cv2.imshow(frame_name, frame)
         return lst_index
 
