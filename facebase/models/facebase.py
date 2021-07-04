@@ -8,6 +8,20 @@ import numpy as np
 from PIL import Image
 from imutils import paths
 import random
+import matplotlib.pyplot as plt
+from sklearn.model_selection import GridSearchCV
+from time import time
+import logging
+
+
+from sklearn.model_selection import train_test_split
+from sklearn.model_selection import GridSearchCV
+from sklearn.datasets import fetch_lfw_people
+from sklearn.metrics import classification_report
+from sklearn.metrics import confusion_matrix
+from sklearn.decomposition import PCA
+from sklearn.svm import SVC
+from collections import Counter
 
 
 class FaceBase(models.Model):
@@ -78,71 +92,342 @@ class FaceBase(models.Model):
             print('--------------------')
             # self.save_img(new_list_img)
 
-    @api.model
-    def five_fold(self):
-        data_path = 'D:\\odoo12\\evaluate\\data_set_10'
-        list_img = list(paths.list_images(data_path))
-        for i in range(0, 5):
-            X_test = self.choose_test(list_img)
-            Y_test = self.get_y(X_test)
-            X_train = list(set(list_img) - set(X_test))
-            Y_train = self.get_y(X_train)
-
-            data_training = self.training_2(X_train, Y_train)
-            Y_predicted = self.recognition_2(data_training, X_test)
-            print(Y_test)
-            print(Y_predicted)
-
     def get_random_list(self, n):
-        return random.sample(range(1, 31), n)
+        return random.sample(range(1, 101), n)
 
-    def choose_test(self, list_img):
+    @api.model
+    def k_fold(self):
+        data_paths = ['D:\\odoo12\\training\\training_1', 'D:\\odoo12\\training\\training_2', 'D:\\odoo12\\training\\training_3']
+        N = [5]
+        N_set = [90, 150, 300]
+        sets = []
+        for n in N:
+            for index, n_set in enumerate(N_set):
+                list_img = list(paths.list_images(data_paths[index]))
+                list_accuracy = []
+                list_y_test = []
+                list_y_predict = []
+                list_lost = []
+                for i in range(0, n):
+                    X_test = self.choose_test(list_img, n_set)
+                    Y_test = self.get_y(X_test)
+                    X_train = list(set(list_img) - set(X_test))
+                    Y_train = self.get_y(X_train)
+                    Y_test = self.filter_y_test(Y_test, Y_train)
+                    Y_predicted = self.training_2(X_train, Y_train, self.get_cv_number(Y_train), X_test)
+                    # Y_predicted = self.recognition_2(data_training, X_test)
+                    accuracy = self.get_evaluate(Y_test, Y_predicted)
+                    list_accuracy.append(accuracy)
+                    print('%s Fold - Set %s - Fold %s ------------------------' % (str(n), str(index+1), str(i+1)))
+                    print('Accuracy %s' % str(accuracy))
+                    list_y_test.append(Y_test)
+                    list_y_predict.append(Y_predicted)
+
+                best_accurate = max(list_accuracy)
+                b_index = list_accuracy.index(best_accurate)
+                z = len(list_y_test[b_index]) - len(list_y_predict[b_index])
+                if z > 0:
+                    a = set(list_y_test[b_index]) - set(list_y_predict[b_index])
+                    rm = a[:z]
+                    for i in rm:
+                        list_y_test[b_index].remove(i)
+                print('Best accurate %s'%best_accurate)
+                accurate = round(sum(list_accuracy)/len(list_accuracy), 2)
+                sets.append(accurate)
+                print('================================')
+                print(list_lost)
+                print('AVG Accurate: %s' % str(accurate))
+        #
+        # # sets = {1: [97.33, 97.2, 96.9], 2: [98.22, 99.6, 99.2], 3: [99.11, 99.4, 99.33]}
+        # set_1 = np.array(sets[1])
+        # set_2 = np.array(sets[2])
+        # set_3 = np.array(sets[3])
+
+        self.show_report_chart(sets)
+        # self.show_performance_chart(np.array(time_sets[0]))
+
+    def show_confusion_matrix(self, cm, labels):
+        fig = plt.figure()
+        ax = fig.add_subplot(111)
+        cax = ax.matshow(cm)
+        plt.title('Confusion matrix of the classifier')
+        fig.colorbar(cax)
+        ax.set_xticklabels([''] + labels)
+        ax.set_yticklabels([''] + labels)
+        plt.xlabel('Predicted')
+        plt.ylabel('True')
+        plt.show()
+    @api.model
+    def k_fold_svm(self):
+        N = [3, 5, 10]
+        sets = {1: [],
+                2: [],
+                3: []}
+
+        for index,i in enumerate(N):
+            # for index, j in enumerate(N):
+            #     list_accuracy = []
+            #     count = 0
+            #     for i in range(0, j):
+            Y_test, Y_predicted = self.svm(i)
+            accuracy = self.get_evaluate(Y_test, Y_predicted)
+            print('================================')
+            print('Dataset %s' %str(index+1))
+            print('Accurate: %s' % str(accuracy))
+            sets[index+1].append(accuracy)
+
+        set_1 = np.array(sets[1])
+        set_2 = np.array(sets[2])
+        set_3 = np.array(sets[3])
+        self.show_report_chart(sets)
+            # for index, n_set in enumerate(N_set):
+            #     list_accuracy = []
+            #
+            #     for i in range(0, n):
+            #         X_test = self.choose_test(list_img, n_set)
+            #         Y_test = self.get_y(X_test)
+            #         X_train = list(set(list_img) - set(X_test))
+            #         Y_train = self.get_y(X_train)
+            #         Y_test = self.filter_y_test(Y_test, Y_train)
+            #         Y_predicted = self.training_2(X_train, Y_train, cv=self.get_cv_number(Y_train), X_test=X_test)
+            #         # Y_predicted = self.recognition_svm(data_training, X_test)
+            #         lost_indexes, accuracy = self.get_evaluate(X_test, Y_test, Y_predicted)
+            #         list_accuracy.append(accuracy)
+            #         print(lost_indexes)
+            #
+            #         print('%s Fold - Set %s - Fold %s ------------------------' % (str(n), str(index+1), str(i+1)))
+            #         print('Accuracy %s' % str(accuracy))
+            #     accurate = round(sum(list_accuracy)/len(list_accuracy), 2)
+            #     sets[index + 1].append(accurate)
+            #     print('================================')
+            #     print('Accurate: %s' % str(accurate))
+
+        # sets = {1: [97.33, 97.2, 96.9], 2: [98.22, 99.6, 99.2], 3: [99.11, 99.4, 99.33]}
+        set_1 = np.array(sets[1])
+        set_2 = np.array(sets[2])
+        set_3 = np.array(sets[3])
+        self.show_report_chart(set_1, set_2, set_3, sets)
+        # self.show_performance_chart(np.array(time_sets[0]))
+
+    def show_report_chart(self, sets):
+        sets = np.array(sets)
+        title_font = {'fontname': 'Arial', 'size': '10', 'color': 'black', 'weight': 'normal',
+                      'verticalalignment': 'bottom', 'horizontalalignment': 'center'}
+        folds = np.array([1, 2, 3])
+        bar_width = 0.2
+        plt.bar(folds, sets, color=(40/255, 64/255, 112/255, 0.85), width=bar_width, label='Dataset')
+        plt.legend(['Dataset'])
+        plt.xticks(folds, ['Dataset 1', 'Dataset 2', 'Dataset 3'])
+        plt.ylabel("Acurracy")
+        plt.xlabel("5-Fold Cross Validation")
+        plt.title("SVM Report")
+        for x in range(3):
+            x += 1
+            plt.text(x, sets[x-1] - 5, str(sets[x-1]) + '%',  **title_font)
+        plt.grid(color='#95a5a6', linestyle='--', linewidth=1, axis='y', alpha=0.6)
+        plt.ylim(0, 115)
+        plt.tight_layout()
+        plt.show()
+
+    def show_performance_chart(self, lst_performance):
+        datasets = np.array([1, 2, 3])
+
+        plt.plot(datasets, lst_performance, color='red', marker='o')
+        plt.xticks(datasets, ['Dataset 1', 'Dataset 2', 'Dataset 3'])
+        plt.title('Model Performance', fontsize=14)
+        plt.xlabel('Datasets', fontsize=14)
+        plt.ylabel('Seconds', fontsize=14)
+        plt.grid(True)
+        plt.show()
+
+    def get_cv_number(self, Y_train):
+        a = dict(Counter(Y_train))
+        return max(3, min(a.values()))
+    def choose_test(self, list_img, n_set):
         imgs = []
-        for i in range(15):
+        for i in range(n_set):
             imgs.append(random.choice(list_img))
         return imgs
 
     def get_y(self, x_test):
         result = []
         for i in x_test:
-            result.append(i.split('\\')[-1].split('.')[-5])
+            result.append('_'.join(i.split('\\')[-1].split('_')[:-1]))
         return result
 
-    def training_2(self, X_train, Y_train):
+    def filter_y_test(self, y_test, y_train):
+        y = y_test
+        for index, i in enumerate(y):
+            if i not in y_train:
+                y[index] = 'Unknown'
+        return y
+
+    def get_evaluate(self, y_test, y_predict):
+        num_lost = 0
+        total = len(y_test)
+        # lost_indexes = []
+        for index, i in enumerate(zip(y_test, y_predict)):
+            if i[0] != i[1]:
+                num_lost += 1
+                # lost_indexes.append({i[1]: x_test[index]})
+        lost = round(float(num_lost/total*100), 2)
+        accuracy = 100-lost
+        return accuracy
+
+    def svm(self, n):
+        lfw_people = fetch_lfw_people(min_faces_per_person=n, resize=0.5)
+
+        # for machine learning we use the 2 data directly (as relative pixel
+        # positions info is ignored by this model)
+
+        # for machine learning we use the 2 data directly (as relative pixel
+        # positions info is ignored by this model)
+
+        X = lfw_people.data
+        # the label to predict is the id of the person
+        y = lfw_people.target
+        y_counter = dict(Counter(y.tolist()))
+        y_counter = dict(sorted(y_counter.items(), reverse=True))
+        count = 0
+        l_y = []
+        for key, value in y_counter.items():
+            if count == 100:
+                break
+            count += 1
+            l_y.append(key)
+        new_y = []
+        x_index = []
+        count = {}
+        for index, i in enumerate(y.tolist()):
+            if i in l_y:
+                if i in count.keys():
+                    if count[i] == n:
+                        continue
+                    count[i] += 1
+                else:
+                    count[i] = 1
+                new_y.append(i)
+                x_index.append(index)
+
+        new_x = []
+        for i in x_index:
+            new_x.append(X[i])
+
+        new_y = np.array(new_y)
+        new_x = np.array(new_x)
+
+        target_names = lfw_people.target_names
+        # split into a training and testing set
+        X_train, X_test, y_train, y_test = train_test_split(
+            new_x, new_y, test_size=0.333)
+        n_components = 150
+
+        pca = PCA(n_components=n_components, svd_solver='randomized',
+                  whiten=True).fit(X_train)
+
+        X_train_pca = pca.transform(X_train)
+        X_test_pca = pca.transform(X_test)
+        param_grid = {'C': [1, 10, 100, 1e3, 5e3, 1e4, 5e4, 1e5],
+                      'gamma': [0.0001, 0.0005, 0.001, 0.005, 0.01, 0.1, 1, 5, 10], }
+        clf = GridSearchCV(SVC(kernel='rbf', class_weight='balanced'), param_grid, cv=self.get_cv_number(new_y))
+        clf = clf.fit(X_train_pca, y_train)
+        print("Best estimator found by grid search:")
+        print(clf.best_estimator_)
+
+        y_pred = clf.predict(X_test_pca)
+        return y_test, y_pred
+
+
+    @api.model
+    def test(self):
+        lfw_people = fetch_lfw_people(min_faces_per_person=10, resize=0.4)
+
+        # introspect the images arrays to find the shapes (for plotting)
+        n_samples, h, w = lfw_people.images.shape
+
+        # for machine learning we use the 2 data directly (as relative pixel
+        # positions info is ignored by this model)
+        X = lfw_people.data
+        n_features = X.shape[1]
+
+        # the label to predict is the id of the person
+        y = lfw_people.target
+
+        # split into a training and testing set
+        X_train, X_test, y_train, y_test = train_test_split(
+            X, y, test_size=0.33)
+
+        n_components = 66
+
+        pca = PCA(n_components=n_components, svd_solver='randomized',
+                  whiten=True).fit(X_train)
+
+
+        X_train_pca = pca.transform(X_train)
+        X_test_pca = pca.transform(X_test)
+        param_grid = {'C': [1e3, 5e3, 1e4, 5e4, 1e5],
+                      'gamma': [0.0001, 0.0005, 0.001, 0.005, 0.01, 0.1], }
+        clf = GridSearchCV(SVC(kernel='rbf', class_weight='balanced'), param_grid, cv=3)
+        clf = clf.fit(X_train_pca, y_train)
+        print("Best estimator found by grid search:")
+        print(clf.best_estimator_)
+
+        y_pred = clf.predict(X_test_pca)
+
+        print(y_test)
+        print(y_pred)
+
+    def training_2(self, X_train, Y_train, cv=0, X_test=None):
         data_encoding = []
         data_names = []
         for img, name in zip(X_train, Y_train):
             img = cv2.imread(img)
-            resize_img = cv2.resize(img, (720, 960), interpolation=cv2.INTER_NEAREST)
-            rgb_image = cv2.cvtColor(resize_img, cv2.COLOR_BGR2RGB)
+            rgb_image = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
             face_frame = face_recognition.face_locations(rgb_image, model='hog')
             if len(face_frame) == 1:
                 face_encodings = face_recognition.face_encodings(rgb_image, face_frame)[0]
                 data_encoding.append(face_encodings)
                 data_names.append(name)
+        if cv != 0:
+            param_grid = {'C': [1000, 10000, 20000, 50000, 100000],
+                          'gamma': [0.0001, 0.0005, 0.001, 0.005, 0.01, 0.1, 0,5, 1, 5, 10]}
+            clf = GridSearchCV(SVC(kernel='rbf', class_weight='balanced'), param_grid, cv=cv)
+            clf = clf.fit(data_encoding, data_names)
+            print("Best estimator found by grid search:")
+            print(clf.best_estimator_)
+            a = []
+            for img in X_test:
+                img_r = cv2.imread(img)
+                rgb_image = cv2.cvtColor(img_r, cv2.COLOR_BGR2RGB)
+                encodings = face_recognition.face_encodings(rgb_image)
+                if encodings:
+                    a.append(encodings[0])
+            y_pred = clf.predict(a)
+            return y_pred
         return {'encoding': data_encoding, 'name': data_names}
 
     def recognition_2(self, data, X_test):
         Y_predicted = []
         for img in X_test:
             img_r = cv2.imread(img)
-            resize_img = cv2.resize(img_r, (720, 960), interpolation=cv2.INTER_NEAREST)
-            rgb_image = cv2.cvtColor(resize_img, cv2.COLOR_BGR2RGB)
-            # rgb_image = resize_img[:, :, ::-1]
+            rgb_image = cv2.cvtColor(img_r, cv2.COLOR_BGR2RGB)
             encodings = face_recognition.face_encodings(rgb_image)
             if not encodings:
                 Y_predicted.append('%s --- %s' % (img.split('\\')[-1], 'not encoding'))
-            for encoding in encodings:
-                name = "Unknown"
-                # use the known face with the smallest distance to the new face
-                face_distances = face_recognition.face_distance(data['encoding'], encoding)
-                result = min(face_distances)
-                if result <= 0.55:
-                    best_index = np.argmin(face_distances)
-                    name = data['name'][best_index]
-                Y_predicted.append(name)
+                continue
+            name = "Unknown"
+            # use the known face with the smallest distance to the new face
+            face_distances = face_recognition.face_distance(data['encoding'], encodings[0])
+            result = min(face_distances)
+            if result <= 0.55:
+                best_index = np.argmin(face_distances)
+                name = data['name'][best_index]
+            Y_predicted.append(name)
         return Y_predicted
 
+    def recognition_svm(self, clf, X_test):
+        y_pred = clf.predict(X_test)
+        return y_pred
 
     @api.model
     def training(self):

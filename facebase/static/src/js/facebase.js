@@ -20,7 +20,7 @@ odoo.define('facebase.facebase_js', function (require) {
        training_action: function () {
             rpc.query({
                 model: 'da.facebase',
-                method: 'five_fold'
+                method: 'k_fold'
             })
        }
     })
