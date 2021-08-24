@@ -1,4 +1,5 @@
-# PHẦN MỀM QUẢN LÝ NHÂN SỰ - ỨNG DỤNG NHẬN DIỆN KHUÔN MẶT VÀO QUY TRÌNH CHẤM CÔNG
+## PHẦN MỀM QUẢN LÝ NHÂN SỰ - ỨNG DỤNG NHẬN DIỆN KHUÔN MẶT VÀO QUY TRÌNH CHẤM CÔNG
+## HUMAN RESOURCE MANAGEMENT - ATTENDANCE SYSTEM USING FACE RECOGNITION
 ### Công nghệ sử dụng
     - Ngôn ngữ: Python
     - Framework: Odoo
