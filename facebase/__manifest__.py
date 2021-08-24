@@ -34,6 +34,9 @@
     'qweb': [
         "static/src/xml/operate_button.xml",
     ],
+    'images': [
+        'static/description/icon.png',
+    ],
     'installable': True,
     'application': True,
 

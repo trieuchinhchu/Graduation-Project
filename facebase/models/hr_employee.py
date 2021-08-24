@@ -29,7 +29,7 @@ class HrEmployeeFacebaseInherit(models.Model):
     @api.constrains('images')
     def validate_images(self):
         for r in self:
-            if len(r.images) != 10:
+            if 0 < len(r.images) < 10 :
                 raise ValidationError('Yêu cầu cung cấp đủ 10 ảnh chụp rõ khuôn mặt!')
             lst = []
             for image in r.images:
