@@ -442,7 +442,6 @@ class HrEmployeeNewLines(models.Model):
         self.employee_id.set_password()
 
     def create_user(self, email):
-        user_group = self.env.ref('da_client_user.group_client') or False
         hr_employee = self.env.ref('hr_core.group_hr_client_user') or False
         return self.env['res.users'].with_context({
             'default_customer': False,
@@ -451,7 +450,7 @@ class HrEmployeeNewLines(models.Model):
             'active': True,
             'company_id': self.company_id.id,
             'company_ids': [(6, 0, self.company_id.ids)],
-            'groups_id': [(6, 0, [user_group.id, hr_employee.id])],
+            'groups_id': [(6, 0, [hr_employee.id])],
             'lang': 'en_US',
             'tz': 'Asia/Ho_Chi_Minh',
             'name': self.full_name,
